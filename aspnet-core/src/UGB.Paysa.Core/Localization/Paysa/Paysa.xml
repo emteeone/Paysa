@@ -1,6 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="Etudiants">Etudiants</text>
+    <text name="Etudiant">Etudiant</text>
+    <text name="UGB.Paysa.Etudiants.Etudiant">Etudiant</text>
+    <text name="INE">I n e</text>
+    <text name="CodeEtudiant">Code etudiant</text>
+    <text name="Prenom">Prenom</text>
+    <text name="Nom">Nom</text>
+    <text name="Sexe">Sexe</text>
+    <text name="DateDeNaissance">Date de naissance</text>
+    <text name="LieuDeNaissance">Lieu de naissance</text>
+    <text name="SituationMatrimoniale">Situation matrimoniale</text>
+    <text name="CIN">C i n</text>
+    <text name="Adresse">Adresse</text>
+    <text name="Ville">Ville</text>
+    <text name="Region">Region</text>
+    <text name="Pays">Pays</text>
+    <text name="Telephone">Telephone</text>
+    <text name="EtudiantsHeaderInfo">Etudiants header info</text>
+    <text name="CreateNewEtudiant">Create new etudiant</text>
+    <text name="EditEtudiant">Edit etudiant</text>
+    <text name="DeleteEtudiant">Delete etudiant</text>
+    <text name="Enum_Sexe_1">Masculin</text>
+    <text name="Enum_Sexe_2">Feminin</text>
+    <text name="Enum_SituationMatrimoniale_1">Celibataire</text>
+    <text name="Enum_SituationMatrimoniale_2">Marie</text>
+    <text name="Enum_SituationMatrimoniale_3">Divorce</text>
+    <text name="ChambreReference">Chambre reference</text>
+    <text name="PickChambre">Pick chambre</text>
+    <text name="SelectAChambre">Select a chambre</text>
+    <text name="DateDeNaissanceRange">Date de naissance range</text>
     <text name="Chambres">Chambres</text>
     <text name="Chambre">Chambre</text>
     <text name="UGB.Paysa.Chambres.Chambre">Chambre</text>

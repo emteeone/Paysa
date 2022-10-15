@@ -1,4 +1,6 @@
-﻿using UGB.Paysa.Wallet.Chambres.Dtos;
+﻿using UGB.Paysa.Wallet.Etudiants.Dtos;
+using UGB.Paysa.Wallet.Etudiants;
+using UGB.Paysa.Wallet.Chambres.Dtos;
 using UGB.Paysa.Wallet.Chambres;
 using Abp.Application.Editions;
 using Abp.Application.Features;
@@ -50,6 +52,8 @@ namespace UGB.Paysa
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditEtudiantDto, Etudiant>().ReverseMap();
+            configuration.CreateMap<EtudiantDto, Etudiant>().ReverseMap();
             configuration.CreateMap<CreateOrEditChambreDto, Chambre>().ReverseMap();
             configuration.CreateMap<ChambreDto, Chambre>().ReverseMap();
             //Inputs

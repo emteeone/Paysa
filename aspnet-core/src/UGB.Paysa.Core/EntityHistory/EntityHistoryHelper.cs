@@ -1,4 +1,5 @@
-﻿using UGB.Paysa.Wallet.Chambres;
+﻿using UGB.Paysa.Wallet.Etudiants;
+using UGB.Paysa.Wallet.Chambres;
 using System;
 using System.Linq;
 using Abp.Organizations;
@@ -13,12 +14,14 @@ namespace UGB.Paysa.EntityHistory
 
         public static readonly Type[] HostSideTrackedTypes =
         {
+            typeof(Etudiant),
             typeof(Chambre),
             typeof(OrganizationUnit), typeof(Role), typeof(Tenant)
         };
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(Etudiant),
             typeof(Chambre),
             typeof(OrganizationUnit), typeof(Role)
         };

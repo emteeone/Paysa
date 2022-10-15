@@ -1,0 +1,83 @@
+﻿
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Etudiants
+@model EtudiantViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="EtudiantInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("INE") :</h6>
+                @Model.Etudiant.INE
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CodeEtudiant") :</h6>
+                @Model.Etudiant.CodeEtudiant
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Prenom") :</h6>
+                @Model.Etudiant.Prenom
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Nom") :</h6>
+                @Model.Etudiant.Nom
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Sexe") :</h6>
+                @L("Enum_Sexe_" + (int)Model.Etudiant.Sexe)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DateDeNaissance") :</h6>
+                @Model.Etudiant.DateDeNaissance
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("LieuDeNaissance") :</h6>
+                @Model.Etudiant.LieuDeNaissance
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("SituationMatrimoniale") :</h6>
+                @L("Enum_SituationMatrimoniale_" + (int)Model.Etudiant.SituationMatrimoniale)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CIN") :</h6>
+                @Model.Etudiant.CIN
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Adresse") :</h6>
+                @Model.Etudiant.Adresse
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Ville") :</h6>
+                @Model.Etudiant.Ville
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Region") :</h6>
+                @Model.Etudiant.Region
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Pays") :</h6>
+                @Model.Etudiant.Pays
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Email") :</h6>
+                @Model.Etudiant.Email
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Telephone") :</h6>
+                @Model.Etudiant.Telephone
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("Chambre")) @L("Reference") :</h6>
+                @Model.ChambreReference
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

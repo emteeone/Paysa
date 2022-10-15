@@ -1,4 +1,5 @@
-﻿using UGB.Paysa.Wallet.Chambres;
+﻿using UGB.Paysa.Wallet.Etudiants;
+using UGB.Paysa.Wallet.Chambres;
 using Abp.IdentityServer4vNext;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,8 @@ namespace UGB.Paysa.EntityFrameworkCore
 {
     public class PaysaDbContext : AbpZeroDbContext<Tenant, Role, User, PaysaDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<Etudiant> Etudiants { get; set; }
+
         public virtual DbSet<Chambre> Chambres { get; set; }
 
         /* Define an IDbSet for each entity of the application */
@@ -49,10 +52,14 @@ namespace UGB.Paysa.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Chambre>(c =>
+            modelBuilder.Entity<Etudiant>(x =>
             {
-                c.HasIndex(e => new { e.TenantId });
+                x.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Chambre>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<BinaryObject>(b =>
                        {
                            b.HasIndex(e => new { e.TenantId });

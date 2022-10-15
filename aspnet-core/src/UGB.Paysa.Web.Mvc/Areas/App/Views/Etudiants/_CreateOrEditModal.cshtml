@@ -1,0 +1,114 @@
+﻿@using UGB.Paysa.Wallet.Enum;
+@using UGB.Paysa.Wallet.Enum;
+
+@using System.Globalization
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Etudiants
+@model CreateOrEditEtudiantModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditEtudiant")) : L("CreateNewEtudiant")))
+
+<div class="modal-body">
+    <div id="EtudiantInformationsTab">
+        <form name="EtudiantInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.Etudiant.Id" />
+            }
+
+            <div class="form-group">
+                <label for="chambreId">@L("Chambre")</label>
+                @Html.DropDownList("chambreId", new SelectList(Model.EtudiantChambreList,"Id","DisplayName", (Model.IsEditMode ? Model.Etudiant.ChambreId.ToString() : "")),@L("SelectAChambre"), new { @class = "form-control" , @required="required" })
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_INE">@L("INE")</label>
+                <input class="form-control" id="Etudiant_INE" value="@Model.Etudiant.INE" type="text" name="ine" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_CodeEtudiant">@L("CodeEtudiant")</label>
+                <input class="form-control" id="Etudiant_CodeEtudiant" value="@Model.Etudiant.CodeEtudiant" type="text" name="codeEtudiant" />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_Prenom">@L("Prenom")</label>
+                <input class="form-control" id="Etudiant_Prenom" value="@Model.Etudiant.Prenom" type="text" name="prenom" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_Nom">@L("Nom")</label>
+                <input class="form-control" id="Etudiant_Nom" value="@Model.Etudiant.Nom" type="text" name="nom" required />
+            </div>
+
+            @{
+            var selectListSexe = Html.GetEnumSelectList(typeof(Sexe));
+            foreach (var selectOption in selectListSexe) { selectOption.Text = L("Enum_Sexe_" + selectOption.Value); }
+            }
+            <div class="form-group m-form__group">
+                <label for="Etudiant_Sexe">@L("Sexe")</label>
+                <select class="form-control m-input m-input--square" name="sexe" id="Etudiant_Sexe" asp-for="@Model.Etudiant.Sexe" asp-items="@selectListSexe">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_DateDeNaissance">@L("DateDeNaissance")</label>
+                <input class="form-control m-input date-picker" id="Etudiant_DateDeNaissance" type="text" name="dateDeNaissance" value="@Model.Etudiant.DateDeNaissance" />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_LieuDeNaissance">@L("LieuDeNaissance")</label>
+                <input class="form-control" id="Etudiant_LieuDeNaissance" value="@Model.Etudiant.LieuDeNaissance" type="text" name="lieuDeNaissance" required />
+            </div>
+
+            @{
+            var selectListSituationMatrimoniale = Html.GetEnumSelectList(typeof(SituationMatrimoniale));
+            foreach (var selectOption in selectListSituationMatrimoniale) { selectOption.Text = L("Enum_SituationMatrimoniale_" + selectOption.Value); }
+            }
+            <div class="form-group m-form__group">
+                <label for="Etudiant_SituationMatrimoniale">@L("SituationMatrimoniale")</label>
+                <select class="form-control m-input m-input--square" name="situationMatrimoniale" id="Etudiant_SituationMatrimoniale" asp-for="@Model.Etudiant.SituationMatrimoniale" asp-items="@selectListSituationMatrimoniale">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_CIN">@L("CIN")</label>
+                <input class="form-control" id="Etudiant_CIN" value="@Model.Etudiant.CIN" type="text" name="cin" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_Adresse">@L("Adresse")</label>
+                <input class="form-control" id="Etudiant_Adresse" value="@Model.Etudiant.Adresse" type="text" name="adresse" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_Ville">@L("Ville")</label>
+                <input class="form-control" id="Etudiant_Ville" value="@Model.Etudiant.Ville" type="text" name="ville" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_Region">@L("Region")</label>
+                <input class="form-control" id="Etudiant_Region" value="@Model.Etudiant.Region" type="text" name="region" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_Pays">@L("Pays")</label>
+                <input class="form-control" id="Etudiant_Pays" value="@Model.Etudiant.Pays" type="text" name="pays" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_Email">@L("Email")</label>
+                <input class="form-control" id="Etudiant_Email" value="@Model.Etudiant.Email" type="text" name="email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Etudiant_Telephone">@L("Telephone")</label>
+                <input class="form-control" id="Etudiant_Telephone" value="@Model.Etudiant.Telephone" type="text" name="telephone" required />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
