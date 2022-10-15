@@ -1,0 +1,115 @@
+﻿@using UGB.Paysa.Authorization
+@using UGB.Paysa.Web.Areas.App.Models.Comptes
+@using UGB.Paysa.Web.Areas.App.Startup
+@model ComptesViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.Comptes;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Comptes/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("Comptes")' description='@L("ComptesHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_Comptes_Create))
+        {
+        <button id="CreateNewCompteButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewCompte")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="form-group align-items-center">
+                                <div class="input-group">
+                                    <input type="text" id="ComptesTableFilter" class="form-control m-input" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <span class="input-group-btn">
+                                        <button id="GetComptesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="separator separator-dashed"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="NumeroCompteFilterId">@L("NumeroCompte")</label>
+                            <input type="text" class="form-control" name="numeroCompteFilter" id="NumeroCompteFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MinSoldeFilterId">@L("MinMax") @L("Solde")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minSoldeFilter" id="MinSoldeFilterId" />
+                                <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxSoldeFilter" id="MaxSoldeFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="IsActiveFilterId">@L("IsActive")</label>
+                        <select class="form-control" name="IsActiveFilter" id="IsActiveFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("False")</option>
+                            <option value="1">@L("True")</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MinDateCreationFilterId">@L("DateCreationRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker" type="text" placeholder="@L(" MinValue")" id="MinDateCreationFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker" type="text" placeholder="@L(" MaxValue")" id="MaxDateCreationFilterId">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="EtudiantCodeEtudiantFilterId">(@L("Etudiant")) @L("CodeEtudiant")</label>
+                            <input type="text" class="form-control" name="etudiantCodeEtudiantFilter" id="EtudiantCodeEtudiantFilterId">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="ComptesTable" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("NumeroCompte")</th>
+                                <th>@L("Solde")</th>
+                                <th>@L("IsActive")</th>
+                                <th>@L("DateCreation")</th>
+                                <th>@L("EtudiantCodeEtudiant")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

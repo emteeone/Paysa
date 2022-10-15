@@ -1,0 +1,50 @@
+﻿
+@using System.Globalization
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Comptes
+@model CreateOrEditCompteModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditCompte")) : L("CreateNewCompte")))
+
+<div class="modal-body">
+    <div id="CompteInformationsTab">
+        <form name="CompteInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.Compte.Id" />
+            }
+
+            <div class="form-group">
+                <label for="etudiantId">@L("Etudiant")</label>
+                @Html.DropDownList("etudiantId", new SelectList(Model.CompteEtudiantList,"Id","DisplayName", (Model.IsEditMode ? Model.Compte.EtudiantId.ToString() : "")),@L("SelectAEtudiant"), new { @class = "form-control" , @required="required" })
+            </div>
+
+            <div class="form-group">
+                <label for="Compte_NumeroCompte">@L("NumeroCompte")</label>
+                <input class="form-control" id="Compte_NumeroCompte" value="@Model.Compte.NumeroCompte" type="text" name="numeroCompte" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Compte_Solde">@L("Solde")</label>
+                <input class="form-control m-input" id="Compte_Solde" value="@Model.Compte.Solde.ToString(CultureInfo.InvariantCulture)" type="number" name="solde" />
+            </div>
+
+            <div class="m-checkbox-list">
+                <label for="Compte_IsActive" class="kt-checkbox">
+                    <input id="Compte_IsActive" type="checkbox" name="isActive" value="true" @Html.Raw(Model.Compte.IsActive ?"checked=\"checked\"":"") />
+                    @L("IsActive")
+                    <span></span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="Compte_DateCreation">@L("DateCreation")</label>
+                <input class="form-control m-input date-picker" id="Compte_DateCreation" type="text" name="dateCreation" value="@Model.Compte.DateCreation" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -1,0 +1,39 @@
+﻿
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Comptes
+@model CompteViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="CompteInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("NumeroCompte") :</h6>
+                @Model.Compte.NumeroCompte
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Solde") :</h6>
+                @Model.Compte.Solde
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("IsActive") :</h6>
+                @Model.Compte.IsActive
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DateCreation") :</h6>
+                @Model.Compte.DateCreation
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("Etudiant")) @L("CodeEtudiant") :</h6>
+                @Model.EtudiantCodeEtudiant
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

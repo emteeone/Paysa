@@ -1,6 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="Comptes">Comptes</text>
+    <text name="Compte">Compte</text>
+    <text name="UGB.Paysa.Comptes.Compte">Compte</text>
+    <text name="NumeroCompte">Numero compte</text>
+    <text name="Solde">Solde</text>
+    <text name="NotIsActive">Not is active</text>
+    <text name="DateCreation">Date creation</text>
+    <text name="ComptesHeaderInfo">Comptes header info</text>
+    <text name="CreateNewCompte">Create new compte</text>
+    <text name="EditCompte">Edit compte</text>
+    <text name="DeleteCompte">Delete compte</text>
+    <text name="EtudiantCodeEtudiant">Etudiant code etudiant</text>
+    <text name="PickEtudiant">Pick etudiant</text>
+    <text name="SelectAEtudiant">Select a etudiant</text>
+    <text name="DateCreationRange">Date creation range</text>
     <text name="Etudiants">Etudiants</text>
     <text name="Etudiant">Etudiant</text>
     <text name="UGB.Paysa.Etudiants.Etudiant">Etudiant</text>
