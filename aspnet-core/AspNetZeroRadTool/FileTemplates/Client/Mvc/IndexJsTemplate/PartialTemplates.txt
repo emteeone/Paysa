@@ -1,9 +1,23 @@
-﻿{
+{
 "propertyTemplates":[
 		{
 			"placeholder" : "{{Property_Looped_Template_Here}}",
 			"condition" : "{{Property_Listed_Here}} == true",
 			"templates" : [
+					{
+                        "type" : "file",
+                        "content" : ",
+                        {
+                            targets: {{Combined_Loop_Index}},
+                            data: \"{{entity_Name_Here}}\",
+                            render: function ({{entity_Name_Here}}) {
+                                if (!{{entity_Name_Here}}.{{property_Name_Here}}){
+                                    return '';
+                                }
+                                return `<a href=\"/File/DownloadBinaryFile?id=${{{entity_Name_Here}}.{{property_Name_Here}}}\" target=\"_blank\">${{{entity_Name_Here}}.{{property_Name_Here}}FileName}</a>`;
+                            }
+                        }"
+					},
 					{
 					"type" : "default",
 					"content" : ",
@@ -286,7 +300,7 @@
                 _${{entity_Name_Plural_Here}}Table.on('click', '.Edit_{{NP_OneTwoMany_EntityName_Here}}_{{NP_OneTwoMany_ForeignPropertyName_Here}}', function () {
                         var tr = $(this).closest('tr');
                         var row = dataTable.row(tr);
-                        openDetailRow(this,\"/App/MasterDetailChild_{{Entity_Name_Here}}_{{NP_OneTwoMany_EntityNamePlural_Here}}?{{NP_OneTwoMany_ForeignPropertyName_Here}}=\" + row.data().{{entity_Name_Here}}.id);      
+                        openDetailRow(this,\"/{{App_Area_Name_Here}}/MasterDetailChild_{{Entity_Name_Here}}_{{NP_OneTwoMany_EntityNamePlural_Here}}?{{NP_OneTwoMany_ForeignPropertyName_Here}}=\" + row.data().{{entity_Name_Here}}.id);      
                 });
              "
          }         

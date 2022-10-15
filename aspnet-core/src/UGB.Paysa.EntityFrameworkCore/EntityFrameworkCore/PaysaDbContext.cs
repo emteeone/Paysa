@@ -1,4 +1,5 @@
-﻿using Abp.IdentityServer4vNext;
+﻿using UGB.Paysa.Wallet.Chambres;
+using Abp.IdentityServer4vNext;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using UGB.Paysa.Authorization.Delegation;
@@ -16,6 +17,8 @@ namespace UGB.Paysa.EntityFrameworkCore
 {
     public class PaysaDbContext : AbpZeroDbContext<Tenant, Role, User, PaysaDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<Chambre> Chambres { get; set; }
+
         /* Define an IDbSet for each entity of the application */
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
@@ -46,10 +49,14 @@ namespace UGB.Paysa.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<BinaryObject>(b =>
+            modelBuilder.Entity<Chambre>(c =>
             {
-                b.HasIndex(e => new { e.TenantId });
+                c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<BinaryObject>(b =>
+                       {
+                           b.HasIndex(e => new { e.TenantId });
+                       });
 
             modelBuilder.Entity<ChatMessage>(b =>
             {

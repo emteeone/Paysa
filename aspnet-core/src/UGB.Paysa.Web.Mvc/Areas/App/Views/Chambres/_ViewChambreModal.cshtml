@@ -1,0 +1,42 @@
+﻿
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Chambres
+@model ChambreViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="ChambreInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Reference") :</h6>
+                @Model.Chambre.Reference
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("NumeroChambre") :</h6>
+                @Model.Chambre.NumeroChambre
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Bloc") :</h6>
+                @L("Enum_Bloc_" + (int)Model.Chambre.Bloc)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Village") :</h6>
+                @L("Enum_Village_" + (int)Model.Chambre.Village)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Campus") :</h6>
+                @L("Enum_Campus_" + (int)Model.Chambre.Campus)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MontantLocation") :</h6>
+                @Model.Chambre.MontantLocation
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

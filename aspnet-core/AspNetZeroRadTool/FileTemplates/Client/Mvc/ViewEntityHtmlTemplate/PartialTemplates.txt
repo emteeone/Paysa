@@ -1,4 +1,4 @@
-﻿{
+{
 "propertyTemplates":[
 		{
 			"placeholder" : "{{Property_Looped_Template_Here}}",
@@ -9,6 +9,17 @@
 					"content" : "            <div class=\"col-6 mb-3\">
                 <h6>@L(\"{{Property_Name_Here}}\") :</h6>
                 @L(\"Enum_{{Property_Type_Here}}_\" + (int)Model.{{Entity_Name_Here}}.{{Property_Name_Here}})
+            </div>
+"
+					},
+					{
+					"type" : "file",
+					"content" : "            <div class=\"col-6 mb-3\">
+                <h6>@L(\"{{Property_Name_Here}}\") :</h6>
+                @if (Model.{{Entity_Name_Here}}.{{Property_Name_Here}}.HasValue)
+                {
+                    <a href=\"@(\"/File/DownloadBinaryFile?id=\" + Model.{{Entity_Name_Here}}.{{Property_Name_Here}})\" target=\"_blank\">@Model.{{Entity_Name_Here}}.{{Property_Name_Here}}FileName</a>
+                }
             </div>
 "
 					},

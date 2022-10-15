@@ -21,6 +21,14 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                         icon: "flaticon-line-graph",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
+                )
+                .AddItem(new MenuItemDefinition(
+                        AppPageNames.Common.Chambres,
+                        L("Chambres"),
+                        url: "App/Chambres",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Chambres)
+                    )
                 ).AddItem(new MenuItemDefinition(
                     AppPageNames.Host.Tenants,
                     L("Tenants"),

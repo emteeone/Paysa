@@ -1,4 +1,4 @@
-﻿{
+{
 "propertyTemplates":[
 		{
 			"placeholder" : "{{Property_Looped_Template_Here}}",
@@ -26,6 +26,14 @@
 					"content" : "                    <div class=\"col-6 mb-3\">
                         <h6>{{l(\"{{Property_Name_Here}}\")}} :</h6>
                         {{ item.{{entity_Name_Here}}.{{property_Name_Here}} | {{Datetime_Format_Pipe_Here}} }}
+                    </div>
+"
+					},
+					{
+					"type" : "file",
+					"content" : "                    <div class=\"col-6 mb-3\">
+                        <h6>{{l(\"{{Property_Name_Here}}\")}} :</h6>
+                        <a href=\"{{getDownloadUrl(item.{{entity_Name_Here}}.{{property_Name_Here}})}}\" target=\"_blank\">{{ item.{{entity_Name_Here}}.{{property_Name_Here}}FileName}}</a>
                     </div>
 "
 					},
@@ -80,6 +88,22 @@
              "placeholder": "{{Datetime_Format_Pipe_Here}}",
              "condition": "{{Project_Version_Here}} < 100000",
              "content": " momentFormat:'YYYY-MM-DD HH:mm:ss' "
+        },
+        {
+             "placeholder": "{{Modal_Header_Close_Times_Before_V110000_Here}}",
+             "condition": "{{Project_Version_Here}} < 110000",
+             "content": "
+                <button type=\"button\" class=\"close\" (click)=\"close()\" aria-label=\"Close\" [disabled]=\"saving\">
+                     <span aria-hidden=\"true\">&times;</span>
+                </button>
+             "
+        },
+        {
+             "placeholder": "{{Modal_Header_Close_Times_After_V110000_Here}}",
+             "condition": "{{Project_Version_Here}} >= 110000",
+             "content": "
+                 <button type=\"button\" class=\"btn-close\" (click)=\"close()\" aria-label=\"Close\" [disabled]=\"saving\"></button>
+             "
         }
 	]
 }

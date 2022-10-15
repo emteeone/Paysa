@@ -1,0 +1,70 @@
+﻿@using UGB.Paysa.Wallet.Enum;
+@using UGB.Paysa.Wallet.Enum;
+@using UGB.Paysa.Wallet.Enum;
+
+@using System.Globalization
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Chambres
+@model CreateOrEditChambreModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditChambre")) : L("CreateNewChambre")))
+
+<div class="modal-body">
+    <div id="ChambreInformationsTab">
+        <form name="ChambreInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.Chambre.Id" />
+            }
+
+            <div class="form-group">
+                <label for="Chambre_Reference">@L("Reference")</label>
+                <input class="form-control" id="Chambre_Reference" value="@Model.Chambre.Reference" type="text" name="reference" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Chambre_NumeroChambre">@L("NumeroChambre")</label>
+                <input class="form-control m-input" id="Chambre_NumeroChambre" value="@Model.Chambre.NumeroChambre.ToString(CultureInfo.InvariantCulture)" type="number" name="numeroChambre" />
+            </div>
+
+            @{
+            var selectListBloc = Html.GetEnumSelectList(typeof(Bloc));
+            foreach (var selectOption in selectListBloc) { selectOption.Text = L("Enum_Bloc_" + selectOption.Value); }
+            }
+            <div class="form-group m-form__group">
+                <label for="Chambre_Bloc">@L("Bloc")</label>
+                <select class="form-control m-input m-input--square" name="bloc" id="Chambre_Bloc" asp-for="@Model.Chambre.Bloc" asp-items="@selectListBloc">
+                </select>
+            </div>
+
+            @{
+            var selectListVillage = Html.GetEnumSelectList(typeof(Village));
+            foreach (var selectOption in selectListVillage) { selectOption.Text = L("Enum_Village_" + selectOption.Value); }
+            }
+            <div class="form-group m-form__group">
+                <label for="Chambre_Village">@L("Village")</label>
+                <select class="form-control m-input m-input--square" name="village" id="Chambre_Village" asp-for="@Model.Chambre.Village" asp-items="@selectListVillage">
+                </select>
+            </div>
+
+            @{
+            var selectListCampus = Html.GetEnumSelectList(typeof(Campus));
+            foreach (var selectOption in selectListCampus) { selectOption.Text = L("Enum_Campus_" + selectOption.Value); }
+            }
+            <div class="form-group m-form__group">
+                <label for="Chambre_Campus">@L("Campus")</label>
+                <select class="form-control m-input m-input--square" name="campus" id="Chambre_Campus" asp-for="@Model.Chambre.Campus" asp-items="@selectListCampus">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Chambre_MontantLocation">@L("MontantLocation")</label>
+                <input class="form-control m-input" id="Chambre_MontantLocation" value="@Model.Chambre.MontantLocation.ToString(CultureInfo.InvariantCulture)" type="number" name="montantLocation" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

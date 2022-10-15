@@ -1,0 +1,315 @@
+{
+  "IsRegenerate": true,
+  "MenuPosition": "main",
+  "RelativeNamespace": "Wallet.Chambres",
+  "EntityName": "Chambre",
+  "EntityNamePlural": "Chambres",
+  "TableName": "UgbChambre",
+  "PrimaryKeyType": "string",
+  "BaseClass": "FullAuditedEntity",
+  "EntityHistory": true,
+  "AutoMigration": true,
+  "UpdateDatabase": true,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "IsNonModalCRUDPage": false,
+  "IsMasterDetailPage": false,
+  "PagePermission": {
+    "Host": true,
+    "Tenant": true
+  },
+  "Properties": [
+    {
+      "Name": "Reference",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "NumeroChambre",
+      "Type": "int",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "Bloc",
+      "Type": "Bloc",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "Village",
+      "Type": "Village",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "Campus",
+      "Type": "Campus",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "MontantLocation",
+      "Type": "double",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    }
+  ],
+  "NavigationProperties": [],
+  "NavigationPropertyOneToManyTables": [],
+  "EnumDefinitions": [
+    {
+      "Name": "Bloc",
+      "Namespace": "UGB.Paysa.Wallet.Enum",
+      "EnumProperties": [
+        {
+          "Name": "Bloc_1",
+          "Value": 1
+        },
+        {
+          "Name": "Bloc_2",
+          "Value": 2
+        },
+        {
+          "Name": "Bloc_3",
+          "Value": 3
+        },
+        {
+          "Name": "Bloc_4",
+          "Value": 4
+        },
+        {
+          "Name": "Bloc_5",
+          "Value": 5
+        },
+        {
+          "Name": "Bloc_6",
+          "Value": 6
+        },
+        {
+          "Name": "Bloc_7",
+          "Value": 7
+        },
+        {
+          "Name": "Bloc_8",
+          "Value": 8
+        },
+        {
+          "Name": "Bloc_9",
+          "Value": 9
+        }
+      ]
+    },
+    {
+      "Name": "Village",
+      "Namespace": "UGB.Paysa.Wallet.Enum",
+      "EnumProperties": [
+        {
+          "Name": "Village_A",
+          "Value": 1
+        },
+        {
+          "Name": "Village_B",
+          "Value": 2
+        },
+        {
+          "Name": "Village_C",
+          "Value": 3
+        },
+        {
+          "Name": "Village_D",
+          "Value": 4
+        },
+        {
+          "Name": "Village_E",
+          "Value": 5
+        },
+        {
+          "Name": "Village_F",
+          "Value": 6
+        },
+        {
+          "Name": "Village_G",
+          "Value": 7
+        },
+        {
+          "Name": "Village_H",
+          "Value": 8
+        },
+        {
+          "Name": "Village_I",
+          "Value": 9
+        },
+        {
+          "Name": "Village_J",
+          "Value": 10
+        },
+        {
+          "Name": "Village_K",
+          "Value": 11
+        },
+        {
+          "Name": "Village_L",
+          "Value": 12
+        },
+        {
+          "Name": "Village_M",
+          "Value": 13
+        },
+        {
+          "Name": "Village_N",
+          "Value": 14
+        },
+        {
+          "Name": "Village_O",
+          "Value": 15
+        },
+        {
+          "Name": "Village_P",
+          "Value": 16
+        },
+        {
+          "Name": "Village_Q",
+          "Value": 17
+        },
+        {
+          "Name": "Village_R",
+          "Value": 18
+        },
+        {
+          "Name": "Village_S",
+          "Value": 19
+        },
+        {
+          "Name": "Village_T",
+          "Value": 20
+        },
+        {
+          "Name": "Village_U",
+          "Value": 21
+        },
+        {
+          "Name": "Village_V",
+          "Value": 22
+        },
+        {
+          "Name": "Village_W",
+          "Value": 23
+        },
+        {
+          "Name": "Village_X",
+          "Value": 24
+        },
+        {
+          "Name": "Village_Y",
+          "Value": 25
+        },
+        {
+          "Name": "Village_Z",
+          "Value": 26
+        }
+      ]
+    },
+    {
+      "Name": "Campus",
+      "Namespace": "UGB.Paysa.Wallet.Enum",
+      "EnumProperties": [
+        {
+          "Name": "Campus_1",
+          "Value": 1
+        },
+        {
+          "Name": "Campus_2",
+          "Value": 2
+        }
+      ]
+    }
+  ],
+  "DbContext": null
+}

@@ -1,0 +1,192 @@
+﻿@using UGB.Paysa.Authorization
+@using UGB.Paysa.Web.Areas.App.Models.Chambres
+@using UGB.Paysa.Web.Areas.App.Startup
+@model ChambresViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.Chambres;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Chambres/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("Chambres")' description='@L("ChambresHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_Chambres_Create))
+        {
+        <button id="CreateNewChambreButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewChambre")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="form-group align-items-center">
+                                <div class="input-group">
+                                    <input type="text" id="ChambresTableFilter" class="form-control m-input" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <span class="input-group-btn">
+                                        <button id="GetChambresButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="separator separator-dashed"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="ReferenceFilterId">@L("Reference")</label>
+                            <input type="text" class="form-control" name="referenceFilter" id="ReferenceFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MinNumeroChambreFilterId">@L("MinMax") @L("NumeroChambre")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minNumeroChambreFilter" id="MinNumeroChambreFilterId" />
+                                <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxNumeroChambreFilter" id="MaxNumeroChambreFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="BlocFilterId">@L("Bloc")</label>
+                        <select class="form-control" name="BlocFilter" id="BlocFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="1">@L("Enum_Bloc_1")</option>
+
+                            <option value="2">@L("Enum_Bloc_2")</option>
+
+                            <option value="3">@L("Enum_Bloc_3")</option>
+
+                            <option value="4">@L("Enum_Bloc_4")</option>
+
+                            <option value="5">@L("Enum_Bloc_5")</option>
+
+                            <option value="6">@L("Enum_Bloc_6")</option>
+
+                            <option value="7">@L("Enum_Bloc_7")</option>
+
+                            <option value="8">@L("Enum_Bloc_8")</option>
+
+                            <option value="9">@L("Enum_Bloc_9")</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="VillageFilterId">@L("Village")</label>
+                        <select class="form-control" name="VillageFilter" id="VillageFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="1">@L("Enum_Village_1")</option>
+
+                            <option value="2">@L("Enum_Village_2")</option>
+
+                            <option value="3">@L("Enum_Village_3")</option>
+
+                            <option value="4">@L("Enum_Village_4")</option>
+
+                            <option value="5">@L("Enum_Village_5")</option>
+
+                            <option value="6">@L("Enum_Village_6")</option>
+
+                            <option value="7">@L("Enum_Village_7")</option>
+
+                            <option value="8">@L("Enum_Village_8")</option>
+
+                            <option value="9">@L("Enum_Village_9")</option>
+
+                            <option value="10">@L("Enum_Village_10")</option>
+
+                            <option value="11">@L("Enum_Village_11")</option>
+
+                            <option value="12">@L("Enum_Village_12")</option>
+
+                            <option value="13">@L("Enum_Village_13")</option>
+
+                            <option value="14">@L("Enum_Village_14")</option>
+
+                            <option value="15">@L("Enum_Village_15")</option>
+
+                            <option value="16">@L("Enum_Village_16")</option>
+
+                            <option value="17">@L("Enum_Village_17")</option>
+
+                            <option value="18">@L("Enum_Village_18")</option>
+
+                            <option value="19">@L("Enum_Village_19")</option>
+
+                            <option value="20">@L("Enum_Village_20")</option>
+
+                            <option value="21">@L("Enum_Village_21")</option>
+
+                            <option value="22">@L("Enum_Village_22")</option>
+
+                            <option value="23">@L("Enum_Village_23")</option>
+
+                            <option value="24">@L("Enum_Village_24")</option>
+
+                            <option value="25">@L("Enum_Village_25")</option>
+
+                            <option value="26">@L("Enum_Village_26")</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="CampusFilterId">@L("Campus")</label>
+                        <select class="form-control" name="CampusFilter" id="CampusFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="1">@L("Enum_Campus_1")</option>
+
+                            <option value="2">@L("Enum_Campus_2")</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MinMontantLocationFilterId">@L("MinMax") @L("MontantLocation")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minMontantLocationFilter" id="MinMontantLocationFilterId" />
+                                <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxMontantLocationFilter" id="MaxMontantLocationFilterId" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="ChambresTable" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("Reference")</th>
+                                <th>@L("NumeroChambre")</th>
+                                <th>@L("Bloc")</th>
+                                <th>@L("Village")</th>
+                                <th>@L("Campus")</th>
+                                <th>@L("MontantLocation")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
