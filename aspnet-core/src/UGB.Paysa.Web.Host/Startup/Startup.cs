@@ -315,6 +315,7 @@ namespace UGB.Paysa.Web.Startup
             {
                 options.SwaggerDoc("v1", new OpenApiInfo() {Title = "Paysa API", Version = "v1"});
                 options.DocInclusionPredicate((docName, description) => true);
+                options.DocumentFilter<CustomSwaggerFilter>();
                 options.ParameterFilter<SwaggerEnumParameterFilter>();
                 options.SchemaFilter<SwaggerEnumSchemaFilter>();
                 options.OperationFilter<SwaggerOperationIdFilter>();
