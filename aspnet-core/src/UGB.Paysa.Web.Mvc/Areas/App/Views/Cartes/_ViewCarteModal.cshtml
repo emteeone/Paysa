@@ -1,0 +1,43 @@
+﻿
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Cartes
+@model CarteViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="CarteInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("UID") :</h6>
+                @Model.Carte.UID
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("NumeroCarte") :</h6>
+                @Model.Carte.NumeroCarte
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("IsActive") :</h6>
+                @Model.Carte.IsActive
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DateDelivrance") :</h6>
+                @Model.Carte.DateDelivrance
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DateExpiration") :</h6>
+                @Model.Carte.DateExpiration
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("Compte")) @L("NumeroCompte") :</h6>
+                @Model.CompteNumeroCompte
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

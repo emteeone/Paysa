@@ -30,6 +30,11 @@ namespace UGB.Paysa.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var cartes = pages.CreateChildPermission(AppPermissions.Pages_Cartes, L("Cartes"));
+            cartes.CreateChildPermission(AppPermissions.Pages_Cartes_Create, L("CreateNewCarte"));
+            cartes.CreateChildPermission(AppPermissions.Pages_Cartes_Edit, L("EditCarte"));
+            cartes.CreateChildPermission(AppPermissions.Pages_Cartes_Delete, L("DeleteCarte"));
+
             var comptes = pages.CreateChildPermission(AppPermissions.Pages_Comptes, L("Comptes"));
             comptes.CreateChildPermission(AppPermissions.Pages_Comptes_Create, L("CreateNewCompte"));
             comptes.CreateChildPermission(AppPermissions.Pages_Comptes_Edit, L("EditCompte"));

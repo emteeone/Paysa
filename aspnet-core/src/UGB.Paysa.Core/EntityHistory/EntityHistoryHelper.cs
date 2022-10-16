@@ -1,4 +1,5 @@
-﻿using UGB.Paysa.Wallet.Comptes;
+﻿using UGB.Paysa.Wallet.Tools;
+using UGB.Paysa.Wallet.Comptes;
 using UGB.Paysa.Wallet.Etudiants;
 using UGB.Paysa.Wallet.Chambres;
 using System;
@@ -15,6 +16,7 @@ namespace UGB.Paysa.EntityHistory
 
         public static readonly Type[] HostSideTrackedTypes =
         {
+            typeof(Carte),
             typeof(Compte),
             typeof(Etudiant),
             typeof(Chambre),
@@ -23,6 +25,7 @@ namespace UGB.Paysa.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(Carte),
             typeof(Compte),
             typeof(Etudiant),
             typeof(Chambre),

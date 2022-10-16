@@ -23,6 +23,14 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                     )
                 )
                 .AddItem(new MenuItemDefinition(
+                        AppPageNames.Common.Cartes,
+                        L("Cartes"),
+                        url: "App/Cartes",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Cartes)
+                    )
+                )
+                .AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Comptes,
                         L("Comptes"),
                         url: "App/Comptes",

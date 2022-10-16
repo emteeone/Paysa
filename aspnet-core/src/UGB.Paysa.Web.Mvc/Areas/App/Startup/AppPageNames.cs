@@ -4,6 +4,7 @@
     {
         public static class Common
         {
+            public const string Cartes = "Tools.Cartes";
             public const string Comptes = "Comptes.Comptes";
             public const string Etudiants = "Etudiants.Etudiants";
             public const string Chambres = "Chambres.Chambres";

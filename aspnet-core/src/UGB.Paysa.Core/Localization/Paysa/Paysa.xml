@@ -1,6 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="DateDelivranceRange">Date delivrance range</text>
+    <text name="DateExpirationRange">Date expiration range</text>
+    <text name="Tools">Tools</text>
+    <text name="Carte">Carte</text>
+    <text name="UGB.Paysa.Tools.Carte">Carte</text>
+    <text name="UID">U i d</text>
+    <text name="NumeroCarte">Numero carte</text>
+    <text name="DateDelivrance">Date delivrance</text>
+    <text name="DateExpiration">Date expiration</text>
+    <text name="CartesHeaderInfo">Cartes header info</text>
+    <text name="CreateNewCarte">Create new carte</text>
+    <text name="EditCarte">Edit carte</text>
+    <text name="DeleteCarte">Delete carte</text>
+    <text name="Cartes">Cartes</text>
+    <text name="CompteNumeroCompte">Compte numero compte</text>
+    <text name="PickCompte">Pick compte</text>
+    <text name="SelectACompte">Select a compte</text>
     <text name="Comptes">Comptes</text>
     <text name="Compte">Compte</text>
     <text name="UGB.Paysa.Comptes.Compte">Compte</text>
