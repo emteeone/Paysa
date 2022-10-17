@@ -30,6 +30,11 @@ namespace UGB.Paysa.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var terminaux = pages.CreateChildPermission(AppPermissions.Pages_Terminaux, L("Terminaux"));
+            terminaux.CreateChildPermission(AppPermissions.Pages_Terminaux_Create, L("CreateNewTerminal"));
+            terminaux.CreateChildPermission(AppPermissions.Pages_Terminaux_Edit, L("EditTerminal"));
+            terminaux.CreateChildPermission(AppPermissions.Pages_Terminaux_Delete, L("DeleteTerminal"));
+
             var cartes = pages.CreateChildPermission(AppPermissions.Pages_Cartes, L("Cartes"));
             cartes.CreateChildPermission(AppPermissions.Pages_Cartes_Create, L("CreateNewCarte"));
             cartes.CreateChildPermission(AppPermissions.Pages_Cartes_Edit, L("EditCarte"));

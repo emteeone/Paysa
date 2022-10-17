@@ -1,0 +1,37 @@
+﻿
+@using System.Globalization
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Terminaux
+@model CreateOrEditTerminalModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTerminal")) : L("CreateNewTerminal")))
+
+<div class="modal-body">
+    <div id="TerminalInformationsTab">
+        <form name="TerminalInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.Terminal.Id" />
+            }
+
+            <div class="form-group">
+                <label for="Terminal_Uid_Device">@L("Uid_Device")</label>
+                <input class="form-control" id="Terminal_Uid_Device" value="@Model.Terminal.Uid_Device" type="text" name="uid_Device" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Terminal_Matricule">@L("Matricule")</label>
+                <input class="form-control" id="Terminal_Matricule" value="@Model.Terminal.Matricule" type="text" name="matricule" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Terminal_Position">@L("Position")</label>
+                <input class="form-control" id="Terminal_Position" value="@Model.Terminal.Position" type="text" name="position" required />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -1,0 +1,30 @@
+﻿
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.Terminaux
+@model TerminalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="TerminalInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Uid_Device") :</h6>
+                @Model.Terminal.Uid_Device
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Matricule") :</h6>
+                @Model.Terminal.Matricule
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Position") :</h6>
+                @Model.Terminal.Position
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

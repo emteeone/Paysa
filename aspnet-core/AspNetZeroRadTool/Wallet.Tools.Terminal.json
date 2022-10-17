@@ -13,6 +13,7 @@
   "CreateUserInterface": true,
   "CreateViewOnly": true,
   "CreateExcelExport": true,
+  "IsNonModalCRUDPage": false,
   "IsMasterDetailPage": false,
   "PagePermission": {
     "Host": true,
@@ -26,8 +27,8 @@
       "MinLength": -1,
       "Range": {
         "IsRangeSet": false,
-        "MinimumValue": 0,
-        "MaximumValue": 0
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
       },
       "Required": true,
       "Nullable": false,
@@ -36,10 +37,52 @@
         "AdvancedFilter": true,
         "List": true,
         "CreateOrUpdate": true
-      }
+      },
+      "ViewType": null
     },
+    {
+      "Name": "Matricule",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "Position",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    }
   ],
   "NavigationProperties": [],
+  "NavigationPropertyOneToManyTables": [],
   "EnumDefinitions": [],
   "DbContext": null
 }

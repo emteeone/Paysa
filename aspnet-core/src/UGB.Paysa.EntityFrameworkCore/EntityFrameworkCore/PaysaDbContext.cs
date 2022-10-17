@@ -20,6 +20,8 @@ namespace UGB.Paysa.EntityFrameworkCore
 {
     public class PaysaDbContext : AbpZeroDbContext<Tenant, Role, User, PaysaDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<Terminal> Terminaux { get; set; }
+
         public virtual DbSet<Carte> Cartes { get; set; }
 
         public virtual DbSet<Compte> Comptes { get; set; }
@@ -58,10 +60,14 @@ namespace UGB.Paysa.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Carte>(c =>
+            modelBuilder.Entity<Terminal>(t =>
             {
-                c.HasIndex(e => new { e.TenantId });
+                t.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Carte>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Compte>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });

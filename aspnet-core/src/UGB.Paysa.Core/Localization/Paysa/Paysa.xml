@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="Matricule">Matricule</text>
+    <text name="Position">Position</text>
+    <text name="Terminal">Terminal</text>
+    <text name="UGB.Paysa.Tools.Terminal">Terminal</text>
+    <text name="Uid_Device">Uid _ device</text>
+    <text name="TerminauxHeaderInfo">Terminaux header info</text>
+    <text name="CreateNewTerminal">Create new terminal</text>
+    <text name="EditTerminal">Edit terminal</text>
+    <text name="DeleteTerminal">Delete terminal</text>
+    <text name="Terminaux">Terminaux</text>
     <text name="DateDelivranceRange">Date delivrance range</text>
     <text name="DateExpirationRange">Date expiration range</text>
     <text name="Tools">Tools</text>

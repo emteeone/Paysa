@@ -16,6 +16,7 @@ namespace UGB.Paysa.EntityHistory
 
         public static readonly Type[] HostSideTrackedTypes =
         {
+            typeof(Terminal),
             typeof(Carte),
             typeof(Compte),
             typeof(Etudiant),
@@ -25,6 +26,7 @@ namespace UGB.Paysa.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(Terminal),
             typeof(Carte),
             typeof(Compte),
             typeof(Etudiant),
