@@ -129,7 +129,21 @@ namespace UGB.Paysa.Wallet.Comptes
 
             return output;
         }
+        [AbpAuthorize(AppPermissions.Pages_Comptes_Solde)]
+        public async Task<double> GetCompteBalanceById(EntityDto<string> input)
+        {
+            var compte = await _compteRepository.FirstOrDefaultAsync(input.Id);
 
+            var output = new GetCompteForEditOutput { Compte = ObjectMapper.Map<CreateOrEditCompteDto>(compte) };
+
+            if (output.Compte.EtudiantId != null)
+            {
+                var _lookupEtudiant = await _lookup_etudiantRepository.FirstOrDefaultAsync((string)output.Compte.EtudiantId);
+                output.EtudiantCodeEtudiant = _lookupEtudiant?.CodeEtudiant?.ToString();
+            }
+
+            return output.Compte.Solde;
+        }
         public async Task CreateOrEdit(CreateOrEditCompteDto input)
         {
             if (input.Id.IsNullOrWhiteSpace())

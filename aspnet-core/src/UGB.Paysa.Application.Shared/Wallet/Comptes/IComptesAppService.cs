@@ -15,6 +15,7 @@ namespace UGB.Paysa.Wallet.Comptes
         Task<GetCompteForViewDto> GetCompteForView(string id);
 
         Task<GetCompteForEditOutput> GetCompteForEdit(EntityDto<string> input);
+        Task<double> GetCompteBalanceById(EntityDto<string> input);
 
         Task CreateOrEdit(CreateOrEditCompteDto input);
 

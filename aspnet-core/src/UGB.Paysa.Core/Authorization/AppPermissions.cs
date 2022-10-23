@@ -20,6 +20,7 @@
         public const string Pages_Comptes_Create = "Pages.Comptes.Create";
         public const string Pages_Comptes_Edit = "Pages.Comptes.Edit";
         public const string Pages_Comptes_Delete = "Pages.Comptes.Delete";
+        public const string Pages_Comptes_Solde = "Pages.Comptes.GetSolde";
 
         public const string Pages_Etudiants = "Pages.Etudiants";
         public const string Pages_Etudiants_Create = "Pages.Etudiants.Create";
