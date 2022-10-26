@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="fr">
   <texts>
+	  
+	<text name="RecentOperations">Operations Récentes</text>
+	<text name="SeeAll">Voir Tout</text>
+	<text name="Restauration">Restauration</text>
+	<text name="Transport">Transport</text>
+	<text name="Logement">Logement</text>
+	<text name="PaiementChambre">Paiement Chambre</text>
+	<text name="YourBalance">Votre Solde</text>
+	<text name="Home">Acceuil</text>
+	<text name="Student">Etudiant</text>
+	<text name="AllOperations">Toutes Les Opérations</text>
+	  
     <text name="HomePage">Page d'accueil</text>
     <text name="AboutUs">À propos</text>
     <text name="Administration">Administration</text>

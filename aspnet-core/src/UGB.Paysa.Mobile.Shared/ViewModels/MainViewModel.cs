@@ -27,15 +27,18 @@ using UGB.Paysa.UI;
 using UGB.Paysa.UI.Assets;
 using UGB.Paysa.Views;
 using DependencyResolver = UGB.Paysa.Core.Dependency.DependencyResolver;
+using UGB.Paysa.Services.Account;
 
 namespace UGB.Paysa.ViewModels
 {
     public class MainViewModel : XamarinViewModel
     {
-        public ICommand PageAppearingCommand => HttpRequestCommand.Create(PageAppearing);
-        public ICommand ChangeProfilePhotoCommand => new Command(ChangeProfilePhoto);
-        public ICommand ShowProfilePhotoCommand => AsyncCommand.Create(ShowProfilePhoto);
+        public ICommand PageAppearingCommand        => HttpRequestCommand.Create(PageAppearing);
+        public ICommand ChangeProfilePhotoCommand   => new Command(ChangeProfilePhoto);
+        public ICommand ShowProfilePhotoCommand     => AsyncCommand.Create(ShowProfilePhoto);
+        public ICommand LogoutCommand               => AsyncCommand.Create(SignoutAsync);
 
+        private readonly IAccountService _accountService;
         private readonly IProfileAppService _profileAppService;
         private readonly ProxyProfileControllerService _profileControllerService;
         private readonly IApplicationContext _applicationContext;
@@ -50,10 +53,12 @@ namespace UGB.Paysa.ViewModels
 
         public MainViewModel(
             IProfileAppService profileAppService,
+            IAccountService accountService,
             ProxyProfileControllerService profileControllerService,
             IApplicationContext applicationContext)
         {
             _profileAppService = profileAppService;
+            _accountService = accountService;
             _profileControllerService = profileControllerService;
             _applicationContext = applicationContext;
             _isInitialized = false;
@@ -80,7 +85,23 @@ namespace UGB.Paysa.ViewModels
 
             _isInitialized = true;
         }
+        private async Task SignoutAsync()
+        {
+            var promptResult = await UserDialogs.Instance.ConfirmAsync(new ConfirmConfig
+            {
+                Message = L.Localize("LogoutMessageConfirm"),
+                OkText = L.Localize("Yes"),
+                CancelText = L.Localize("Cancel"),
+                Title = L.Localize("Logout"),
+            });
 
+            if (!promptResult)
+            {
+                return;
+            }
+
+            await _accountService.LogoutAsync();
+        }
         private void SetApplicationInfo()
         {
             ApplicationInfo = $"{ApplicationName}\n" +

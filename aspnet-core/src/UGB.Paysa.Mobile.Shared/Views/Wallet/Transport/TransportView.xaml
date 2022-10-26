@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:UGB.Paysa.ViewModels.Base;assembly=UGB.Paysa.Mobile.Shared"
+             x:Class="UGB.Paysa.Views.Wallet.Transport.TransportView"
+             base:ViewManager.AutoWireViewModel="true"
+             xmlns:extensions="clr-namespace:UGB.Paysa.Extensions.MarkupExtensions;assembly=UGB.Paysa.Mobile.Shared"
+             BackgroundColor="{StaticResource WhiteColor}">
+    <NavigationPage.TitleView>
+        <Label Text="{extensions:Translate Transport}" 
+               FontSize="Medium"  
+               TextColor="White" 
+               FontFamily="Montserrat_SemiBold"/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout
+                HeightRequest="40"
+                BackgroundColor="#708090" />
+            <Frame Margin="0,-40,0,0" Padding="0" BackgroundColor="White"
+                CornerRadius="100" 
+                HasShadow="False" 
+                HeightRequest="80" />
+            <Label Text="Transport Info !"
+                   FontFamily="Montserrat_Medium"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

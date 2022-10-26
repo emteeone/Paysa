@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:UGB.Paysa.ViewModels.Base;assembly=UGB.Paysa.Mobile.Shared"
+             x:Class="UGB.Paysa.Views.Wallet.Operations.SeeAllOperationsView"
+             base:ViewManager.AutoWireViewModel="true"
+             xmlns:extensions="clr-namespace:UGB.Paysa.Extensions.MarkupExtensions;assembly=UGB.Paysa.Mobile.Shared"
+             BackgroundColor="{StaticResource WhiteColor}">
+    <NavigationPage.TitleView>
+        <Label Text="{extensions:Translate AllOperations}" 
+               FontSize="Medium"  
+               TextColor="White" 
+               FontFamily="Montserrat_SemiBold"/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout
+                HeightRequest="40"
+                BackgroundColor="#708090" />
+            <Frame Margin="0,-40,0,-20" Padding="0" BackgroundColor="White"
+                CornerRadius="100" 
+                HasShadow="False" 
+                HeightRequest="60" />
+
+            
+            <StackLayout Padding="8,-10,8,0" Margin="0,0,0,20">
+                <Frame CornerRadius="20" HeightRequest="42" BackgroundColor="#e0e0e7" Padding="0" Margin="0" HasShadow="False">
+                        <ScrollView   Orientation="Horizontal" HorizontalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never">
+                                
+                                <Grid ColumnSpacing="3" HorizontalOptions="FillAndExpand" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="42" />
+                                    </Grid.RowDefinitions>
+                                    <Button Grid.Column="0" Text="{extensions:Translate  All}" 
+                                        CornerRadius="20"
+                                        TextTransform="None"
+                                        TextColor="White"
+                                        FontFamily="Montserrat_Medium"
+                                        FontSize="18"
+                                        BackgroundColor="{Binding IsInAll, Converter={StaticResource BackgroundColorConverter},ConverterParameter={StaticResource SelectedTabMenuColor}}" 
+                                        Command="{Binding ShowAllOperationsCommand}">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding IsInAll}" Value="true">
+                                                <Setter Property="FontFamily"  Value="Montserrat_SemiBold" />
+                                                <Setter Property="BorderColor"  Value="White" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Button" Binding="{Binding IsInAll}" Value="false">
+                                                <Setter Property="FontFamily"  Value="Montserrat_Medium" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                    <Button  Grid.Column="1" Text="{extensions:Translate  Debit}"
+                                        CornerRadius="20"
+                                        Padding="12,0,12,0"
+                                        TextColor="White" 
+                                        TextTransform="None"
+                                        FontFamily="Montserrat_Medium"
+                                        FontSize="18"
+                                        BackgroundColor="{Binding IsInDebit, Converter={StaticResource BackgroundColorConverter}, 
+                                                                            ConverterParameter={StaticResource SelectedTabMenuColor}}" 
+                                        Command="{Binding ShowDebitOperationsCommand}">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding IsInDebit}" Value="true">
+                                                <Setter Property="FontFamily"  Value="Montserrat_SemiBold" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Button" Binding="{Binding IsInDebit}" Value="false">
+                                                <Setter Property="FontFamily"  Value="Montserrat_Medium" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                    <Button Grid.Column="2" Text="{extensions:Translate  Credit}" 
+                                        CornerRadius="20"
+                                        Padding="12,0,12,0"
+                                        TextTransform="None"
+                                        FontAttributes="Bold"
+                                        TextColor="White" 
+                                        FontFamily="Montserrat_Medium"
+                                        FontSize="18"
+                                        BackgroundColor="{Binding IsInCredit,Converter={StaticResource BackgroundColorConverter}, 
+                                                                              ConverterParameter={StaticResource SelectedTabMenuColor}}" 
+                                        Command="{Binding ShowCreditOperationsCommand}">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding IsInCredit}" Value="true">
+                                            <Setter Property="TextColor"  Value="White" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Button" Binding="{Binding IsInCredit}" Value="false">
+                                                <Setter Property="FontFamily"  Value="Montserrat_Medium" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                </Grid>
+                        </ScrollView>
+                    </Frame>
+                        
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

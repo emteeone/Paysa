@@ -12,7 +12,14 @@ namespace UGB.Paysa.Converters
             {
                 return (Color)parameter;
             }
-
+            else if (value.GetType() == typeof(string) && (string)value == (string)parameter)
+            {
+                return Color.FromHex("#708090"); // paysacolor
+            }
+            else if (value.GetType() == typeof(string))
+            {
+                return Color.Transparent;
+            }
             return Color.Transparent;
         }
 

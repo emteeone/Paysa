@@ -7,6 +7,7 @@ using UGB.Paysa.Localization;
 using UGB.Paysa.Models.NavigationMenu;
 using UGB.Paysa.Services.Permission;
 using UGB.Paysa.Views;
+using UGB.Paysa.Views.Wallet;
 
 namespace UGB.Paysa.Services.Navigation
 {
@@ -23,6 +24,12 @@ namespace UGB.Paysa.Services.Navigation
                 Icon = "Tenants.png",
                 ViewType = typeof(TenantsView),
                 RequiredPermissionName = PermissionKey.Tenants,
+            },
+            new NavigationMenuItem
+            {
+                Title = L.Localize("Home"),
+                Icon = "Tenants.png",
+                ViewType = typeof(HomePageView)
             },
             new NavigationMenuItem
             {

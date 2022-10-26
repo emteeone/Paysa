@@ -6,6 +6,7 @@
                   xmlns:behaviors="clr-namespace:UGB.Paysa.Behaviors;assembly=UGB.Paysa.Mobile.Shared"
                   xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize"
                   xmlns:controls="clr-namespace:UGB.Paysa.Controls;assembly=UGB.Paysa.Mobile.Shared"
+                  xmlns:extensions="clr-namespace:UGB.Paysa.Extensions.MarkupExtensions;assembly=UGB.Paysa.Mobile.Shared"
                   xmlns:image="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
                   x:Class="UGB.Paysa.Views.MainView"  
                   FlyoutLayoutBehavior="Popover" 
@@ -20,7 +21,7 @@
             <StackLayout Orientation="Vertical"  Spacing="0">
 
                 <!--NAME SURNAME & PROFILE PICTURE-->
-                <Grid VerticalOptions="FillAndExpand" >
+                <!--<Grid VerticalOptions="FillAndExpand" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="110" />
                         <RowDefinition Height="Auto" />
@@ -28,13 +29,9 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <BoxView Grid.Row="0" 
-                             Color="{StaticResource NavigationMenuTopColor}" />
-
                     <Label Text="{Binding UserNameAndSurname}"
                            FontSize="20"    
                            Grid.Row="1"  
-                           TextColor="White"  
                            Margin="0, -100, 0, 0" 
                            HorizontalTextAlignment="Center"
                            HorizontalOptions="CenterAndExpand"/>
@@ -71,8 +68,45 @@
                         HorizontalOptions="Center" 
                         Command="{Binding ChangeProfilePhotoCommand}" />
 
-                </Grid>
-
+                </Grid>-->
+                <StackLayout HorizontalOptions="StartAndExpand" Margin="20,30,0,20" >
+                    <image:CircleImage  
+                        Source="{Binding Photo}" 
+                        WidthRequest="80" 
+                        HeightRequest="80" 
+                        Aspect="AspectFill"
+                        HorizontalOptions="StartAndExpand" 
+                        FillColor="White"
+                        BorderColor="{StaticResource NavigationMenuTopColor}">
+                        <image:CircleImage.GestureRecognizers >
+                            <TapGestureRecognizer
+                                Command="{Binding ShowProfilePhotoCommand}"
+                                NumberOfTapsRequired="1" />
+                        </image:CircleImage.GestureRecognizers>
+                    </image:CircleImage>
+                    <iconize:IconButton 
+                        Grid.Row="3"  
+                        Text="fas-camera" 
+                        FontSize="15" 
+                        WidthRequest="25" 
+                        HeightRequest="25"
+                        Margin="50, -30, 0, 0" 
+                        CornerRadius="20"
+                        TextColor="White"
+                        BackgroundColor="#e29384"
+                        HorizontalOptions="Start" 
+                        Command="{Binding ChangeProfilePhotoCommand}" />
+                    <Label Text="{Binding UserNameAndSurname}"
+                           FontSize="20"  
+                           FontFamily="Montserrat_SemiBold"
+                           HorizontalOptions="StartAndExpand"/>
+                    <Label Text="{extensions:Translate Student}"
+                           FontSize="16"  
+                           FontFamily="Montserrat_Regular"
+                           TextColor="{StaticResource LightTextColor}"
+                           Margin="0,-5, 0, 0" 
+                           HorizontalOptions="Start"/>
+                <controls:Divider />
                 <!--NAVIGATION MENU-->
                 <ListView SeparatorVisibility="None" 
                           ItemsSource="{Binding MenuItems}"  
@@ -81,9 +115,8 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-
-                                <StackLayout>
-                                    <Grid Padding="5,10" 
+                                <StackLayout VerticalOptions="FillAndExpand">
+                                    <Grid Padding="0,10" HeightRequest="60" 
                                           BackgroundColor="{Binding IsSelected,
                                                                 Converter={StaticResource BackgroundColorConverter}, 
                                                                 ConverterParameter={StaticResource SelectedNavigationMenuBackgroundColor}}">
@@ -96,21 +129,43 @@
                                         <Image  Source="{Binding Icon, Converter={StaticResource ImageSourceConverter}}" />
 
                                         <Label  
-                                             Grid.Column="1"
-                                             Text="{Binding Title}" 
-                                             VerticalOptions="FillAndExpand" />
+                                            Grid.Column="1"
+                                            Text="{Binding Title}" 
+                                            FontSize="Medium"
+                                            FontFamily="Montserrat_Medium"
+                                            VerticalOptions="FillAndExpand" />
                                     </Grid>
-
-                                    <controls:Divider Margin="0,-6,0,0" 
-                                                      BackgroundColor="{StaticResource SelectedNavigationMenuBackgroundColor}"/>
-
+                                    
                                 </StackLayout>
 
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
+                    <StackLayout VerticalOptions="FillAndExpand">
+                        <Grid Padding="0,10" HeightRequest="60" 
+                                          BackgroundColor="{Binding IsSelected,
+                                                                Converter={StaticResource BackgroundColorConverter}, 
+                                                                ConverterParameter={StaticResource SelectedNavigationMenuBackgroundColor}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{extensions:ImageSource 'UGB.Paysa.UI.Assets.Images.Logout.png'}" />
+                            <Label  
+                                    Grid.Column="1"
+                                    Text="{extensions:Translate Logout}"
+                                    FontSize="Medium"
+                                    FontFamily="Montserrat_Medium"
+                                    VerticalOptions="CenterAndExpand" >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding LogoutCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+                
                 <controls:Divider />
 
                 <!--APP VERSION-->

@@ -15,6 +15,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Ressources\Montserrat-MediumItalic.ttf" />
+    <None Remove="Ressources\Montserrat_Black.ttf" />
+    <None Remove="Ressources\Montserrat_BlackItalic.ttf" />
+    <None Remove="Ressources\Montserrat_Bold.ttf" />
+    <None Remove="Ressources\Montserrat_BoldItalic.ttf" />
+    <None Remove="Ressources\Montserrat_ExtraBold.ttf" />
+    <None Remove="Ressources\Montserrat_ExtraBoldItalic.ttf" />
+    <None Remove="Ressources\Montserrat_ExtraLight.ttf" />
+    <None Remove="Ressources\Montserrat_ExtraLightItalic.ttf" />
+    <None Remove="Ressources\Montserrat_Italic.ttf" />
+    <None Remove="Ressources\Montserrat_Light.ttf" />
+    <None Remove="Ressources\Montserrat_LightItalic.ttf" />
+    <None Remove="Ressources\Montserrat_Medium.ttf" />
+    <None Remove="Ressources\Montserrat_Regular.ttf" />
+    <None Remove="Ressources\Montserrat_SemiBold.ttf" />
+    <None Remove="Ressources\Montserrat_SemiBoldItalic.ttf" />
+    <None Remove="Ressources\Montserrat_Thin.ttf" />
+    <None Remove="Ressources\Montserrat_ThinItalic.ttf" />
     <None Remove="UI\Assets\Images\ChangeLanguage.png" />
     <None Remove="UI\Assets\Images\ChangePassword.png" />
     <None Remove="UI\Assets\Images\HeaderBackground.jpg" />
@@ -32,6 +50,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Ressources\Montserrat-MediumItalic.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_Black.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_BlackItalic.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_Bold.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_BoldItalic.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_ExtraBold.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_ExtraBoldItalic.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_ExtraLight.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_ExtraLightItalic.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_Italic.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_Light.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_LightItalic.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_Medium.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_Regular.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_SemiBold.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_SemiBoldItalic.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_Thin.ttf" />
+    <EmbeddedResource Include="Ressources\Montserrat_ThinItalic.ttf" />
     <EmbeddedResource Include="UI\Assets\Images\AppLogo.png" />
     <EmbeddedResource Include="UI\Assets\Images\ChangeLanguage.png" />
     <EmbeddedResource Include="UI\Assets\Images\ChangePassword.png" />
@@ -109,6 +145,24 @@
     </Compile>
     <Compile Update="Views\MySettingsView.xaml.cs">
       <DependentUpon>MySettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\Consultation\ConsultationView.xaml.cs">
+      <DependentUpon>ConsultationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\HomePageView.xaml.cs">
+      <DependentUpon>HomePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\Logement\LogementView.xaml.cs">
+      <DependentUpon>LogementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\Operations\SeeAllOperationsView.xaml.cs">
+      <DependentUpon>SeeAllOperationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\Restauration\RestaurationView.xaml.cs">
+      <DependentUpon>RestaurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\Transport\TransportView.xaml.cs">
+      <DependentUpon>TransportView.xaml</DependentUpon>
     </Compile>
 
   </ItemGroup>

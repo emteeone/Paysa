@@ -13,7 +13,7 @@ namespace UGB.Paysa
 {
     [Activity(
         Label = "UGB.Paysa.Mobile",
-        Icon = "@drawable/icon",
+        Icon = "@drawable/ic_logo_pay",
         MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
@@ -22,6 +22,8 @@ namespace UGB.Paysa
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            SetStatusBarColor(new Android.Graphics.Color(112, 128, 144));
 
             base.Window.RequestFeature(WindowFeatures.ActionBar);
             // Name of the MainActivity theme you had there before.

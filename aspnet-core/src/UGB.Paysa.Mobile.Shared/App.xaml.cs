@@ -9,6 +9,15 @@ using UGB.Paysa.Services.Storage;
 using UGB.Paysa.ViewModels.Base;
 using Xamarin.Forms;
 
+[assembly: ExportFont("Montserrat_Regular.ttf", Alias = "Montserrat_Regular")]
+[assembly: ExportFont("Montserrat_Bold.ttf", Alias = "Montserrat_Bold")]
+[assembly: ExportFont("Montserrat_Black.ttf", Alias = "Montserrat_Black")]
+[assembly: ExportFont("Montserrat_Light.ttf", Alias = "Montserrat_Light")]
+[assembly: ExportFont("Montserrat_ExtraBold.ttf", Alias = "Montserrat_ExtraBold")]
+[assembly: ExportFont("Montserrat_SemiBold.ttf", Alias = "Montserrat_SemiBold")]
+[assembly: ExportFont("Montserrat_ThicccAF.ttf", Alias = "Montserrat_ThicccAF")]
+[assembly: ExportFont("Montserrat_Thin.ttf", Alias = "Montserrat_Thin")]
+[assembly: ExportFont("Montserrat_Medium.ttf", Alias = "Montserrat_Medium")]
 namespace UGB.Paysa
 {
     public partial class App : Application

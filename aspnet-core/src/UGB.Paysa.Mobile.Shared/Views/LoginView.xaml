@@ -7,6 +7,7 @@
              xmlns:behaviors="clr-namespace:UGB.Paysa.Behaviors;assembly=UGB.Paysa.Mobile.Shared"
              xmlns:controls="clr-namespace:UGB.Paysa.Controls;assembly=UGB.Paysa.Mobile.Shared"
              x:Class="UGB.Paysa.Views.LoginView"
+             NavigationPage.HasNavigationBar="False"
              BackgroundColor="{StaticResource LoginBackgroundColor}"
              base:ViewManager.AutoWireViewModel="true"
              Title="{extensions:Translate LogIn}">
@@ -35,18 +36,16 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Image  Grid.Row="1"   
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Aspect="AspectFit"
                     Source="{extensions:ImageSource 'UGB.Paysa.UI.Assets.Images.AppLogo.png'}">
                 </Image>
 
-                <Frame Grid.Row="2"
-                   Grid.Column="1" 
+                <Frame Grid.Row="2" BackgroundColor="Red"
+                   Grid.Column="0" 
                    IsVisible="{Binding IsMultiTenancyEnabled}"
                    Style="{StaticResource RoundedFrame}">
 
@@ -75,7 +74,7 @@
                 </Frame>
 
                 <Frame  Grid.Row="3"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Style="{StaticResource RoundedFrame}">
 
                     <StackLayout VerticalOptions="StartAndExpand" Spacing="0">

@@ -1,7 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
-    <text name="Matricule">Matricule</text>
+
+    <text name="RecentOperations">Recent Operations</text>
+    <text name="SeeAll">See All</text>
+    <text name="Restauration">Restauration</text>
+    <text name="Transport">Transport</text>
+    <text name="Logement">Lodging</text>
+    <text name="PaiementChambre">Room rental</text>
+    <text name="YourBalance">Your Balance</text>
+    <text name="AllOperations">AllOperations</text>
+
+	 <text name="Matricule">Matricule</text>
     <text name="Position">Position</text>
     <text name="Terminal">Terminal</text>
     <text name="UGB.Paysa.Tools.Terminal">Terminal</text>
