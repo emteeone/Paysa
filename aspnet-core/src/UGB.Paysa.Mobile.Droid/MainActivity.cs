@@ -12,7 +12,7 @@ using CachedImageRenderer = FFImageLoading.Forms.Platform.CachedImageRenderer;
 namespace UGB.Paysa
 {
     [Activity(
-        Label = "UGB.Paysa.Mobile",
+        Label = "Paysa",
         Icon = "@drawable/ic_logo_pay",
         MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]

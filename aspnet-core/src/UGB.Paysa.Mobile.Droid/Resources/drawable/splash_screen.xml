@@ -4,6 +4,6 @@
     <bitmap
       android:gravity="center|center|clip_vertical"
       android:scaleType="centerCrop"
-      android:src="@drawable/AppLogo" />
+      android:src="@drawable/ic_logo_pay" />
   </item>
 </layer-list>

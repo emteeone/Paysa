@@ -56,7 +56,7 @@ namespace UGB.Paysa.Services.Account
 
         private async Task GoToLoginPageAsync()
         {
-            await _navigationService.SetDetailPageAsync(typeof(LoginView));
+            await _navigationService.SetMainPage<LoginView>();
         }
 
         private async Task AuthenticateSucceed(AbpAuthenticateResultModel result)
