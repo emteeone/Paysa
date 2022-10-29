@@ -16,7 +16,6 @@ namespace UGB.Paysa.Wallet.Operations
         [Required]
         public virtual string CodeOperation { get; set; }
         public virtual DateTime DateOperation { get; set; }
-
         [Required]
         public virtual double Montant { get; set; }
 

@@ -15,12 +15,15 @@ using UGB.Paysa.MultiTenancy;
 using UGB.Paysa.MultiTenancy.Accounting;
 using UGB.Paysa.MultiTenancy.Payments;
 using UGB.Paysa.Storage;
+using UGB.Paysa.Wallet.Operations;
 
 namespace UGB.Paysa.EntityFrameworkCore
 {
     public class PaysaDbContext : AbpZeroDbContext<Tenant, Role, User, PaysaDbContext>, IAbpPersistedGrantDbContext
     {
-        public virtual DbSet<Terminal> Terminaux { get; set; }
+        public virtual DbSet<Operation> Operations { get; set; }
+        public virtual DbSet<Credit> Credits { get; set; }
+        public virtual DbSet<Debit> Debits { get; set; }
 
         public virtual DbSet<Carte> Cartes { get; set; }
 

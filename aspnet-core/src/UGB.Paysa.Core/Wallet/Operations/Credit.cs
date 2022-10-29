@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UGB.Paysa.Wallet.Operations
 {
-    public class Retrait:Operation
+    public class Credit:Operation
     {
     }
 }
