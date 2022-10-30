@@ -50,7 +50,8 @@ namespace UGB.Paysa.Wallet.Etudiants.Exporting
                         L("Pays"),
                         L("Email"),
                         L("Telephone"),
-                        (L("Chambre")) + L("Reference")
+                        (L("Chambre")) + L("Reference"),
+                        (L("User")) + L("Name")
                         );
 
                     AddObjects(
@@ -70,7 +71,8 @@ namespace UGB.Paysa.Wallet.Etudiants.Exporting
                         _ => _.Etudiant.Pays,
                         _ => _.Etudiant.Email,
                         _ => _.Etudiant.Telephone,
-                        _ => _.ChambreReference
+                        _ => _.ChambreReference,
+                        _ => _.UserName
                         );
 
                     for (var i = 1; i <= etudiants.Count; i++)

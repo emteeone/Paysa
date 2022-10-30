@@ -156,6 +156,12 @@ ViewBag.CurrentPageName = AppPageNames.Common.Etudiants;
                             <input type="text" class="form-control" name="chambreReferenceFilter" id="ChambreReferenceFilterId">
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="UserNameFilterId">(@L("User")) @L("Name")</label>
+                            <input type="text" class="form-control" name="userNameFilter" id="UserNameFilterId">
+                        </div>
+                    </div>
 
                 </div>
                 <div class="row my-4">
@@ -187,6 +193,7 @@ ViewBag.CurrentPageName = AppPageNames.Common.Etudiants;
                                 <th>@L("Email")</th>
                                 <th>@L("Telephone")</th>
                                 <th>@L("ChambreReference")</th>
+                                <th>@L("UserName")</th>
                             </tr>
                         </thead>
                     </table>

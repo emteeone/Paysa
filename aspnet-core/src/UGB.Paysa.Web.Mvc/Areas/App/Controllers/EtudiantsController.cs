@@ -56,6 +56,7 @@ namespace UGB.Paysa.Web.Areas.App.Controllers
             {
                 Etudiant = getEtudiantForEditOutput.Etudiant,
                 ChambreReference = getEtudiantForEditOutput.ChambreReference,
+                UserName = getEtudiantForEditOutput.UserName,
                 EtudiantChambreList = await _etudiantsAppService.GetAllChambreForTableDropdown(),
 
             };
@@ -73,9 +74,25 @@ namespace UGB.Paysa.Web.Areas.App.Controllers
                 ,
                 ChambreReference = getEtudiantForViewDto.ChambreReference
 
+                ,
+                UserName = getEtudiantForViewDto.UserName
+
             };
 
             return PartialView("_ViewEtudiantModal", model);
+        }
+
+        [AbpMvcAuthorize(AppPermissions.Pages_Etudiants_Create, AppPermissions.Pages_Etudiants_Edit)]
+        public PartialViewResult UserLookupTableModal(long? id, string displayName)
+        {
+            var viewModel = new EtudiantUserLookupTableViewModel()
+            {
+                Id = id,
+                DisplayName = displayName,
+                FilterText = ""
+            };
+
+            return PartialView("_EtudiantUserLookupTableModal", viewModel);
         }
 
     }

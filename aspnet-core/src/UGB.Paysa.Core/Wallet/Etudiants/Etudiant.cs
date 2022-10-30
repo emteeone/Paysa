@@ -1,5 +1,6 @@
 ﻿using UGB.Paysa.Wallet.Enum;
 using UGB.Paysa.Wallet.Chambres;
+using UGB.Paysa.Authorization.Users;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -61,6 +62,11 @@ namespace UGB.Paysa.Wallet.Etudiants
 
         [ForeignKey("ChambreId")]
         public Chambre ChambreFk { get; set; }
+
+        public virtual long? UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public User UserFk { get; set; }
 
     }
 }

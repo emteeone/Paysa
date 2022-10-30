@@ -14,13 +14,58 @@
     </NavigationPage.TitleView>
         <ContentPage.Content>
         <StackLayout>
-            <StackLayout
+            <!--<StackLayout
                 HeightRequest="40"
-                BackgroundColor="#708090" />
+                BackgroundColor="{StaticResource HeaderPageBackgroundColor}" />
             <Frame Margin="0,-40,0,0" Padding="0" BackgroundColor="White"
                 CornerRadius="100" 
                 HasShadow="False" 
-                HeightRequest="80" />
+                HeightRequest="80" />-->
+            
+            <Frame Margin="0,-50,0,0" Padding="0,60,0,0" BackgroundColor="{StaticResource HeaderPageBackgroundColor}"
+                CornerRadius="40" 
+                HasShadow="False" 
+                HeightRequest="250" >
+                <StackLayout  HorizontalOptions="Center" VerticalOptions="Start" Orientation="Horizontal" Spacing="20">
+                    <Button Text="{extensions:Translate  Repas}" 
+                            Padding="30,10,30,10"
+                            CornerRadius="18"
+                            TextTransform="None"
+                            TextColor="White"
+                            FontFamily="Montserrat_Medium"
+                            FontSize="16"
+                            BackgroundColor="{Binding IsInMenuRepas, Converter={StaticResource BackgroundColorConverter},ConverterParameter={StaticResource SelectedTabMenuColor}}" 
+                            Command="{Binding ShowMenuRepasCommand}">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsInMenuRepas}" Value="true">
+                                <Setter Property="FontFamily"  Value="Montserrat_SemiBold" />
+                                <Setter Property="BorderColor"  Value="White" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsInMenuRepas}" Value="false">
+                                <Setter Property="FontFamily"  Value="Montserrat_Medium" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="{extensions:Translate  Diner}" 
+                            Padding="30,10,30,10"
+                            CornerRadius="18"
+                            TextTransform="None"
+                            TextColor="White"
+                            FontFamily="Montserrat_Medium"
+                            FontSize="16"
+                            BackgroundColor="{Binding IsInMenuDiner, Converter={StaticResource BackgroundColorConverter},ConverterParameter={StaticResource SelectedTabMenuColor}}" 
+                            Command="{Binding ShowMenuDinerCommand}">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsInMenuDiner}" Value="true">
+                                <Setter Property="FontFamily"  Value="Montserrat_SemiBold" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsInMenuDiner}" Value="false">
+                                <Setter Property="FontFamily"  Value="Montserrat_Medium" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackLayout>
+            </Frame>
             <Label Text="Restauration Info !"
                    FontFamily="Montserrat_Medium"
                    VerticalOptions="CenterAndExpand" 

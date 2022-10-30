@@ -11,6 +11,8 @@ namespace UGB.Paysa.Web.Areas.App.Models.Etudiants
 
         public string ChambreReference { get; set; }
 
+        public string UserName { get; set; }
+
         public List<EtudiantChambreLookupTableDto> EtudiantChambreList { get; set; }
 
         public bool IsEditMode => !Etudiant.Id.IsNullOrWhiteSpace();

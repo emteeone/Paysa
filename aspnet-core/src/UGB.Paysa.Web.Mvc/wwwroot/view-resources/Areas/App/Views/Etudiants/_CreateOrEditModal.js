@@ -10,6 +10,10 @@
             viewUrl: abp.appPath + 'App/Etudiants/ChambreLookupTableModal',
             scriptUrl: abp.appPath + 'view-resources/Areas/App/Views/Etudiants/_EtudiantChambreLookupTableModal.js',
             modalClass: 'ChambreLookupTableModal'
+        });        var _EtudiantuserLookupTableModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'App/Etudiants/UserLookupTableModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/App/Views/Etudiants/_EtudiantUserLookupTableModal.js',
+            modalClass: 'UserLookupTableModal'
         });
 		
 		
@@ -42,6 +46,21 @@
                 _$etudiantInformationForm.find('input[name=chambreId]').val(''); 
         });
 		
+        $('#OpenUserLookupTableButton').click(function () {
+
+            var etudiant = _$etudiantInformationForm.serializeFormToObject();
+
+            _EtudiantuserLookupTableModal.open({ id: etudiant.userId, displayName: etudiant.userName }, function (data) {
+                _$etudiantInformationForm.find('input[name=userName]').val(data.displayName); 
+                _$etudiantInformationForm.find('input[name=userId]').val(data.id); 
+            });
+        });
+		
+		$('#ClearUserNameButton').click(function () {
+                _$etudiantInformationForm.find('input[name=userName]').val(''); 
+                _$etudiantInformationForm.find('input[name=userId]').val(''); 
+        });
+		
 
 
         this.save = function () {
@@ -50,6 +69,10 @@
             }
             if ($('#Etudiant_ChambreId').prop('required') && $('#Etudiant_ChambreId').val() == '') {
                 abp.message.error(app.localize('{0}IsRequired', app.localize('Chambre')));
+                return;
+            }
+            if ($('#Etudiant_UserId').prop('required') && $('#Etudiant_UserId').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('User')));
                 return;
             }
 

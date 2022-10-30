@@ -10,5 +10,7 @@ namespace UGB.Paysa.Wallet.Etudiants.Dtos
 
         public string ChambreReference { get; set; }
 
+        public string UserName { get; set; }
+
     }
 }

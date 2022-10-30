@@ -11,7 +11,7 @@
         <StackLayout>
             <StackLayout
                 HeightRequest="60"
-                BackgroundColor="#708090" />
+                BackgroundColor="{StaticResource HeaderPageBackgroundColor}" />
             <Frame Margin="0,-40,0,0" Padding="0" BackgroundColor="White"
                 CornerRadius="100" 
                 HasShadow="False" 

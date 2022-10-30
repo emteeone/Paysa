@@ -39,5 +39,7 @@ namespace UGB.Paysa.Wallet.Etudiants.Dtos
 
         public string ChambreId { get; set; }
 
+        public long? UserId { get; set; }
+
     }
 }

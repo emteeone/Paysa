@@ -22,6 +22,28 @@
                 @Html.DropDownList("chambreId", new SelectList(Model.EtudiantChambreList,"Id","DisplayName", (Model.IsEditMode ? Model.Etudiant.ChambreId.ToString() : "")),@L("SelectAChambre"), new { @class = "form-control" , @required="required" })
             </div>
 
+            <div class="form-group m-form__group">
+                <label for="UserName">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    </div>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="Etudiant_UserId" value="@Model.Etudiant.UserId" type="text" name="userId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="Etudiant_UserId" value="" type="text" name="userId" hidden />
+            }
+
             <div class="form-group">
                 <label for="Etudiant_INE">@L("INE")</label>
                 <input class="form-control" id="Etudiant_INE" value="@Model.Etudiant.INE" type="text" name="ine" required />

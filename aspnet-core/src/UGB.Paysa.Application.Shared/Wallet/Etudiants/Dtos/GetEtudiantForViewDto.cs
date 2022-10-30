@@ -6,5 +6,7 @@
 
         public string ChambreReference { get; set; }
 
+        public string UserName { get; set; }
+
     }
 }

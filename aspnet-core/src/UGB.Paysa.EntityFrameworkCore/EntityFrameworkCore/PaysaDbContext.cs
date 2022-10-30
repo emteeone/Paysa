@@ -63,10 +63,18 @@ namespace UGB.Paysa.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Terminal>(t =>
+            modelBuilder.Entity<Etudiant>(x =>
             {
-                t.HasIndex(e => new { e.TenantId });
+                x.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Operation>(o =>
+                       {
+                           o.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Terminal>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Carte>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });

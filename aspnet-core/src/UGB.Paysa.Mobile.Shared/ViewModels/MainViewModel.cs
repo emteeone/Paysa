@@ -155,8 +155,11 @@ namespace UGB.Paysa.ViewModels
         private async Task GetUserPhoto(long userId)
         {
             var result = await _profileAppService.GetProfilePictureByUser(userId);
-            _profilePictureBytes = Convert.FromBase64String(result.ProfilePicture);
-            Photo = ImageSource.FromStream(() => new MemoryStream(_profilePictureBytes));
+            if (!String.IsNullOrWhiteSpace(result.ProfilePicture))
+            {
+                _profilePictureBytes = Convert.FromBase64String(result.ProfilePicture);
+                Photo = ImageSource.FromStream(() => new MemoryStream(_profilePictureBytes));
+            }
         }
 
         private void ChangeProfilePhoto()

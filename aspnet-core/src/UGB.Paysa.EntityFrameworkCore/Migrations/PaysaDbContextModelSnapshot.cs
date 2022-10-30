@@ -2195,6 +2195,9 @@ namespace UGB.Paysa.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Ville")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -2204,6 +2207,8 @@ namespace UGB.Paysa.Migrations
                     b.HasIndex("ChambreId");
 
                     b.HasIndex("TenantId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UgbEtudiant");
                 });
@@ -2217,17 +2222,14 @@ namespace UGB.Paysa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CompteId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("DateOperation")
                         .HasColumnType("datetime2");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
@@ -2242,9 +2244,6 @@ namespace UGB.Paysa.Migrations
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
                     b.Property<double>("Montant")
                         .HasColumnType("float");
 
@@ -2253,7 +2252,11 @@ namespace UGB.Paysa.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Operations");
+                    b.HasIndex("CompteId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("UgbOperations");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Operation");
                 });
@@ -2450,12 +2453,16 @@ namespace UGB.Paysa.Migrations
                 {
                     b.HasBaseType("UGB.Paysa.Wallet.Operations.Operation");
 
+                    b.ToTable("UgbOperations");
+
                     b.HasDiscriminator().HasValue("Credit");
                 });
 
             modelBuilder.Entity("UGB.Paysa.Wallet.Operations.Debit", b =>
                 {
                     b.HasBaseType("UGB.Paysa.Wallet.Operations.Operation");
+
+                    b.ToTable("UgbOperations");
 
                     b.HasDiscriminator().HasValue("Debit");
                 });
@@ -2687,7 +2694,22 @@ namespace UGB.Paysa.Migrations
                         .WithMany()
                         .HasForeignKey("ChambreId");
 
+                    b.HasOne("UGB.Paysa.Authorization.Users.User", "UserFk")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("ChambreFk");
+
+                    b.Navigation("UserFk");
+                });
+
+            modelBuilder.Entity("UGB.Paysa.Wallet.Operations.Operation", b =>
+                {
+                    b.HasOne("UGB.Paysa.Wallet.Comptes.Compte", "CompteFk")
+                        .WithMany()
+                        .HasForeignKey("CompteId");
+
+                    b.Navigation("CompteFk");
                 });
 
             modelBuilder.Entity("UGB.Paysa.Wallet.Tools.Carte", b =>

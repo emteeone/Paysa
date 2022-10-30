@@ -75,7 +75,8 @@
 					paysFilter: $('#PaysFilterId').val(),
 					emailFilter: $('#EmailFilterId').val(),
 					telephoneFilter: $('#TelephoneFilterId').val(),
-					chambreReferenceFilter: $('#ChambreReferenceFilterId').val()
+					chambreReferenceFilter: $('#ChambreReferenceFilterId').val(),
+					userNameFilter: $('#UserNameFilterId').val()
                     };
                 }
             },
@@ -235,6 +236,11 @@
 						targets: 17,
 						 data: "chambreReference" ,
 						 name: "chambreFk.reference" 
+					},
+					{
+						targets: 18,
+						 data: "userName" ,
+						 name: "userFk.name" 
 					}
             ]
         });
@@ -296,7 +302,8 @@
 					paysFilter: $('#PaysFilterId').val(),
 					emailFilter: $('#EmailFilterId').val(),
 					telephoneFilter: $('#TelephoneFilterId').val(),
-					chambreReferenceFilter: $('#ChambreReferenceFilterId').val()
+					chambreReferenceFilter: $('#ChambreReferenceFilterId').val(),
+					userNameFilter: $('#UserNameFilterId').val()
 				})
                 .done(function (result) {
                     app.downloadTempFile(result);

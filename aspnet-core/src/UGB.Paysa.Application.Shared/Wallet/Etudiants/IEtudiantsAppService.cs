@@ -24,5 +24,7 @@ namespace UGB.Paysa.Wallet.Etudiants
 
         Task<List<EtudiantChambreLookupTableDto>> GetAllChambreForTableDropdown();
 
+        Task<PagedResultDto<EtudiantUserLookupTableDto>> GetAllUserForLookupTable(GetAllForLookupTableInput input);
+
     }
 }

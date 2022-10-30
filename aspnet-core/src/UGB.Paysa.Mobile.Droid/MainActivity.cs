@@ -23,7 +23,7 @@ namespace UGB.Paysa
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            SetStatusBarColor(new Android.Graphics.Color(112, 128, 144));
+            SetStatusBarColor(new Android.Graphics.Color(33,46,83));
 
             base.Window.RequestFeature(WindowFeatures.ActionBar);
             // Name of the MainActivity theme you had there before.

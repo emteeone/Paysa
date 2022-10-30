@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_Operations = "Pages.Operations";
+        public const string Pages_Operations_Create = "Pages.Operations.Create";
+        public const string Pages_Operations_Edit = "Pages.Operations.Edit";
+        public const string Pages_Operations_Delete = "Pages.Operations.Delete";
+
         public const string Pages_Terminaux = "Pages.Terminaux";
         public const string Pages_Terminaux_Create = "Pages.Terminaux.Create";
         public const string Pages_Terminaux_Edit = "Pages.Terminaux.Edit";
@@ -20,7 +25,7 @@
         public const string Pages_Comptes_Create = "Pages.Comptes.Create";
         public const string Pages_Comptes_Edit = "Pages.Comptes.Edit";
         public const string Pages_Comptes_Delete = "Pages.Comptes.Delete";
-        public const string Pages_Comptes_Solde = "Pages.Comptes.GetSolde";
+        public const string Pages_Comptes_Solde = "Pages.Comptes.Solde";
 
         public const string Pages_Etudiants = "Pages.Etudiants";
         public const string Pages_Etudiants_Create = "Pages.Etudiants.Create";

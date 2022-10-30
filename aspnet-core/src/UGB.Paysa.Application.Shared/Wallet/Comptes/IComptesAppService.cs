@@ -10,6 +10,10 @@ namespace UGB.Paysa.Wallet.Comptes
 {
     public interface IComptesAppService : IApplicationService
     {
+        Task<GetCompteForViewDto> GetCompteBalanceByUserId(EntityDto<long> userId);
+        Task<GetCompteForViewDto> CrediterCompte(EditSoldeCompteDto input);
+        Task<GetCompteForViewDto> Debiter(EditSoldeCompteDto input);
+
         Task<PagedResultDto<GetCompteForViewDto>> GetAll(GetAllComptesInput input);
 
         Task<GetCompteForViewDto> GetCompteForView(string id);

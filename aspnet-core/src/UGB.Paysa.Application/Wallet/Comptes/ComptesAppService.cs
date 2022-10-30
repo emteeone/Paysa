@@ -34,6 +34,65 @@ namespace UGB.Paysa.Wallet.Comptes
             _lookup_etudiantRepository = lookup_etudiantRepository;
 
         }
+        [AbpAuthorize(AppPermissions.Pages_Comptes_Solde)]
+        public async Task<GetCompteForViewDto> GetCompteBalanceByUserId(EntityDto<long> input)
+        {
+            var etudiant = await _lookup_etudiantRepository.GetAll().FirstOrDefaultAsync(e => e.UserId== input.Id);
+            if (etudiant ==null)
+            {
+                throw new UserFriendlyException("Vous n'etes pas un etudiant de l'université");
+            }
+            var compte = await _compteRepository.GetAll().FirstOrDefaultAsync(c => c.EtudiantId == etudiant.Id);
+            if (compte == null)
+            {
+                throw new UserFriendlyException("Vous n'avez pas encore de compte");
+            }
+            var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
+
+            if (output.Compte.EtudiantId != null)
+            {
+                var _lookupEtudiant = await _lookup_etudiantRepository.FirstOrDefaultAsync((string)output.Compte.EtudiantId);
+                output.EtudiantCodeEtudiant = _lookupEtudiant?.CodeEtudiant?.ToString();
+            }
+
+            return output;
+        }
+
+        public async  Task<GetCompteForViewDto> CrediterCompte(EditSoldeCompteDto input)
+        {
+            var compte = await _compteRepository.GetAll().FirstOrDefaultAsync(c => c.NumeroCompte == input.NumeroCompte);
+            //var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
+
+            if (compte == null)
+            {
+                throw new UserFriendlyException("Le Compte n'existe pas");
+            }
+            compte.Solde = compte.Solde + input.Montant;
+
+            var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
+
+            return output;
+        }
+
+        public async Task<GetCompteForViewDto> Debiter(EditSoldeCompteDto input)
+        {
+            var compte = await _compteRepository.GetAll().FirstOrDefaultAsync(c => c.NumeroCompte == input.NumeroCompte);
+            //var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
+
+            if (compte == null)
+            {
+                throw new UserFriendlyException("Le Compte n'existe pas");
+            }
+            if (compte.Solde < input.Montant)
+            {
+                throw new UserFriendlyException("Votre solde insuffissant");
+            }
+            compte.Solde = compte.Solde-input.Montant;
+            
+            var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
+
+            return output;
+        }
 
         public async Task<PagedResultDto<GetCompteForViewDto>> GetAll(GetAllComptesInput input)
         {
@@ -129,6 +188,7 @@ namespace UGB.Paysa.Wallet.Comptes
 
             return output;
         }
+
         [AbpAuthorize(AppPermissions.Pages_Comptes_Solde)]
         public async Task<double> GetCompteBalanceById(EntityDto<string> input)
         {
@@ -236,5 +296,6 @@ namespace UGB.Paysa.Wallet.Comptes
                 }).ToListAsync();
         }
 
+       
     }
 }

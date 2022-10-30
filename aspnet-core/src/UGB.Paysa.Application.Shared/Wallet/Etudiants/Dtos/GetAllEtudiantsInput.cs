@@ -40,5 +40,7 @@ namespace UGB.Paysa.Wallet.Etudiants.Dtos
 
         public string ChambreReferenceFilter { get; set; }
 
+        public string UserNameFilter { get; set; }
+
     }
 }

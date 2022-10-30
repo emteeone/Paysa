@@ -82,7 +82,7 @@ namespace UGB.Paysa.Droid.Renderer
         }
         protected void FocusedBackgroung(FormsEditText control)
         {
-            Android.Graphics.Color originalBackgroundColor = new Android.Graphics.Color(247, 164, 0);
+            Android.Graphics.Color originalBackgroundColor = new Android.Graphics.Color(33, 46, 83);
             if (control == null) return;
 
             var gd = new GradientDrawable();

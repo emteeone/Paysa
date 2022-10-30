@@ -1,4 +1,5 @@
 ﻿using UGB.Paysa.Wallet.Chambres;
+using UGB.Paysa.Authorization.Users;
 
 using UGB.Paysa.Wallet.Enum;
 
@@ -28,12 +29,14 @@ namespace UGB.Paysa.Wallet.Etudiants
         private readonly IRepository<Etudiant, string> _etudiantRepository;
         private readonly IEtudiantsExcelExporter _etudiantsExcelExporter;
         private readonly IRepository<Chambre, string> _lookup_chambreRepository;
+        private readonly IRepository<User, long> _lookup_userRepository;
 
-        public EtudiantsAppService(IRepository<Etudiant, string> etudiantRepository, IEtudiantsExcelExporter etudiantsExcelExporter, IRepository<Chambre, string> lookup_chambreRepository)
+        public EtudiantsAppService(IRepository<Etudiant, string> etudiantRepository, IEtudiantsExcelExporter etudiantsExcelExporter, IRepository<Chambre, string> lookup_chambreRepository, IRepository<User, long> lookup_userRepository)
         {
             _etudiantRepository = etudiantRepository;
             _etudiantsExcelExporter = etudiantsExcelExporter;
             _lookup_chambreRepository = lookup_chambreRepository;
+            _lookup_userRepository = lookup_userRepository;
 
         }
 
@@ -48,6 +51,7 @@ namespace UGB.Paysa.Wallet.Etudiants
 
             var filteredEtudiants = _etudiantRepository.GetAll()
                         .Include(e => e.ChambreFk)
+                        .Include(e => e.UserFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.INE.Contains(input.Filter) || e.CodeEtudiant.Contains(input.Filter) || e.Prenom.Contains(input.Filter) || e.Nom.Contains(input.Filter) || e.LieuDeNaissance.Contains(input.Filter) || e.CIN.Contains(input.Filter) || e.Adresse.Contains(input.Filter) || e.Ville.Contains(input.Filter) || e.Region.Contains(input.Filter) || e.Pays.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.Telephone.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.INEFilter), e => e.INE == input.INEFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CodeEtudiantFilter), e => e.CodeEtudiant == input.CodeEtudiantFilter)
@@ -65,7 +69,8 @@ namespace UGB.Paysa.Wallet.Etudiants
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PaysFilter), e => e.Pays == input.PaysFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.EmailFilter), e => e.Email == input.EmailFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TelephoneFilter), e => e.Telephone == input.TelephoneFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.ChambreReferenceFilter), e => e.ChambreFk != null && e.ChambreFk.Reference == input.ChambreReferenceFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ChambreReferenceFilter), e => e.ChambreFk != null && e.ChambreFk.Reference == input.ChambreReferenceFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.UserFk != null && e.UserFk.Name == input.UserNameFilter);
 
             var pagedAndFilteredEtudiants = filteredEtudiants
                 .OrderBy(input.Sorting ?? "id asc")
@@ -74,6 +79,9 @@ namespace UGB.Paysa.Wallet.Etudiants
             var etudiants = from o in pagedAndFilteredEtudiants
                             join o1 in _lookup_chambreRepository.GetAll() on o.ChambreId equals o1.Id into j1
                             from s1 in j1.DefaultIfEmpty()
+
+                            join o2 in _lookup_userRepository.GetAll() on o.UserId equals o2.Id into j2
+                            from s2 in j2.DefaultIfEmpty()
 
                             select new
                             {
@@ -94,7 +102,8 @@ namespace UGB.Paysa.Wallet.Etudiants
                                 o.Email,
                                 o.Telephone,
                                 Id = o.Id,
-                                ChambreReference = s1 == null || s1.Reference == null ? "" : s1.Reference.ToString()
+                                ChambreReference = s1 == null || s1.Reference == null ? "" : s1.Reference.ToString(),
+                                UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
                             };
 
             var totalCount = await filteredEtudiants.CountAsync();
@@ -126,7 +135,8 @@ namespace UGB.Paysa.Wallet.Etudiants
                         Telephone = o.Telephone,
                         Id = o.Id,
                     },
-                    ChambreReference = o.ChambreReference
+                    ChambreReference = o.ChambreReference,
+                    UserName = o.UserName
                 };
 
                 results.Add(res);
@@ -151,6 +161,12 @@ namespace UGB.Paysa.Wallet.Etudiants
                 output.ChambreReference = _lookupChambre?.Reference?.ToString();
             }
 
+            if (output.Etudiant.UserId != null)
+            {
+                var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.Etudiant.UserId);
+                output.UserName = _lookupUser?.Name?.ToString();
+            }
+
             return output;
         }
 
@@ -165,6 +181,12 @@ namespace UGB.Paysa.Wallet.Etudiants
             {
                 var _lookupChambre = await _lookup_chambreRepository.FirstOrDefaultAsync((string)output.Etudiant.ChambreId);
                 output.ChambreReference = _lookupChambre?.Reference?.ToString();
+            }
+
+            if (output.Etudiant.UserId != null)
+            {
+                var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.Etudiant.UserId);
+                output.UserName = _lookupUser?.Name?.ToString();
             }
 
             return output;
@@ -226,6 +248,7 @@ namespace UGB.Paysa.Wallet.Etudiants
 
             var filteredEtudiants = _etudiantRepository.GetAll()
                         .Include(e => e.ChambreFk)
+                        .Include(e => e.UserFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.INE.Contains(input.Filter) || e.CodeEtudiant.Contains(input.Filter) || e.Prenom.Contains(input.Filter) || e.Nom.Contains(input.Filter) || e.LieuDeNaissance.Contains(input.Filter) || e.CIN.Contains(input.Filter) || e.Adresse.Contains(input.Filter) || e.Ville.Contains(input.Filter) || e.Region.Contains(input.Filter) || e.Pays.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.Telephone.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.INEFilter), e => e.INE == input.INEFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CodeEtudiantFilter), e => e.CodeEtudiant == input.CodeEtudiantFilter)
@@ -243,11 +266,15 @@ namespace UGB.Paysa.Wallet.Etudiants
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PaysFilter), e => e.Pays == input.PaysFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.EmailFilter), e => e.Email == input.EmailFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TelephoneFilter), e => e.Telephone == input.TelephoneFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.ChambreReferenceFilter), e => e.ChambreFk != null && e.ChambreFk.Reference == input.ChambreReferenceFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ChambreReferenceFilter), e => e.ChambreFk != null && e.ChambreFk.Reference == input.ChambreReferenceFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.UserFk != null && e.UserFk.Name == input.UserNameFilter);
 
             var query = (from o in filteredEtudiants
                          join o1 in _lookup_chambreRepository.GetAll() on o.ChambreId equals o1.Id into j1
                          from s1 in j1.DefaultIfEmpty()
+
+                         join o2 in _lookup_userRepository.GetAll() on o.UserId equals o2.Id into j2
+                         from s2 in j2.DefaultIfEmpty()
 
                          select new GetEtudiantForViewDto()
                          {
@@ -270,7 +297,8 @@ namespace UGB.Paysa.Wallet.Etudiants
                                  Telephone = o.Telephone,
                                  Id = o.Id
                              },
-                             ChambreReference = s1 == null || s1.Reference == null ? "" : s1.Reference.ToString()
+                             ChambreReference = s1 == null || s1.Reference == null ? "" : s1.Reference.ToString(),
+                             UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
                          });
 
             var etudiantListDtos = await query.ToListAsync();
@@ -287,6 +315,36 @@ namespace UGB.Paysa.Wallet.Etudiants
                     Id = chambre.Id,
                     DisplayName = chambre == null || chambre.Reference == null ? "" : chambre.Reference.ToString()
                 }).ToListAsync();
+        }
+
+        [AbpAuthorize(AppPermissions.Pages_Etudiants)]
+        public async Task<PagedResultDto<EtudiantUserLookupTableDto>> GetAllUserForLookupTable(GetAllForLookupTableInput input)
+        {
+            var query = _lookup_userRepository.GetAll().WhereIf(
+                   !string.IsNullOrWhiteSpace(input.Filter),
+                  e => e.Name != null && e.Name.Contains(input.Filter)
+               );
+
+            var totalCount = await query.CountAsync();
+
+            var userList = await query
+                .PageBy(input)
+                .ToListAsync();
+
+            var lookupTableDtoList = new List<EtudiantUserLookupTableDto>();
+            foreach (var user in userList)
+            {
+                lookupTableDtoList.Add(new EtudiantUserLookupTableDto
+                {
+                    Id = user.Id,
+                    DisplayName = user.Name?.ToString()
+                });
+            }
+
+            return new PagedResultDto<EtudiantUserLookupTableDto>(
+                totalCount,
+                lookupTableDtoList
+            );
         }
 
     }

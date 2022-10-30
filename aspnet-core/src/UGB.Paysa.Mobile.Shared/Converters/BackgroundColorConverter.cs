@@ -14,7 +14,7 @@ namespace UGB.Paysa.Converters
             }
             else if (value.GetType() == typeof(string) && (string)value == (string)parameter)
             {
-                return Color.FromHex("#708090"); // paysacolor
+                return Color.FromHex("#212E53"); // paysacolor
             }
             else if (value.GetType() == typeof(string))
             {

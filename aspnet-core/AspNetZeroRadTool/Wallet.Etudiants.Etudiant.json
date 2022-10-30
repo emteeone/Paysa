@@ -332,6 +332,17 @@
       "DuplicationNumber": 0,
       "RelationType": "single",
       "ViewType": "Dropdown"
+    },
+    {
+      "Namespace": "UGB.Paysa.Authorization.Users",
+      "ForeignEntityName": "User",
+      "IdType": "long",
+      "IsNullable": true,
+      "PropertyName": "UserId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
     }
   ],
   "NavigationPropertyOneToManyTables": [],

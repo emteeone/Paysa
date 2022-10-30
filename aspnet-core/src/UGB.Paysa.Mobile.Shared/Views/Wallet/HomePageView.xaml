@@ -34,12 +34,14 @@
         <StackLayout>
             <StackLayout
                 HeightRequest="70"
-                BackgroundColor="#708090" />
-            <Frame Margin="0,-40,0,0" Padding="0" BackgroundColor="White"
-                CornerRadius="100" 
+                BackgroundColor="{StaticResource HeaderPageBackgroundColor}" />
+            <Frame Margin="0,-40,0,-40" Padding="0" BackgroundColor="White"
+                CornerRadius="150" 
                 HasShadow="False" 
-                HeightRequest="80" />
-            <ScrollView Margin="0,-54,0,0" VerticalScrollBarVisibility="Never">
+                HeightRequest="120" />
+            <StackLayout Margin="0,0,0,0">
+
+                <ScrollView  VerticalScrollBarVisibility="Never">
                 <StackLayout Margin="18,0,18,20" VerticalOptions="FillAndExpand">
                     <controls:CardView  HasShadow="False" 
                                         HeightRequest="200" 
@@ -67,8 +69,8 @@
                                        FontSize="Medium"
                                        TextColor="{StaticResource LightTextColor}"
                                        HorizontalOptions="CenterAndExpand"
-                                       FontFamily="Montserrat_SemiBold"/>   
-                                <Label  Text="$200 000"
+                                       FontFamily="Montserrat_SemiBold"/>
+                                <Label  Text="{Binding Balance, StringFormat='{} {0:C0}'}"
                                     HorizontalOptions="CenterAndExpand"
                                     VerticalOptions="Center"
                                     TextColor="White"
@@ -80,8 +82,8 @@
                                          Orientation="Horizontal" 
                                          VerticalOptions="CenterAndExpand"
                                          HorizontalOptions="FillAndExpand">
-                                <Label Text="El Hadj Mbaye"
-                                       FontSize="Medium"
+                                <Label Text="{Binding UserNameAndSurname}"
+                                       FontSize="18"
                                    TextColor="White"
                                        
                                        FontFamily="Montserrat_Regular"
@@ -187,101 +189,70 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <StackLayout Margin="0,2,0,20" 
+                    <StackLayout Margin="0,5,0,20" 
                                  Orientation="Vertical" 
-                                 Padding="5"
+                                 Padding="0"
                                  Spacing="10"
-                                 VerticalOptions="FillAndExpand">
-                        <Frame BackgroundColor="AliceBlue" 
-                               HasShadow="True" 
-                               HeightRequest="55"
-                               CornerRadius="8">
-                            <Grid  Padding="0" ColumnSpacing="8" Margin="0,10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="80"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Grid.Row="0"></Image>
-                                <StackLayout Grid.Column="1" 
-                                             HorizontalOptions="FillAndExpand">
-                                    <Label Text="{extensions:Translate PaiementChambre}"
-                                           FontFamily="Montserrat_Medium"
-                                           FontSize="14"/>
-                                    <Label />
-                                </StackLayout>
-                                <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
-                                    <Label Text="$200"
-                                           FontFamily="Montserrat_SemiBold"
-                                           HorizontalTextAlignment="End" />
-                                </StackLayout>
-                            </Grid>
-                        </Frame>
-                        <Frame BackgroundColor="AliceBlue" 
-                               HasShadow="False" 
-                               HeightRequest="55"
-                               CornerRadius="8">
-                            <Grid  Padding="0" ColumnSpacing="8" Margin="8">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="80"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Grid.Row="0"></Image>
-                                <StackLayout Grid.Column="1" 
-                                             HorizontalOptions="FillAndExpand">
-                                    <Label Text="{extensions:Translate PaiementChambre}"
-                                           FontFamily="Montserrat_Medium"
-                                           FontSize="14"/>
-                                    <Label />
-                                </StackLayout>
-                                <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
-                                    <Label Text="$200"
-                                           FontFamily="Montserrat_SemiBold"
-                                           HorizontalTextAlignment="End" />
-                                </StackLayout>
-                            </Grid>
-                
-                        </Frame>
-                        <Frame BackgroundColor="AliceBlue" 
-                               HasShadow="False" 
-                               HeightRequest="55"
-                               CornerRadius="8">
-                            <Grid  Padding="0" ColumnSpacing="8" Margin="8">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="80"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Grid.Row="0"></Image>
-                                <StackLayout Grid.Column="1" 
-                                             HorizontalOptions="FillAndExpand">
-                                    <Label Text="{extensions:Translate PaiementChambre}"
-                                           FontFamily="Montserrat_Medium"
-                                           FontSize="14"/>
-                                    <Label />
-                                </StackLayout>
-                                <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
-                                    <Label Text="$200"
-                                           FontFamily="Montserrat_SemiBold"
-                                           HorizontalTextAlignment="End" />
-                                </StackLayout>
-                            </Grid>
+                                 VerticalOptions="Start">
 
-                        </Frame>
+                        <ListView 
+                            SeparatorVisibility="None"
+                            HasUnevenRows="True"
+                            SelectionMode="None"
+                            HeightRequest="{Binding OperationListHeight}"
+                            ItemsSource="{Binding RecentOperations}"
+                            VerticalOptions="EndAndExpand"
+                            x:Name="RecentOperations"
+                            VerticalScrollBarVisibility="Never"
+                            IsVisible="{Binding NoRecentOperationsFound,Converter={StaticResource InverseBooleanConverter}}"
+                            CachingStrategy="RetainElement">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Frame BackgroundColor="AliceBlue" 
+                                            HasShadow="False" 
+                                            HeightRequest="55"
+                                            Margin="0,2"
+                                            CornerRadius="18">    
+                                            <Grid  Padding="0" ColumnSpacing="8" Margin="0,10">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="55"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="5*"/>
+                                                    <ColumnDefinition Width="3*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Grid.Column="0" Grid.Row="0"></Image>
+                                                <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
+                                                    <Label Text="{extensions:Translate PaiementChambre}"
+                                                       FontFamily="Montserrat_Medium"
+                                                       FontSize="14"/>
+                                                    <Label Text="{Binding Operation.DateOperation}"
+                                                        TextColor="{StaticResource LightTextColor}"
+                                                        FontFamily="Montserrat_Medium"
+                                                        FontSize="12" />
+                                                </StackLayout>
+                                                <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
+                                                        <Label Text="{Binding  Operation.Montant,StringFormat='{} {0:C0}'}"
+                                                               FontSize="14"
+                                                               FontFamily="Montserrat_SemiBold"
+                                                               HorizontalTextAlignment="End" />
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        
                     </StackLayout>
 
                 </StackLayout>
             </ScrollView>
+                
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
     <ContentPage.Behaviors>

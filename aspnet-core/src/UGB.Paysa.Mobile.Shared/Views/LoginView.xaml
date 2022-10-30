@@ -23,7 +23,8 @@
 
     <ContentPage.Content>
         <ScrollView VerticalOptions="FillAndExpand" >
-            <Grid
+            <Grid VerticalOptions="FillAndExpand"
+                  Margin="18"
                   RowSpacing="0"
                   ColumnSpacing="0">
 
@@ -31,8 +32,7 @@
                     <RowDefinition Height="0.10*"/>
                     <RowDefinition Height="150"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="0.20*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -43,8 +43,76 @@
                     Aspect="AspectFit"
                     Source="ic_logo_pay">
                 </Image>
+                <StackLayout Grid.Row="3"   
+                    Grid.Column="0" VerticalOptions="FillAndExpand" Spacing="0">
 
-                <Frame Grid.Row="2" 
+                    <Label Text="{extensions:Translate UserNameOrEmail}" 
+                               FontSize="16"
+                               FontFamily="Montserrat_Medium"
+                                Margin="0,10,0,5"/>
+                    <controls:MyEntry Text="{Binding UserName, Mode=TwoWay}" 
+                            FontFamily="Montserrat_Medium"
+                            BorderColor="#E0E0E7"
+                            FontSize="16"
+                            BorderThickness="1"
+                            HeightRequest="50"
+                            Padding="13"
+                            CornerRadius="8"
+                            Keyboard="{StaticResource NoCapitalizationKeyboard}"
+                            x:Name="UsernameEntry"/>
+
+                    <Label Text="{extensions:Translate Password}" 
+                               FontFamily="Montserrat_Medium"
+                               Margin="0,10,0,5"/>
+                    <controls:MyEntry IsPassword="True" 
+                            Text="{Binding Password, Mode=TwoWay}" 
+                            FontSize="16"
+                            BorderColor="#E0E0E7"
+                            BorderThickness="1"
+                            HeightRequest="50"
+                            Padding="13"
+                            CornerRadius="8"
+                            FontFamily="Montserrat_Medium"
+                            Keyboard="{StaticResource NoCapitalizationKeyboard}"
+                            x:Name="PasswordEntry"/>
+
+                    <Button Text="{extensions:Translate LogIn}" 
+                                FontFamily="Montserrat_SemiBold"
+                                Command="{Binding LoginUserCommand}" 
+                                Margin="0,25,0,0"
+                                CornerRadius="8"
+                                IsEnabled="{Binding IsLoginEnabled}"
+                                x:Name="LoginButton"/>
+
+                    <Label Text="{extensions:Translate ForgotPassword}" 
+                                FontFamily="Montserrat_Medium"
+                               HorizontalOptions="StartAndExpand" 
+                               TextColor="{StaticResource PrimaryColor}"
+                               Margin="0,20,0,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!--<Label Text="{extensions:Translate EmailActivation}" 
+                                FontFamily="Montserrat_Medium"
+                               HorizontalOptions="StartAndExpand" 
+                               TextColor="{StaticResource PrimaryColor}"
+                               Margin="0,10,0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding EmailActivationCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>-->
+
+                    <Picker Title="{extensions:Translate Languages}" 
+                                Margin="0,10,0,0"
+                                FontFamily="Montserrat_Medium"
+                                ItemsSource="{Binding Languages}" 
+                                ItemDisplayBinding="{Binding DisplayName}"
+                                SelectedItem="{Binding SelectedLanguage}"/>
+
+                </StackLayout>
+                <!--<Frame Grid.Row="2" 
                    Grid.Column="0" 
                    IsVisible="{Binding IsMultiTenancyEnabled}"
                    Style="{StaticResource RoundedFrame}">
@@ -71,80 +139,8 @@
 
                     </Grid>
 
-                </Frame>
+                </Frame>-->
 
-                <Frame  Grid.Row="3" HasShadow="False"
-                    Grid.Column="0" VerticalOptions="FillAndExpand">
-
-                    <StackLayout VerticalOptions="FillAndExpand" Spacing="0">
-
-                        <Label Text="{extensions:Translate UserNameOrEmail}" 
-                               FontSize="16"
-                               FontFamily="Montserrat_Medium"
-                                Margin="0,10,0,5"/>
-                        <controls:MyEntry Text="{Binding UserName, Mode=TwoWay}" 
-                            FontFamily="Montserrat_Medium"
-                            BorderColor="#E0E0E7"
-                            FontSize="16"
-                            BorderThickness="1"
-                            HeightRequest="50"
-                            Padding="13"
-                            CornerRadius="8"
-                            Keyboard="{StaticResource NoCapitalizationKeyboard}"
-                            x:Name="UsernameEntry"/>
-
-                        <Label Text="{extensions:Translate Password}" 
-                               FontFamily="Montserrat_Medium"
-                               Margin="0,10,0,5"/>
-                        <controls:MyEntry IsPassword="True" 
-                            Text="{Binding Password, Mode=TwoWay}" 
-                            FontSize="16"
-                            BorderColor="#E0E0E7"
-                            BorderThickness="1"
-                            HeightRequest="50"
-                            Padding="13"
-                            CornerRadius="8"
-                            FontFamily="Montserrat_Medium"
-                            Keyboard="{StaticResource NoCapitalizationKeyboard}"
-                            x:Name="PasswordEntry"/>
-
-                        <Button Text="{extensions:Translate LogIn}" 
-                                FontFamily="Montserrat_SemiBold"
-                                Command="{Binding LoginUserCommand}" 
-                                Margin="0,25,0,0"
-                                CornerRadius="8"
-                                IsEnabled="{Binding IsLoginEnabled}"
-                                x:Name="LoginButton"/>
-
-                        <Label Text="{extensions:Translate ForgotPassword}" 
-                                FontFamily="Montserrat_Medium"
-                               HorizontalOptions="StartAndExpand" 
-                               TextColor="{StaticResource PrimaryColor}"
-                               Margin="0,20,0,0">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-
-                        <!--<Label Text="{extensions:Translate EmailActivation}" 
-                                FontFamily="Montserrat_Medium"
-                               HorizontalOptions="StartAndExpand" 
-                               TextColor="{StaticResource PrimaryColor}"
-                               Margin="0,10,0,0">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding EmailActivationCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>-->
-
-                        <Picker Title="{extensions:Translate Languages}" 
-                                Margin="0,10,0,0"
-                                FontFamily="Montserrat_Medium"
-                                ItemsSource="{Binding Languages}" 
-                                ItemDisplayBinding="{Binding DisplayName}"
-                                SelectedItem="{Binding SelectedLanguage}"/>
-
-                    </StackLayout>
-                </Frame>
 
             </Grid>
         </ScrollView>

@@ -1,6 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>
+  <texts>    <text name="PickUser">Pick user</text>
+    <text name="Operations">Operations</text>
+    <text name="Operation">Operation</text>
+    <text name="UGB.Paysa.Operations.Operation">Operation</text>
+    <text name="CodeOperation">Code operation</text>
+    <text name="DateOperation">Date operation</text>
+    <text name="Montant">Montant</text>
+    <text name="Discriminator">Discriminator</text>
+    <text name="IsDeleted">Is deleted</text>
+    <text name="NotIsDeleted">Not is deleted</text>
+    <text name="DeletionTime">Deletion time</text>
+    <text name="OperationsHeaderInfo">Operations header info</text>
+    <text name="CreateNewOperation">Create new operation</text>
+    <text name="EditOperation">Edit operation</text>
+    <text name="DeleteOperation">Delete operation</text>
+    <text name="DateOperationRange">Date operation range</text>
+    <text name="CreationTimeRange">Creation time range</text>
+    <text name="LastModificationTimeRange">Last modification time range</text>
+    <text name="DeletionTimeRange">Deletion time range</text>
+
 
     <text name="RecentOperations">Recent Operations</text>
     <text name="SeeAll">See All</text>
