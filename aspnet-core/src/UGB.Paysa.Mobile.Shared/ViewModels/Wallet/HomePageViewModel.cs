@@ -30,6 +30,7 @@ namespace UGB.Paysa.ViewModels.Wallet
     public class HomePageViewModel : XamarinViewModel
     {
         public ICommand PageAppearingCommand    => HttpRequestCommand.Create(PageAppearing);
+        public ICommand CachedSoldeCommand      => AsyncCommand.Create(CachedSoldeAsync);
         public ICommand RestaurationViewCommand => HttpRequestCommand.Create(GoToRestaurationPageAsync);
         public ICommand TransportViewCommand    => HttpRequestCommand.Create(GoToTransportPageAsync);
         public ICommand ConsultationViewCommand => HttpRequestCommand.Create(GoToConsultationPageAsync);
@@ -106,6 +107,17 @@ namespace UGB.Paysa.ViewModels.Wallet
             {
                 _nOperationsFound = value;
                 RaisePropertyChanged(() => NoOperationsFound);
+            }
+        }
+
+        public bool _isVisibleSolde;
+        public bool IsVisibleSolde
+        {
+            get => _isVisibleSolde;
+            set
+            {
+                _isVisibleSolde = value;
+                RaisePropertyChanged(() => IsVisibleSolde);
             }
         }
 
@@ -205,6 +217,10 @@ namespace UGB.Paysa.ViewModels.Wallet
         private void CheckNoOperationsFound()
         {
             NoOperationsFound = RecentOperations.Count == 0;
+        }
+        private async Task CachedSoldeAsync()
+        {
+            IsVisibleSolde = !IsVisibleSolde;
         }
         private async Task GetUserPhoto(long userId)
         {

@@ -70,12 +70,35 @@
                                        TextColor="{StaticResource LightTextColor}"
                                        HorizontalOptions="CenterAndExpand"
                                        FontFamily="Montserrat_SemiBold"/>
-                                <Label  Text="{Binding Balance, StringFormat='{} {0:C0}'}"
-                                    HorizontalOptions="CenterAndExpand"
-                                    VerticalOptions="Center"
-                                    TextColor="White"
-                                    FontFamily="Montserrat_Medium"
-                                    FontSize="34"/> 
+                                    <Frame Padding="0" BackgroundColor="Transparent">
+                                        <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="CenterAndExpand">
+                                            <StackLayout Orientation="Horizontal" Margin="0,8,0,0" Spacing="20"
+                                                         IsVisible="{Binding IsVisibleSolde,Converter={StaticResource InverseBooleanConverter}}">
+                                                <Label  
+                                                    Text="{Binding Balance, StringFormat='{} {0:C0}'}"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    VerticalOptions="Center"
+                                                    TextColor="White"
+                                                    FontFamily="Montserrat_Medium"
+                                                    FontSize="26"/>
+                                                <Image Source="eye_down" WidthRequest="25"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsVisibleSolde}" Spacing="20">
+                                                <Label  Text="********"
+                                                    Margin="0,8,0,0"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    VerticalOptions="Center"
+                                                    TextColor="White"
+                                                    FontFamily="Montserrat_Medium"
+                                                    FontSize="35"/>
+                                                <Image Margin="0" Source="eye_up" WidthRequest="25"/>
+                                            </StackLayout>
+                                           
+                                        </StackLayout>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding CachedSoldeCommand}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
                             </StackLayout>
                             
                             <StackLayout Grid.ColumnSpan="3" Grid.Row="2" 
