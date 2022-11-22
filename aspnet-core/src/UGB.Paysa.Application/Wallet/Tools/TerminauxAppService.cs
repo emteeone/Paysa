@@ -4,7 +4,6 @@ using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Abp.Domain.Repositories;
 using UGB.Paysa.Wallet.Tools.Exporting;
 using UGB.Paysa.Wallet.Tools.Dtos;
 using UGB.Paysa.Dto;
@@ -15,6 +14,7 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using UGB.Paysa.Storage;
+using Abp.Domain.Repositories;
 
 namespace UGB.Paysa.Wallet.Tools
 {
@@ -28,7 +28,6 @@ namespace UGB.Paysa.Wallet.Tools
         {
             _terminalRepository = terminalRepository;
             _terminauxExcelExporter = terminauxExcelExporter;
-
         }
 
         public async Task<PagedResultDto<GetTerminalForViewDto>> GetAll(GetAllTerminauxInput input)

@@ -4,5 +4,5 @@
     var theme = await GetTheme();
 }
 
-<img alt="Logo" src="@Model.GetLogoUrl(ApplicationPath, theme.IsTopMenuUsed || theme.IsTabMenuUsed ? theme.BaseSettings.Header.HeaderSkin : theme.BaseSettings.Menu.AsideSkin)" height="38"
+<img alt="Logo" src="@Model.GetLogoUrl(ApplicationPath, theme.IsTopMenuUsed || theme.IsTabMenuUsed ? theme.BaseSettings.Header.HeaderSkin : theme.BaseSettings.Menu.AsideSkin)" height="85"
      class="@(string.IsNullOrEmpty(Model.LogoClassOverride) ? "header-brand-logo-default" : Model.LogoClassOverride)"/>

@@ -33,7 +33,7 @@
     @await RenderSectionAsync("Scripts", false)
 }
 
-<div id="kt_header_mobile" class="header-mobile align-items-center  header-mobile-fixed ">
+<div id="kt_header_mobile" class="header-mobile align-items-center  header-mobile-fixed">
     <a href="@Url.Action("Index", "Home", new {area = string.Empty})">
         @await Component.InvokeAsync(typeof(AppLogoViewComponent))
     </a>

@@ -248,9 +248,9 @@
                                                 </Grid.ColumnDefinitions>
                                                 <Image Grid.Column="0" Grid.Row="0"></Image>
                                                 <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
-                                                    <Label Text="{extensions:Translate PaiementChambre}"
+                                                    <!--<Label Text="{extensions:Translate PaiementChambre}"
                                                        FontFamily="Montserrat_Medium"
-                                                       FontSize="14"/>
+                                                       FontSize="14"/>-->
                                                     <Label Text="{Binding Operation.DateOperation}"
                                                         TextColor="{StaticResource LightTextColor}"
                                                         FontFamily="Montserrat_Medium"

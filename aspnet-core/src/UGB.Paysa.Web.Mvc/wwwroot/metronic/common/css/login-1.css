@@ -36,10 +36,10 @@
 @media (min-width: 992px) {
   .login.login-1 .login-aside {
     width: 100%;
-    max-width: 600px; }
+    max-width: 50%; }
   .login.login-1 .login-content {
     width: 100%;
-    max-width: 500px; }
+    max-width: 50%; }
     .login.login-1 .login-content .login-form {
       width: 100%;
       max-width: 450px; } }
@@ -47,7 +47,7 @@
 @media (min-width: 992px) and (max-width: 1399.98px) {
   .login.login-1 .login-aside {
     width: 100%;
-    max-width: 450px; } }
+    max-width: 50%; } }
 
 @media (max-width: 991.98px) {
   .login.login-1 .login-content .login-form {

@@ -32,6 +32,7 @@ namespace UGB.Paysa.EntityFrameworkCore
         public virtual DbSet<Etudiant> Etudiants { get; set; }
 
         public virtual DbSet<Chambre> Chambres { get; set; }
+        public virtual DbSet<Terminal> Terminaux { get; set; }
 
         /* Define an IDbSet for each entity of the application */
 
