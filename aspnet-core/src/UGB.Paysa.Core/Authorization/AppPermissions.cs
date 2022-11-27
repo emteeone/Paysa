@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_TypeOperations = "Pages.TypeOperations";
+        public const string Pages_TypeOperations_Create = "Pages.TypeOperations.Create";
+        public const string Pages_TypeOperations_Edit = "Pages.TypeOperations.Edit";
+        public const string Pages_TypeOperations_Delete = "Pages.TypeOperations.Delete";
+
         public const string Pages_Operations = "Pages.Operations";
         public const string Pages_Operations_Create = "Pages.Operations.Create";
         public const string Pages_Operations_Edit = "Pages.Operations.Edit";

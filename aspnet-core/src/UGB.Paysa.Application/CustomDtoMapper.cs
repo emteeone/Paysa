@@ -58,6 +58,8 @@ namespace UGB.Paysa
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditTypeOperationDto, TypeOperation>().ReverseMap();
+            configuration.CreateMap<TypeOperationDto, TypeOperation>().ReverseMap();
             configuration.CreateMap<CreateOrEditOperationDto, Operation>().ReverseMap();
             configuration.CreateMap<OperationDto, Operation>().ReverseMap();
             configuration.CreateMap<CreateOrEditTerminalDto, Terminal>().ReverseMap();

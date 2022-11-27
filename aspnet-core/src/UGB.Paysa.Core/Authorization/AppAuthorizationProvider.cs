@@ -30,6 +30,11 @@ namespace UGB.Paysa.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var typeOperations = pages.CreateChildPermission(AppPermissions.Pages_TypeOperations, L("TypeOperations"));
+            typeOperations.CreateChildPermission(AppPermissions.Pages_TypeOperations_Create, L("CreateNewTypeOperation"));
+            typeOperations.CreateChildPermission(AppPermissions.Pages_TypeOperations_Edit, L("EditTypeOperation"));
+            typeOperations.CreateChildPermission(AppPermissions.Pages_TypeOperations_Delete, L("DeleteTypeOperation"));
+
             var operations = pages.CreateChildPermission(AppPermissions.Pages_Operations, L("Operations"));
             operations.CreateChildPermission(AppPermissions.Pages_Operations_Create, L("CreateNewOperation"));
             operations.CreateChildPermission(AppPermissions.Pages_Operations_Edit, L("EditOperation"));

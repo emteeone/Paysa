@@ -4,6 +4,7 @@
     {
         public static class Common
         {
+            public const string TypeOperations = "Operations.TypeOperations";
             public const string Tools = "Tools";
             public const string Transactions = "Operations";
             public const string Operations = "Operations.Operations";

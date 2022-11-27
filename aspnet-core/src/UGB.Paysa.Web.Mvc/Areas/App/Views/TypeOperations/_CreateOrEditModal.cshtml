@@ -1,0 +1,37 @@
+﻿
+@using System.Globalization
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.TypeOperations
+@model CreateOrEditTypeOperationModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTypeOperation")) : L("CreateNewTypeOperation")))
+
+<div class="modal-body">
+    <div id="TypeOperationInformationsTab">
+        <form name="TypeOperationInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.TypeOperation.Id" />
+            }
+
+            <div class="form-group">
+                <label for="TypeOperation_Reference">@L("Reference")</label>
+                <input class="form-control" id="TypeOperation_Reference" value="@Model.TypeOperation.Reference" type="text" name="reference" required />
+            </div>
+
+            <div class="form-group">
+                <label for="TypeOperation_Nom">@L("Nom")</label>
+                <input class="form-control" id="TypeOperation_Nom" value="@Model.TypeOperation.Nom" type="text" name="nom" />
+            </div>
+
+            <div class="form-group">
+                <label for="TypeOperation_Prix">@L("Prix")</label>
+                <input class="form-control m-input" id="TypeOperation_Prix" value="@Model.TypeOperation.Prix.ToString(CultureInfo.InvariantCulture)" type="number" name="prix" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

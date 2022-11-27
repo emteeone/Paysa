@@ -1,0 +1,30 @@
+﻿
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.TypeOperations
+@model TypeOperationViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="TypeOperationInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Reference") :</h6>
+                @Model.TypeOperation.Reference
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Nom") :</h6>
+                @Model.TypeOperation.Nom
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Prix") :</h6>
+                @Model.TypeOperation.Prix
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

@@ -21,6 +21,8 @@ namespace UGB.Paysa.EntityFrameworkCore
 {
     public class PaysaDbContext : AbpZeroDbContext<Tenant, Role, User, PaysaDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<TypeOperation> TypeOperations { get; set; }
+
         public virtual DbSet<Operation> Operations { get; set; }
         public virtual DbSet<Credit> Credits { get; set; }
         public virtual DbSet<Debit> Debits { get; set; }
@@ -64,10 +66,14 @@ namespace UGB.Paysa.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Etudiant>(x =>
+            modelBuilder.Entity<TypeOperation>(t =>
             {
-                x.HasIndex(e => new { e.TenantId });
+                t.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Etudiant>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Operation>(o =>
                        {
                            o.HasIndex(e => new { e.TenantId });

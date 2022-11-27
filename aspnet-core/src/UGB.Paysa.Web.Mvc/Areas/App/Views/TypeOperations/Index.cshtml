@@ -1,0 +1,94 @@
+﻿@using UGB.Paysa.Authorization
+@using UGB.Paysa.Web.Areas.App.Models.TypeOperations
+@using UGB.Paysa.Web.Areas.App.Startup
+@model TypeOperationsViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.TypeOperations;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/TypeOperations/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("TypeOperations")' description='@L("TypeOperationsHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_TypeOperations_Create))
+        {
+        <button id="CreateNewTypeOperationButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewTypeOperation")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="form-group align-items-center">
+                                <div class="input-group">
+                                    <input type="text" id="TypeOperationsTableFilter" class="form-control m-input" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <span class="input-group-btn">
+                                        <button id="GetTypeOperationsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="separator separator-dashed"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="ReferenceFilterId">@L("Reference")</label>
+                            <input type="text" class="form-control" name="referenceFilter" id="ReferenceFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="NomFilterId">@L("Nom")</label>
+                            <input type="text" class="form-control" name="nomFilter" id="NomFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MinPrixFilterId">@L("MinMax") @L("Prix")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minPrixFilter" id="MinPrixFilterId" />
+                                <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxPrixFilter" id="MaxPrixFilterId" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="TypeOperationsTable" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("Reference")</th>
+                                <th>@L("Nom")</th>
+                                <th>@L("Prix")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

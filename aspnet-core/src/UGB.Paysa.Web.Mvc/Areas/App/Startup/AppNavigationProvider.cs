@@ -21,6 +21,14 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                         icon: "flaticon-line-graph",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
+                )
+                .AddItem(new MenuItemDefinition(
+                        AppPageNames.Common.TypeOperations,
+                        L("TypeOperations"),
+                        url: "App/TypeOperations",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TypeOperations)
+                    )
                 ).AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Transactions,
                         L("Transactions"),
@@ -127,70 +135,70 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Languages)
                         )
                     )
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppPageNames.Common.AuditLogs,
-                    //        L("AuditLogs"),
-                    //        url: "App/AuditLogs",
-                    //        icon: "flaticon-folder-1",
-                    //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_AuditLogs)
-                    //    )
-                    //)
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppPageNames.Host.Maintenance,
-                    //        L("Maintenance"),
-                    //        url: "App/Maintenance",
-                    //        icon: "flaticon-lock",
-                    //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Maintenance)
-                    //    )
-                    //)
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppPageNames.Tenant.SubscriptionManagement,
-                    //        L("Subscription"),
-                    //        url: "App/SubscriptionManagement",
-                    //        icon: "flaticon-refresh",
-                    //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Tenant_SubscriptionManagement)
-                    //    )
-                    //)
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppPageNames.Common.UiCustomization,
-                    //        L("VisualSettings"),
-                    //        url: "App/UiCustomization",
-                    //        icon: "flaticon-medical",
-                    //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_UiCustomization)
-                    //    )
-                    //)
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppPageNames.Common.WebhookSubscriptions,
-                    //        L("WebhookSubscriptions"),
-                    //        url: "App/WebhookSubscription",
-                    //        icon: "flaticon2-world",
-                    //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_WebhookSubscription)
-                    //    )
-                    //)
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppPageNames.Common.DynamicProperties,
-                    //        L("DynamicProperties"),
-                    //        url: "App/DynamicProperty",
-                    //        icon: "flaticon-interface-8",
-                    //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_DynamicProperties)
-                    //    )
-                    //)
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppPageNames.Host.Settings,
-                    //        L("Settings"),
-                    //        url: "App/HostSettings",
-                    //        icon: "flaticon-settings",
-                    //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Settings)
-                    //    )
-                    //)
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppPageNames.Tenant.Settings,
-                    //        L("Settings"),
-                    //        url: "App/Settings",
-                    //        icon: "flaticon-settings",
-                    //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Tenant_Settings)
-                    //    )
-                    //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Common.AuditLogs,
+                //        L("AuditLogs"),
+                //        url: "App/AuditLogs",
+                //        icon: "flaticon-folder-1",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_AuditLogs)
+                //    )
+                //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Host.Maintenance,
+                //        L("Maintenance"),
+                //        url: "App/Maintenance",
+                //        icon: "flaticon-lock",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Maintenance)
+                //    )
+                //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Tenant.SubscriptionManagement,
+                //        L("Subscription"),
+                //        url: "App/SubscriptionManagement",
+                //        icon: "flaticon-refresh",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Tenant_SubscriptionManagement)
+                //    )
+                //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Common.UiCustomization,
+                //        L("VisualSettings"),
+                //        url: "App/UiCustomization",
+                //        icon: "flaticon-medical",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_UiCustomization)
+                //    )
+                //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Common.WebhookSubscriptions,
+                //        L("WebhookSubscriptions"),
+                //        url: "App/WebhookSubscription",
+                //        icon: "flaticon2-world",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_WebhookSubscription)
+                //    )
+                //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Common.DynamicProperties,
+                //        L("DynamicProperties"),
+                //        url: "App/DynamicProperty",
+                //        icon: "flaticon-interface-8",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_DynamicProperties)
+                //    )
+                //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Host.Settings,
+                //        L("Settings"),
+                //        url: "App/HostSettings",
+                //        icon: "flaticon-settings",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Settings)
+                //    )
+                //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Tenant.Settings,
+                //        L("Settings"),
+                //        url: "App/Settings",
+                //        icon: "flaticon-settings",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Tenant_Settings)
+                //    )
+                //)
                 )
                 //.AddItem(new MenuItemDefinition(
                 //        AppPageNames.Common.DemoUiComponents,

@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="PickUser">Pick user</text>
+  <texts>    <text name="TypeOperation">Type operation</text>
+    <text name="UGB.Paysa.Operations.TypeOperation">TypeOperation</text>
+    <text name="Prix">Prix</text>
+    <text name="TypeOperationsHeaderInfo">Type operations header info</text>
+    <text name="CreateNewTypeOperation">Create new type operation</text>
+    <text name="EditTypeOperation">Edit type operation</text>
+    <text name="DeleteTypeOperation">Delete type operation</text>
+    <text name="TypeOperations">Type operations</text>
+    <text name="PickUser">Pick user</text>
     <text name="Operations">Operations</text>
     <text name="Operation">Operation</text>
     <text name="UGB.Paysa.Operations.Operation">Operation</text>
