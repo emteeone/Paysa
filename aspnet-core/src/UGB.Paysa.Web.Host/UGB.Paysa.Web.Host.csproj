@@ -9,7 +9,7 @@
         <AssemblyName>UGB.Paysa.Web.Host</AssemblyName>
         <OutputType>Exe</OutputType>
         <PackageId>UGB.Paysa.Web.Host</PackageId>
-        <UserSecretsId>UGB-Paysa-894FDFC1-6482-4A56-926A-3C46C9FE0329</UserSecretsId>
+        <UserSecretsId>     </UserSecretsId>
         <RootNamespace>UGB.Paysa.Web</RootNamespace>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
