@@ -10,5 +10,7 @@ namespace UGB.Paysa.Wallet.Operations.Dtos
 
         public string CompteNumeroCompte { get; set; }
 
+        public string TypeOperationNom { get; set; }
+
     }
 }

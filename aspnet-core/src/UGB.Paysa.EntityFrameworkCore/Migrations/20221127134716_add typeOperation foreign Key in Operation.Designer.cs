@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UGB.Paysa.EntityFrameworkCore;
 
 namespace UGB.Paysa.Migrations
 {
     [DbContext(typeof(PaysaDbContext))]
-    partial class PaysaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221127134716_add typeOperation foreign Key in Operation")]
+    partial class addtypeOperationforeignKeyinOperation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2225,12 +2227,24 @@ namespace UGB.Paysa.Migrations
                     b.Property<string>("CompteId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateOperation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("Montant")
                         .HasColumnType("float");
@@ -2748,7 +2762,7 @@ namespace UGB.Paysa.Migrations
                         .WithMany()
                         .HasForeignKey("CompteId");
 
-                    b.HasOne("UGB.Paysa.Wallet.Operations.TypeOperation", "TypeProductionFk")
+                    b.HasOne("UGB.Paysa.Wallet.Comptes.Compte", "TypeProductionFk")
                         .WithMany()
                         .HasForeignKey("TypeProductionId");
 

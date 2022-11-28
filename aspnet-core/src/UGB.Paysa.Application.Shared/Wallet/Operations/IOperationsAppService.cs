@@ -22,7 +22,10 @@ namespace UGB.Paysa.Wallet.Operations
 
         Task<FileDto> GetOperationsToExcel(GetAllOperationsForExcelInput input);
 
-        Task<List<OperationCompteLookupTableDto>> GetAllCompteForTableDropdown();
+        Task<PagedResultDto<OperationCompteLookupTableDto>> GetAllCompteForLookupTable(GetAllForLookupTableInput input);
+
+        Task<List<OperationTypeOperationLookupTableDto>> GetAllTypeOperationForTableDropdown();
+        Task<string> GenerateCodeOperation();
 
     }
 }

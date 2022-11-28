@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UGB.Paysa.EntityFrameworkCore;
 
 namespace UGB.Paysa.Migrations
 {
     [DbContext(typeof(PaysaDbContext))]
-    partial class PaysaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221127134915_add typeOperation foreign Key in Operation new")]
+    partial class addtypeOperationforeignKeyinOperationnew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2225,12 +2227,24 @@ namespace UGB.Paysa.Migrations
                     b.Property<string>("CompteId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateOperation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("Montant")
                         .HasColumnType("float");
@@ -2238,7 +2252,7 @@ namespace UGB.Paysa.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TypeProductionId")
+                    b.Property<string>("TypeOperationId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -2247,7 +2261,7 @@ namespace UGB.Paysa.Migrations
 
                     b.HasIndex("TenantId");
 
-                    b.HasIndex("TypeProductionId");
+                    b.HasIndex("TypeOperationId");
 
                     b.ToTable("UgbOperations");
 
@@ -2748,13 +2762,13 @@ namespace UGB.Paysa.Migrations
                         .WithMany()
                         .HasForeignKey("CompteId");
 
-                    b.HasOne("UGB.Paysa.Wallet.Operations.TypeOperation", "TypeProductionFk")
+                    b.HasOne("UGB.Paysa.Wallet.Operations.TypeOperation", "TypeOperation")
                         .WithMany()
-                        .HasForeignKey("TypeProductionId");
+                        .HasForeignKey("TypeOperationId");
 
                     b.Navigation("CompteFk");
 
-                    b.Navigation("TypeProductionFk");
+                    b.Navigation("TypeOperation");
                 });
 
             modelBuilder.Entity("UGB.Paysa.Wallet.Tools.Carte", b =>

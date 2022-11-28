@@ -66,10 +66,14 @@ namespace UGB.Paysa.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TypeOperation>(t =>
+            modelBuilder.Entity<Operation>(o =>
             {
-                t.HasIndex(e => new { e.TenantId });
+                o.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<TypeOperation>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Etudiant>(x =>
                        {
                            x.HasIndex(e => new { e.TenantId });

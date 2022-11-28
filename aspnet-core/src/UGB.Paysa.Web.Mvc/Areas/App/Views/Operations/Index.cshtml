@@ -76,49 +76,17 @@ ViewBag.CurrentPageName = AppPageNames.Common.Operations;
                             <input type="text" class="form-control" name="discriminatorFilter" id="DiscriminatorFilterId">
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="MinCreationTimeFilterId">@L("CreationTimeRange")</label>
-                            <div class="input-group">
-                                <input class="form-control m-input date-picker" type="text" placeholder="@L(" MinValue")" id="MinCreationTimeFilterId">
-                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
-                                <input class="form-control m-input date-picker" type="text" placeholder="@L(" MaxValue")" id="MaxCreationTimeFilterId">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="MinLastModificationTimeFilterId">@L("LastModificationTimeRange")</label>
-                            <div class="input-group">
-                                <input class="form-control m-input date-picker" type="text" placeholder="@L(" MinValue")" id="MinLastModificationTimeFilterId">
-                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
-                                <input class="form-control m-input date-picker" type="text" placeholder="@L(" MaxValue")" id="MaxLastModificationTimeFilterId">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="IsDeletedFilterId">@L("IsDeleted")</label>
-                        <select class="form-control" name="IsDeletedFilter" id="IsDeletedFilterId">
-                            <option value="-1">@L("All")</option>
-                            <option value="0">@L("False")</option>
-                            <option value="1">@L("True")</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="MinDeletionTimeFilterId">@L("DeletionTimeRange")</label>
-                            <div class="input-group">
-                                <input class="form-control m-input date-picker" type="text" placeholder="@L(" MinValue")" id="MinDeletionTimeFilterId">
-                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
-                                <input class="form-control m-input date-picker" type="text" placeholder="@L(" MaxValue")" id="MaxDeletionTimeFilterId">
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="CompteNumeroCompteFilterId">(@L("Compte")) @L("NumeroCompte")</label>
                             <input type="text" class="form-control" name="compteNumeroCompteFilter" id="CompteNumeroCompteFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="TypeOperationNomFilterId">(@L("TypeOperation")) @L("Nom")</label>
+                            <input type="text" class="form-control" name="typeOperationNomFilter" id="TypeOperationNomFilterId">
                         </div>
                     </div>
 
@@ -140,11 +108,8 @@ ViewBag.CurrentPageName = AppPageNames.Common.Operations;
                                 <th>@L("DateOperation")</th>
                                 <th>@L("Montant")</th>
                                 <th>@L("Discriminator")</th>
-                                <th>@L("CreationTime")</th>
-                                <th>@L("LastModificationTime")</th>
-                                <th>@L("IsDeleted")</th>
-                                <th>@L("DeletionTime")</th>
                                 <th>@L("CompteNumeroCompte")</th>
+                                <th>@L("TypeOperationNom")</th>
                             </tr>
                         </thead>
                     </table>

@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="TypeOperation">Type operation</text>
+  <texts>    <text name="TypeOperationNom">Type operation nom</text>
+    <text name="PickTypeOperation">Pick type operation</text>
+    <text name="SelectATypeOperation">Select a type operation</text>
+    <text name="TypeOperation">Type operation</text>
     <text name="UGB.Paysa.Operations.TypeOperation">TypeOperation</text>
     <text name="Prix">Prix</text>
     <text name="TypeOperationsHeaderInfo">Type operations header info</text>

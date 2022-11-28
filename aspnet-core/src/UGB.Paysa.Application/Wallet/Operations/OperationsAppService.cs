@@ -1,4 +1,5 @@
 ﻿using UGB.Paysa.Wallet.Comptes;
+using UGB.Paysa.Wallet.Operations;
 
 using System;
 using System.Linq;
@@ -26,20 +27,29 @@ namespace UGB.Paysa.Wallet.Operations
         private readonly IRepository<Operation, string> _operationRepository;
         private readonly IOperationsExcelExporter _operationsExcelExporter;
         private readonly IRepository<Compte, string> _lookup_compteRepository;
+        private readonly IRepository<TypeOperation, string> _lookup_typeOperationRepository;
+        private readonly IComptesAppService _compteAppService;
+         
 
-        public OperationsAppService(IRepository<Operation, string> operationRepository, IOperationsExcelExporter operationsExcelExporter, IRepository<Compte, string> lookup_compteRepository)
+        public OperationsAppService(IRepository<Operation, string> operationRepository, 
+            IOperationsExcelExporter operationsExcelExporter, 
+            IRepository<Compte, string> lookup_compteRepository, 
+            IRepository<TypeOperation, string> lookup_typeOperationRepository, IComptesAppService comptesAppService)
         {
             _operationRepository = operationRepository;
             _operationsExcelExporter = operationsExcelExporter;
             _lookup_compteRepository = lookup_compteRepository;
+            _lookup_typeOperationRepository = lookup_typeOperationRepository;
+            _compteAppService = comptesAppService;
 
         }
-        [AbpAllowAnonymous]
+
         public async Task<PagedResultDto<GetOperationForViewDto>> GetAll(GetAllOperationsInput input)
         {
 
             var filteredOperations = _operationRepository.GetAll()
                         .Include(e => e.CompteFk)
+                        .Include(e => e.TypeProductionFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.CodeOperation.Contains(input.Filter) || e.Discriminator.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CodeOperationFilter), e => e.CodeOperation == input.CodeOperationFilter)
                         .WhereIf(input.MinDateOperationFilter != null, e => e.DateOperation >= input.MinDateOperationFilter)
@@ -47,22 +57,19 @@ namespace UGB.Paysa.Wallet.Operations
                         .WhereIf(input.MinMontantFilter != null, e => e.Montant >= input.MinMontantFilter)
                         .WhereIf(input.MaxMontantFilter != null, e => e.Montant <= input.MaxMontantFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DiscriminatorFilter), e => e.Discriminator == input.DiscriminatorFilter)
-                        .WhereIf(input.MinCreationTimeFilter != null, e => e.CreationTime >= input.MinCreationTimeFilter)
-                        .WhereIf(input.MaxCreationTimeFilter != null, e => e.CreationTime <= input.MaxCreationTimeFilter)
-                        .WhereIf(input.MinLastModificationTimeFilter != null, e => e.LastModificationTime >= input.MinLastModificationTimeFilter)
-                        .WhereIf(input.MaxLastModificationTimeFilter != null, e => e.LastModificationTime <= input.MaxLastModificationTimeFilter)
-                        .WhereIf(input.IsDeletedFilter.HasValue && input.IsDeletedFilter > -1, e => (input.IsDeletedFilter == 1 && e.IsDeleted) || (input.IsDeletedFilter == 0 && !e.IsDeleted))
-                        .WhereIf(input.MinDeletionTimeFilter != null, e => e.DeletionTime >= input.MinDeletionTimeFilter)
-                        .WhereIf(input.MaxDeletionTimeFilter != null, e => e.DeletionTime <= input.MaxDeletionTimeFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CompteNumeroCompteFilter), e => e.CompteFk != null && e.CompteFk.NumeroCompte == input.CompteNumeroCompteFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CompteNumeroCompteFilter), e => e.CompteFk != null && e.CompteFk.NumeroCompte == input.CompteNumeroCompteFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.TypeOperationNomFilter), e => e.TypeProductionFk != null && e.TypeProductionFk.Reference == input.TypeOperationNomFilter);
 
             var pagedAndFilteredOperations = filteredOperations
-                .OrderBy(input.Sorting ?? "id asc")
+                .OrderBy(input.Sorting ?? "dateOperation desc")
                 .PageBy(input);
 
             var operations = from o in pagedAndFilteredOperations
                              join o1 in _lookup_compteRepository.GetAll() on o.CompteId equals o1.Id into j1
                              from s1 in j1.DefaultIfEmpty()
+
+                             join o2 in _lookup_typeOperationRepository.GetAll() on o.TypeProductionId equals o2.Id into j2
+                             from s2 in j2.DefaultIfEmpty()
 
                              select new
                              {
@@ -71,12 +78,9 @@ namespace UGB.Paysa.Wallet.Operations
                                  o.DateOperation,
                                  o.Montant,
                                  o.Discriminator,
-                                 o.CreationTime,
-                                 o.LastModificationTime,
-                                 o.IsDeleted,
-                                 o.DeletionTime,
                                  Id = o.Id,
-                                 CompteNumeroCompte = s1 == null || s1.NumeroCompte == null ? "" : s1.NumeroCompte.ToString()
+                                 CompteNumeroCompte = s1 == null || s1.NumeroCompte == null ? "" : s1.NumeroCompte.ToString(),
+                                 TypeOperationNom = s2 == null || s2.Nom == null ? "" : s2.Nom.ToString()
                              };
 
             var totalCount = await filteredOperations.CountAsync();
@@ -95,13 +99,10 @@ namespace UGB.Paysa.Wallet.Operations
                         DateOperation = o.DateOperation,
                         Montant = o.Montant,
                         Discriminator = o.Discriminator,
-                        CreationTime = o.CreationTime,
-                        LastModificationTime = o.LastModificationTime,
-                        IsDeleted = o.IsDeleted,
-                        DeletionTime = o.DeletionTime,
                         Id = o.Id,
                     },
-                    CompteNumeroCompte = o.CompteNumeroCompte
+                    CompteNumeroCompte = o.CompteNumeroCompte,
+                    TypeOperationNom = o.TypeOperationNom
                 };
 
                 results.Add(res);
@@ -126,6 +127,12 @@ namespace UGB.Paysa.Wallet.Operations
                 output.CompteNumeroCompte = _lookupCompte?.NumeroCompte?.ToString();
             }
 
+            if (output.Operation.TypeProductionId != null)
+            {
+                var _lookupTypeOperation = await _lookup_typeOperationRepository.FirstOrDefaultAsync((string)output.Operation.TypeProductionId);
+                output.TypeOperationNom = _lookupTypeOperation?.Nom?.ToString();
+            }
+
             return output;
         }
 
@@ -140,6 +147,12 @@ namespace UGB.Paysa.Wallet.Operations
             {
                 var _lookupCompte = await _lookup_compteRepository.FirstOrDefaultAsync((string)output.Operation.CompteId);
                 output.CompteNumeroCompte = _lookupCompte?.NumeroCompte?.ToString();
+            }
+
+            if (output.Operation.TypeProductionId != null)
+            {
+                var _lookupTypeOperation = await _lookup_typeOperationRepository.FirstOrDefaultAsync((string)output.Operation.TypeProductionId);
+                output.TypeOperationNom = _lookupTypeOperation?.Nom?.ToString();
             }
 
             return output;
@@ -161,7 +174,7 @@ namespace UGB.Paysa.Wallet.Operations
         protected virtual async Task Create(CreateOrEditOperationDto input)
         {
             var operation = ObjectMapper.Map<Operation>(input);
-
+            operation.DateOperation = DateTime.Now;
             if (AbpSession.TenantId != null)
             {
                 operation.TenantId = (int?)AbpSession.TenantId;
@@ -172,8 +185,18 @@ namespace UGB.Paysa.Wallet.Operations
                 operation.Id = Guid.NewGuid().ToString();
             }
 
-            await _operationRepository.InsertAsync(operation);
+            if (input.Discriminator == "Debit")
+            {
+                var result = await _compteAppService.DebiterCompte(new Comptes.Dtos.EditSoldeCompteDto { Montant = input.Montant, Id = input.CompteId }); ;
+            }
+            else if (input.Discriminator == "Credit")
+            {
+                operation.Montant = input.Montant;
+                var result = await _compteAppService.CrediterCompte(new Comptes.Dtos.EditSoldeCompteDto { Montant = input.Montant, Id = input.CompteId }); ;
+            }
 
+            await _operationRepository.InsertAsync(operation);
+            
         }
 
         [AbpAuthorize(AppPermissions.Pages_Operations_Edit)]
@@ -195,6 +218,7 @@ namespace UGB.Paysa.Wallet.Operations
 
             var filteredOperations = _operationRepository.GetAll()
                         .Include(e => e.CompteFk)
+                        .Include(e => e.TypeProductionFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.CodeOperation.Contains(input.Filter) || e.Discriminator.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CodeOperationFilter), e => e.CodeOperation == input.CodeOperationFilter)
                         .WhereIf(input.MinDateOperationFilter != null, e => e.DateOperation >= input.MinDateOperationFilter)
@@ -202,18 +226,15 @@ namespace UGB.Paysa.Wallet.Operations
                         .WhereIf(input.MinMontantFilter != null, e => e.Montant >= input.MinMontantFilter)
                         .WhereIf(input.MaxMontantFilter != null, e => e.Montant <= input.MaxMontantFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DiscriminatorFilter), e => e.Discriminator == input.DiscriminatorFilter)
-                        .WhereIf(input.MinCreationTimeFilter != null, e => e.CreationTime >= input.MinCreationTimeFilter)
-                        .WhereIf(input.MaxCreationTimeFilter != null, e => e.CreationTime <= input.MaxCreationTimeFilter)
-                        .WhereIf(input.MinLastModificationTimeFilter != null, e => e.LastModificationTime >= input.MinLastModificationTimeFilter)
-                        .WhereIf(input.MaxLastModificationTimeFilter != null, e => e.LastModificationTime <= input.MaxLastModificationTimeFilter)
-                        .WhereIf(input.IsDeletedFilter.HasValue && input.IsDeletedFilter > -1, e => (input.IsDeletedFilter == 1 && e.IsDeleted) || (input.IsDeletedFilter == 0 && !e.IsDeleted))
-                        .WhereIf(input.MinDeletionTimeFilter != null, e => e.DeletionTime >= input.MinDeletionTimeFilter)
-                        .WhereIf(input.MaxDeletionTimeFilter != null, e => e.DeletionTime <= input.MaxDeletionTimeFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CompteNumeroCompteFilter), e => e.CompteFk != null && e.CompteFk.NumeroCompte == input.CompteNumeroCompteFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CompteNumeroCompteFilter), e => e.CompteFk != null && e.CompteFk.NumeroCompte == input.CompteNumeroCompteFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.TypeOperationNomFilter), e => e.TypeProductionFk != null && e.TypeProductionFk.Nom == input.TypeOperationNomFilter);
 
             var query = (from o in filteredOperations
                          join o1 in _lookup_compteRepository.GetAll() on o.CompteId equals o1.Id into j1
                          from s1 in j1.DefaultIfEmpty()
+
+                         join o2 in _lookup_typeOperationRepository.GetAll() on o.TypeProductionId equals o2.Id into j2
+                         from s2 in j2.DefaultIfEmpty()
 
                          select new GetOperationForViewDto()
                          {
@@ -223,13 +244,10 @@ namespace UGB.Paysa.Wallet.Operations
                                  DateOperation = o.DateOperation,
                                  Montant = o.Montant,
                                  Discriminator = o.Discriminator,
-                                 CreationTime = o.CreationTime,
-                                 LastModificationTime = o.LastModificationTime,
-                                 IsDeleted = o.IsDeleted,
-                                 DeletionTime = o.DeletionTime,
                                  Id = o.Id
                              },
-                             CompteNumeroCompte = s1 == null || s1.NumeroCompte == null ? "" : s1.NumeroCompte.ToString()
+                             CompteNumeroCompte = s1 == null || s1.NumeroCompte == null ? "" : s1.NumeroCompte.ToString(),
+                             TypeOperationNom = s2 == null || s2.Nom == null ? "" : s2.Nom.ToString()
                          });
 
             var operationListDtos = await query.ToListAsync();
@@ -238,15 +256,52 @@ namespace UGB.Paysa.Wallet.Operations
         }
 
         [AbpAuthorize(AppPermissions.Pages_Operations)]
-        public async Task<List<OperationCompteLookupTableDto>> GetAllCompteForTableDropdown()
+        public async Task<PagedResultDto<OperationCompteLookupTableDto>> GetAllCompteForLookupTable(GetAllForLookupTableInput input)
         {
-            return await _lookup_compteRepository.GetAll()
-                .Select(compte => new OperationCompteLookupTableDto
+            var query = _lookup_compteRepository.GetAll().WhereIf(
+                   !string.IsNullOrWhiteSpace(input.Filter),
+                  e => e.NumeroCompte != null && e.NumeroCompte.Contains(input.Filter)
+               );
+
+            var totalCount = await query.CountAsync();
+
+            var compteList = await query
+                .PageBy(input)
+                .ToListAsync();
+
+            var lookupTableDtoList = new List<OperationCompteLookupTableDto>();
+            foreach (var compte in compteList)
+            {
+                lookupTableDtoList.Add(new OperationCompteLookupTableDto
                 {
                     Id = compte.Id,
-                    DisplayName = compte == null || compte.NumeroCompte == null ? "" : compte.NumeroCompte.ToString()
+                    DisplayName = compte.NumeroCompte?.ToString()
+                });
+            }
+
+            return new PagedResultDto<OperationCompteLookupTableDto>(
+                totalCount,
+                lookupTableDtoList
+            );
+        }
+        [AbpAuthorize(AppPermissions.Pages_Operations)]
+        public async Task<List<OperationTypeOperationLookupTableDto>> GetAllTypeOperationForTableDropdown()
+        {
+            return await _lookup_typeOperationRepository.GetAll()
+                .Select(typeOperation => new OperationTypeOperationLookupTableDto
+                {
+                    Id = typeOperation.Id,
+                    DisplayName = typeOperation == null || typeOperation.Nom == null ? "" : typeOperation.Nom.ToString()
                 }).ToListAsync();
         }
 
+        public async Task<string> GenerateCodeOperation()
+        {
+            //var operation = await _operationRepository.GetAll().OrderByDescending(operation => operation.DateOperation).LastAsync() ;
+
+            //var reference = operation.CodeOperation.Split("-").Last()
+
+            return Guid.NewGuid().ToString(); ;
+        }
     }
 }

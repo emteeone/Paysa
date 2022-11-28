@@ -26,6 +26,11 @@ namespace UGB.Paysa.Wallet
             throw new NotImplementedException();
         }
 
+        public Task<bool> DebiterCompte(EditSoldeCompteDto input)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task Delete(EntityDto<string> input)
         {
             throw new NotImplementedException();
@@ -62,6 +67,11 @@ namespace UGB.Paysa.Wallet
         }
 
         public Task<FileDto> GetComptesToExcel(GetAllComptesForExcelInput input)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IComptesAppService.CrediterCompte(EditSoldeCompteDto input)
         {
             throw new NotImplementedException();
         }

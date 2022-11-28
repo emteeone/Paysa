@@ -17,18 +17,9 @@ namespace UGB.Paysa.Wallet.Operations.Dtos
 
         public string DiscriminatorFilter { get; set; }
 
-        public DateTime? MaxCreationTimeFilter { get; set; }
-        public DateTime? MinCreationTimeFilter { get; set; }
-
-        public DateTime? MaxLastModificationTimeFilter { get; set; }
-        public DateTime? MinLastModificationTimeFilter { get; set; }
-
-        public int? IsDeletedFilter { get; set; }
-
-        public DateTime? MaxDeletionTimeFilter { get; set; }
-        public DateTime? MinDeletionTimeFilter { get; set; }
-
         public string CompteNumeroCompteFilter { get; set; }
+
+        public string TypeOperationNomFilter { get; set; }
 
     }
 }

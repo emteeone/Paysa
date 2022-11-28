@@ -1,4 +1,5 @@
 ﻿using UGB.Paysa.Wallet.Comptes;
+using UGB.Paysa.Wallet.Operations;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,20 +25,15 @@ namespace UGB.Paysa.Wallet.Operations
         [Required]
         public virtual string Discriminator { get; set; }
 
-        [Required]
-        public virtual DateTime CreationTime { get; set; }
-
-        public virtual DateTime? LastModificationTime { get; set; }
-
-        [Required]
-        public virtual bool IsDeleted { get; set; }
-
-        public virtual DateTime? DeletionTime { get; set; }
-
-        public virtual string? CompteId { get; set; }
+        public virtual string CompteId { get; set; }
 
         [ForeignKey("CompteId")]
         public Compte CompteFk { get; set; }
+
+        public virtual string TypeProductionId { get; set; }
+
+        [ForeignKey("TypeProductionId")]
+        public TypeOperation TypeProductionFk { get; set; }
 
     }
 }

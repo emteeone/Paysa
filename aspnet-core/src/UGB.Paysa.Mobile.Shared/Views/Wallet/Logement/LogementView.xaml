@@ -14,17 +14,123 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout
-                HeightRequest="40"
-                BackgroundColor="{StaticResource HeaderPageBackgroundColor}" />
-            <Frame Margin="0,-40,0,0" Padding="0" BackgroundColor="White"
-                CornerRadius="100" 
+            <Frame Margin="0,-50,0,0" Padding="0,60,0,0" BackgroundColor="{StaticResource HeaderPageBackgroundColor}"
+                CornerRadius="30" 
                 HasShadow="False" 
-                HeightRequest="80" />
-            <Label Text="Logement Info !"
-                   FontFamily="Montserrat_Medium"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
+                HeightRequest="200" >
+                <StackLayout  Orientation="Vertical" Spacing="8" Padding="20,0">
+                    <Frame CornerRadius="10" HorizontalOptions="Center"  Margin="0,0,0,10"  HeightRequest="20" WidthRequest="100" BackgroundColor="{StaticResource SelectedTabMenuColor}">
+                        <Label Text="22G5D" 
+                            TextTransform="None"
+                            HorizontalTextAlignment="Center"
+                            TextColor="White"
+                            FontFamily="Montserrat_Medium"
+                            FontSize="18"/>
+                    </Frame>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="Montant Location" 
+                            TextTransform="None"
+                            HorizontalOptions="StartAndExpand"
+                            TextColor="White"
+                            FontFamily="Montserrat_Medium"
+                            FontSize="18"/>
+                        <Label Text="3000" 
+                            TextTransform="None"
+                            HorizontalOptions="End"
+                            TextColor="White"
+                            FontFamily="Montserrat_Medium"
+                            FontSize="18"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                        <Label Text="Dernier Mois Payé" 
+                            TextTransform="None"
+                            HorizontalOptions="StartAndExpand"
+                            TextColor="White"
+                            FontFamily="Montserrat_Medium"
+                            FontSize="18"/>
+                        <Label Text="Janvier" 
+                            TextTransform="None"
+                            HorizontalOptions="End"
+                            TextColor="White"
+                            FontFamily="Montserrat_Medium"
+                            FontSize="18"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <StackLayout Padding="0,0,0,0" Margin="10,0,10,0" VerticalOptions="FillAndExpand">
+
+                <StackLayout Margin="0,0,0,20" 
+                                 Orientation="Vertical" 
+                                 Padding="0"
+                                 Spacing="10"
+                                 VerticalOptions="FillAndExpand">
+                    <Label Text="{extensions:Translate LocationRecentesOperations}" 
+                               FontFamily="Montserrat_SemiBold"
+                               FontSize="Medium" />
+                    <StackLayout IsVisible="{Binding NoOperationsFound}" Margin="0,50,0,0" >
+                        <Label Text="{extensions:Translate NoOperationsFound}" 
+                           HorizontalOptions="Center" 
+                           HorizontalTextAlignment="Center" 
+                           FontFamily="AvimtooFont"
+                           FontSize="20" 
+                           VerticalOptions="CenterAndExpand" TextColor="#D3D2D2">
+                        </Label>
+                    </StackLayout>
+                    <ListView 
+                            SeparatorVisibility="None"
+                            HasUnevenRows="True"
+                            SelectionMode="None"
+                            ItemsSource="{Binding LogementOperations}"
+                            VerticalOptions="EndAndExpand"
+                            x:Name="RecentOperations"
+                            VerticalScrollBarVisibility="Never"
+                            IsVisible="{Binding NoOperationsFound,Converter={StaticResource InverseBooleanConverter}}"
+                            CachingStrategy="RetainElement">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame BackgroundColor="AliceBlue" 
+                                            HasShadow="True" 
+                                            Margin="0,4"
+                                            HeightRequest="55"
+                                            CornerRadius="18">
+                                        <Grid  Padding="0" ColumnSpacing="8">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="55"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="5*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Grid.Row="0"></Image>
+                                            <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
+                                                <Label Text="{Binding TypeOperationNom}"
+                                                           FontFamily="Montserrat_Medium"
+                                                           FontSize="15"/>
+                                                <Label Text="{Binding Operation.DateOperation}"
+                                                        TextColor="{StaticResource LightTextColor}"
+                                                        FontFamily="Montserrat_Medium"
+                                                        FontSize="12" />
+                                            </StackLayout>
+                                            <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
+                                                <Label Text="{Binding  Montant,StringFormat='{} {0:C0}'}"
+                                                               FontSize="14"
+                                                               FontFamily="Montserrat_SemiBold"
+                                                               HorizontalTextAlignment="End" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+                </StackLayout>
+
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

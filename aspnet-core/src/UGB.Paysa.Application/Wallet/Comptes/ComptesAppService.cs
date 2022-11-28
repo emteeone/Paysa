@@ -58,10 +58,10 @@ namespace UGB.Paysa.Wallet.Comptes
             return output;
         }
 
-        public async  Task<GetCompteForViewDto> CrediterCompte(EditSoldeCompteDto input)
+        public async  Task<bool> CrediterCompte(EditSoldeCompteDto input)
         {
-            var compte = await _compteRepository.GetAll().FirstOrDefaultAsync(c => c.NumeroCompte == input.NumeroCompte);
-            //var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
+            //var compte = await _compteRepository.GetAll().FirstOrDefaultAsync(c => c.NumeroCompte == input.NumeroCompte);
+            var compte = await _compteRepository.GetAsync(input.Id);
 
             if (compte == null)
             {
@@ -71,13 +71,12 @@ namespace UGB.Paysa.Wallet.Comptes
 
             var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
 
-            return output;
+            return true;
         }
 
-        public async Task<GetCompteForViewDto> Debiter(EditSoldeCompteDto input)
+        public async Task<bool> DebiterCompte(EditSoldeCompteDto input)
         {
-            var compte = await _compteRepository.GetAll().FirstOrDefaultAsync(c => c.NumeroCompte == input.NumeroCompte);
-            //var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
+            var compte = await _compteRepository.GetAsync(input.Id) ;
 
             if (compte == null)
             {
@@ -91,7 +90,7 @@ namespace UGB.Paysa.Wallet.Comptes
             
             var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
 
-            return output;
+            return true;
         }
 
         public async Task<PagedResultDto<GetCompteForViewDto>> GetAll(GetAllComptesInput input)

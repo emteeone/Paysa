@@ -22,12 +22,27 @@ namespace UGB.Paysa.Wallet
             throw new NotImplementedException();
         }
 
+        public Task<string> GenerateCodeOperation()
+        {
+            throw new NotImplementedException();
+        }
+
         public async  Task<PagedResultDto<GetOperationForViewDto>> GetAll(GetAllOperationsInput input)
         {
             return await ApiClient.GetAsync<PagedResultDto<GetOperationForViewDto>>(GetEndpoint(nameof(GetAll)), input);
         }
 
+        public Task<PagedResultDto<OperationCompteLookupTableDto>> GetAllCompteForLookupTable(GetAllForLookupTableInput input)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<List<OperationCompteLookupTableDto>> GetAllCompteForTableDropdown()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<OperationTypeOperationLookupTableDto>> GetAllTypeOperationForTableDropdown()
         {
             throw new NotImplementedException();
         }

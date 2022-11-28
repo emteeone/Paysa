@@ -13,15 +13,9 @@ namespace UGB.Paysa.Wallet.Operations.Dtos
 
         public string Discriminator { get; set; }
 
-        public DateTime CreationTime { get; set; }
-
-        public DateTime? LastModificationTime { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletionTime { get; set; }
-
         public string CompteId { get; set; }
+
+        public string TypeProductionId { get; set; }
 
     }
 }

@@ -6,5 +6,7 @@
 
         public string CompteNumeroCompte { get; set; }
 
+        public string TypeOperationNom { get; set; }
+
     }
 }

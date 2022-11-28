@@ -15,20 +15,37 @@
             <input type="hidden" name="id" value="@Model.Operation.Id" />
             }
 
-            <div class="form-group">
-                <label for="compteId">@L("Compte")</label>
-                @Html.DropDownList("compteId", new SelectList(Model.OperationCompteList,"Id","DisplayName", (Model.IsEditMode ? Model.Operation.CompteId.ToString() : "")),@L("SelectACompte"), new { @class = "form-control" })
+            <div class="form-group m-form__group">
+                <label for="CompteNumeroCompte">@L("Compte")</label>
+                <div class="input-group">
+                    <input class="form-control" id="CompteNumeroCompte" name="compteNumeroCompte" value="@Model.CompteNumeroCompte" type="text" disabled>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary blue" id="OpenCompteLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    </div>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-danger btn-icon" type="button" id="ClearCompteNumeroCompteButton"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="Operation_CodeOperation">@L("CodeOperation")</label>
-                <input class="form-control" id="Operation_CodeOperation" value="@Model.Operation.CodeOperation" type="text" name="codeOperation" required />
-            </div>
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="Operation_CompteId" value="@Model.Operation.CompteId" type="text" name="compteId" required hidden />
+            }
+            else
+            {
+            <input class="form-control" id="Operation_CompteId" value="" type="text" name="compteId" required hidden />
+            }
 
             <div class="form-group">
+                <label for="typeProductionId">@L("TypeOperation")</label>
+                @Html.DropDownList("typeProductionId", new SelectList(Model.OperationTypeOperationList,"Id","DisplayName", (Model.IsEditMode ? Model.Operation.TypeProductionId.ToString() : "")),@L("SelectATypeOperation"), new { @class = "form-control" , @required="required" })
+            </div>
+
+            @*<div class="form-group">
                 <label for="Operation_DateOperation">@L("DateOperation")</label>
                 <input class="form-control m-input date-picker" id="Operation_DateOperation" type="text" name="dateOperation" value="@Model.Operation.DateOperation" />
-            </div>
+            </div>*@
 
             <div class="form-group">
                 <label for="Operation_Montant">@L("Montant")</label>
@@ -36,31 +53,13 @@
             </div>
 
             <div class="form-group">
+                <label for="Operation_CodeOperation">@L("CodeOperation")</label>
+                <input class="form-control" id="Operation_CodeOperation" value="@Model.Operation.CodeOperation" type="text" name="codeOperation" required disabled />
+            </div>
+
+            <div class="form-group">
                 <label for="Operation_Discriminator">@L("Discriminator")</label>
                 <input class="form-control" id="Operation_Discriminator" value="@Model.Operation.Discriminator" type="text" name="discriminator" required />
-            </div>
-
-            <div class="form-group">
-                <label for="Operation_CreationTime">@L("CreationTime")</label>
-                <input class="form-control m-input date-picker" id="Operation_CreationTime" type="text" name="creationTime" value="@Model.Operation.CreationTime" />
-            </div>
-
-            <div class="form-group">
-                <label for="Operation_LastModificationTime">@L("LastModificationTime")</label>
-                <input class="form-control m-input date-picker" id="Operation_LastModificationTime" type="text" name="lastModificationTime" value="@Model.Operation.LastModificationTime" />
-            </div>
-
-            <div class="m-checkbox-list">
-                <label for="Operation_IsDeleted" class="kt-checkbox">
-                    <input id="Operation_IsDeleted" type="checkbox" name="isDeleted" value="true" @Html.Raw(Model.Operation.IsDeleted ?"checked=\"checked\"":"") />
-                    @L("IsDeleted")
-                    <span></span>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="Operation_DeletionTime">@L("DeletionTime")</label>
-                <input class="form-control m-input date-picker" id="Operation_DeletionTime" type="text" name="deletionTime" value="@Model.Operation.DeletionTime" />
             </div>
 
         </form>

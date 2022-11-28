@@ -99,86 +99,6 @@
         "CreateOrUpdate": true
       },
       "ViewType": null
-    },
-    {
-      "Name": "CreationTime",
-      "Type": "DateTime",
-      "MaxLength": -1,
-      "MinLength": -1,
-      "Range": {
-        "IsRangeSet": false,
-        "MinimumValue": 0.0,
-        "MaximumValue": 0.0
-      },
-      "Required": true,
-      "Nullable": false,
-      "Regex": "",
-      "UserInterface": {
-        "AdvancedFilter": true,
-        "List": true,
-        "CreateOrUpdate": true
-      },
-      "ViewType": null
-    },
-    {
-      "Name": "LastModificationTime",
-      "Type": "DateTime",
-      "MaxLength": -1,
-      "MinLength": -1,
-      "Range": {
-        "IsRangeSet": false,
-        "MinimumValue": 0.0,
-        "MaximumValue": 0.0
-      },
-      "Required": false,
-      "Nullable": true,
-      "Regex": "",
-      "UserInterface": {
-        "AdvancedFilter": true,
-        "List": true,
-        "CreateOrUpdate": true
-      },
-      "ViewType": null
-    },
-    {
-      "Name": "IsDeleted",
-      "Type": "bool",
-      "MaxLength": -1,
-      "MinLength": -1,
-      "Range": {
-        "IsRangeSet": false,
-        "MinimumValue": 0.0,
-        "MaximumValue": 0.0
-      },
-      "Required": true,
-      "Nullable": false,
-      "Regex": "",
-      "UserInterface": {
-        "AdvancedFilter": true,
-        "List": true,
-        "CreateOrUpdate": true
-      },
-      "ViewType": null
-    },
-    {
-      "Name": "DeletionTime",
-      "Type": "DateTime",
-      "MaxLength": -1,
-      "MinLength": -1,
-      "Range": {
-        "IsRangeSet": false,
-        "MinimumValue": 0.0,
-        "MaximumValue": 0.0
-      },
-      "Required": false,
-      "Nullable": true,
-      "Regex": "",
-      "UserInterface": {
-        "AdvancedFilter": true,
-        "List": true,
-        "CreateOrUpdate": true
-      },
-      "ViewType": null
     }
   ],
   "NavigationProperties": [
@@ -186,9 +106,20 @@
       "Namespace": "UGB.Paysa.Wallet.Comptes",
       "ForeignEntityName": "Compte",
       "IdType": "string",
-      "IsNullable": true,
+      "IsNullable": false,
       "PropertyName": "CompteId",
       "DisplayPropertyName": "NumeroCompte",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    },
+    {
+      "Namespace": "UGB.Paysa.Wallet.Operations",
+      "ForeignEntityName": "TypeOperation",
+      "IdType": "string",
+      "IsNullable": false,
+      "PropertyName": "TypeProductionId",
+      "DisplayPropertyName": "Nom",
       "DuplicationNumber": 0,
       "RelationType": "single",
       "ViewType": "Dropdown"

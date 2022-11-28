@@ -4,6 +4,7 @@
              xmlns:base="clr-namespace:UGB.Paysa.ViewModels.Base;assembly=UGB.Paysa.Mobile.Shared"
              x:Class="UGB.Paysa.Views.Wallet.Consultation.ConsultationView"
              base:ViewManager.AutoWireViewModel="true"
+             xmlns:behaviors="clr-namespace:UGB.Paysa.Behaviors;assembly=UGB.Paysa.Mobile.Shared"
              xmlns:extensions="clr-namespace:UGB.Paysa.Extensions.MarkupExtensions;assembly=UGB.Paysa.Mobile.Shared"
              BackgroundColor="{StaticResource WhiteColor}">
     <NavigationPage.TitleView>
@@ -21,10 +22,21 @@
                 CornerRadius="100" 
                 HasShadow="False" 
                 HeightRequest="80" />
+            
             <Label Text="Consultation Info !"
                    FontFamily="Montserrat_Medium"
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" />
+            
+            
         </StackLayout>
+        
     </ContentPage.Content>
+    <ContentPage.Behaviors>
+        <behaviors:EventHandlerBehavior EventName="Appearing">
+            <behaviors:ActionCollection>
+                <behaviors:InvokeCommandAction Command="{Binding PageAppearingCommand}" />
+            </behaviors:ActionCollection>
+        </behaviors:EventHandlerBehavior>
+    </ContentPage.Behaviors>
 </ContentPage>

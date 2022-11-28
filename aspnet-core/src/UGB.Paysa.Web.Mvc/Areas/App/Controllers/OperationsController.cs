@@ -50,16 +50,15 @@ namespace UGB.Paysa.Web.Areas.App.Controllers
                     Operation = new CreateOrEditOperationDto()
                 };
                 getOperationForEditOutput.Operation.DateOperation = DateTime.Now;
-                getOperationForEditOutput.Operation.CreationTime = DateTime.Now;
-                getOperationForEditOutput.Operation.LastModificationTime = DateTime.Now;
-                getOperationForEditOutput.Operation.DeletionTime = DateTime.Now;
-            }
+                getOperationForEditOutput.Operation.CodeOperation = await _operationsAppService.GenerateCodeOperation();
+;            }
 
             var viewModel = new CreateOrEditOperationModalViewModel()
             {
                 Operation = getOperationForEditOutput.Operation,
                 CompteNumeroCompte = getOperationForEditOutput.CompteNumeroCompte,
-                OperationCompteList = await _operationsAppService.GetAllCompteForTableDropdown(),
+                TypeOperationNom = getOperationForEditOutput.TypeOperationNom,
+                OperationTypeOperationList = await _operationsAppService.GetAllTypeOperationForTableDropdown(),
 
             };
 
@@ -76,9 +75,25 @@ namespace UGB.Paysa.Web.Areas.App.Controllers
                 ,
                 CompteNumeroCompte = getOperationForViewDto.CompteNumeroCompte
 
+                ,
+                TypeOperationNom = getOperationForViewDto.TypeOperationNom
+
             };
 
             return PartialView("_ViewOperationModal", model);
+        }
+
+        [AbpMvcAuthorize(AppPermissions.Pages_Operations_Create, AppPermissions.Pages_Operations_Edit)]
+        public PartialViewResult CompteLookupTableModal(string? id, string displayName)
+        {
+            var viewModel = new OperationCompteLookupTableViewModel()
+            {
+                Id = id,
+                DisplayName = displayName,
+                FilterText = ""
+            };
+
+            return PartialView("_OperationCompteLookupTableModal", viewModel);
         }
 
     }

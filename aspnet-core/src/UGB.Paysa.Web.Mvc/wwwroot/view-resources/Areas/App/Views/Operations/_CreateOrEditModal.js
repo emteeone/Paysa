@@ -10,6 +10,10 @@
             viewUrl: abp.appPath + 'App/Operations/CompteLookupTableModal',
             scriptUrl: abp.appPath + 'view-resources/Areas/App/Views/Operations/_OperationCompteLookupTableModal.js',
             modalClass: 'CompteLookupTableModal'
+        });        var _OperationtypeOperationLookupTableModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'App/Operations/TypeOperationLookupTableModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/App/Views/Operations/_OperationTypeOperationLookupTableModal.js',
+            modalClass: 'TypeOperationLookupTableModal'
         });
 		
 		
@@ -42,6 +46,21 @@
                 _$operationInformationForm.find('input[name=compteId]').val(''); 
         });
 		
+        $('#OpenTypeOperationLookupTableButton').click(function () {
+
+            var operation = _$operationInformationForm.serializeFormToObject();
+
+            _OperationtypeOperationLookupTableModal.open({ id: operation.typeProductionId, displayName: operation.typeOperationNom }, function (data) {
+                _$operationInformationForm.find('input[name=typeOperationNom]').val(data.displayName); 
+                _$operationInformationForm.find('input[name=typeProductionId]').val(data.id); 
+            });
+        });
+		
+		$('#ClearTypeOperationNomButton').click(function () {
+                _$operationInformationForm.find('input[name=typeOperationNom]').val(''); 
+                _$operationInformationForm.find('input[name=typeProductionId]').val(''); 
+        });
+		
 
 
         this.save = function () {
@@ -50,6 +69,10 @@
             }
             if ($('#Operation_CompteId').prop('required') && $('#Operation_CompteId').val() == '') {
                 abp.message.error(app.localize('{0}IsRequired', app.localize('Compte')));
+                return;
+            }
+            if ($('#Operation_TypeProductionId').prop('required') && $('#Operation_TypeProductionId').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('TypeOperation')));
                 return;
             }
 

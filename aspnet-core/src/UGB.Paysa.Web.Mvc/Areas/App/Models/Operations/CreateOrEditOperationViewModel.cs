@@ -11,7 +11,9 @@ namespace UGB.Paysa.Web.Areas.App.Models.Operations
 
         public string CompteNumeroCompte { get; set; }
 
-        public List<OperationCompteLookupTableDto> OperationCompteList { get; set; }
+        public string TypeOperationNom { get; set; }
+
+        public List<OperationTypeOperationLookupTableDto> OperationTypeOperationList { get; set; }
 
         public bool IsEditMode => !Operation.Id.IsNullOrWhiteSpace();
     }

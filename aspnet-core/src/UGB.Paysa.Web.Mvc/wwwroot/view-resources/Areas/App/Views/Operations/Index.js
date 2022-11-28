@@ -59,14 +59,8 @@
 					minMontantFilter: $('#MinMontantFilterId').val(),
 					maxMontantFilter: $('#MaxMontantFilterId').val(),
 					discriminatorFilter: $('#DiscriminatorFilterId').val(),
-					minCreationTimeFilter:  getDateFilter($('#MinCreationTimeFilterId')),
-					maxCreationTimeFilter:  getMaxDateFilter($('#MaxCreationTimeFilterId')),
-					minLastModificationTimeFilter:  getDateFilter($('#MinLastModificationTimeFilterId')),
-					maxLastModificationTimeFilter:  getMaxDateFilter($('#MaxLastModificationTimeFilterId')),
-					isDeletedFilter: $('#IsDeletedFilterId').val(),
-					minDeletionTimeFilter:  getDateFilter($('#MinDeletionTimeFilterId')),
-					maxDeletionTimeFilter:  getMaxDateFilter($('#MaxDeletionTimeFilterId')),
-					compteNumeroCompteFilter: $('#CompteNumeroCompteFilterId').val()
+					compteNumeroCompteFilter: $('#CompteNumeroCompteFilterId').val(),
+					typeOperationNomFilter: $('#TypeOperationNomFilterId').val()
                     };
                 }
             },
@@ -148,56 +142,13 @@
 					},
 					{
 						targets: 6,
-						 data: "operation.creationTime",
-						 name: "creationTime" ,
-					render: function (creationTime) {
-						if (creationTime) {
-							return moment(creationTime).format('L');
-						}
-						return "";
-					}
-			  
+						 data: "compteNumeroCompte" ,
+						 name: "compteFk.numeroCompte" 
 					},
 					{
 						targets: 7,
-						 data: "operation.lastModificationTime",
-						 name: "lastModificationTime" ,
-					render: function (lastModificationTime) {
-						if (lastModificationTime) {
-							return moment(lastModificationTime).format('L');
-						}
-						return "";
-					}
-			  
-					},
-					{
-						targets: 8,
-						 data: "operation.isDeleted",
-						 name: "isDeleted"  ,
-						render: function (isDeleted) {
-							if (isDeleted) {
-								return '<div class="text-center"><i class="fa fa-check text-success" title="True"></i></div>';
-							}
-							return '<div class="text-center"><i class="fa fa-times-circle" title="False"></i></div>';
-					}
-			 
-					},
-					{
-						targets: 9,
-						 data: "operation.deletionTime",
-						 name: "deletionTime" ,
-					render: function (deletionTime) {
-						if (deletionTime) {
-							return moment(deletionTime).format('L');
-						}
-						return "";
-					}
-			  
-					},
-					{
-						targets: 10,
-						 data: "compteNumeroCompte" ,
-						 name: "compteFk.numeroCompte" 
+						 data: "typeOperationNom" ,
+						 name: "typeProductionFk.nom" 
 					}
             ]
         });
@@ -249,14 +200,8 @@
 					minMontantFilter: $('#MinMontantFilterId').val(),
 					maxMontantFilter: $('#MaxMontantFilterId').val(),
 					discriminatorFilter: $('#DiscriminatorFilterId').val(),
-					minCreationTimeFilter:  getDateFilter($('#MinCreationTimeFilterId')),
-					maxCreationTimeFilter:  getMaxDateFilter($('#MaxCreationTimeFilterId')),
-					minLastModificationTimeFilter:  getDateFilter($('#MinLastModificationTimeFilterId')),
-					maxLastModificationTimeFilter:  getMaxDateFilter($('#MaxLastModificationTimeFilterId')),
-					isDeletedFilter: $('#IsDeletedFilterId').val(),
-					minDeletionTimeFilter:  getDateFilter($('#MinDeletionTimeFilterId')),
-					maxDeletionTimeFilter:  getMaxDateFilter($('#MaxDeletionTimeFilterId')),
-					compteNumeroCompteFilter: $('#CompteNumeroCompteFilterId').val()
+					compteNumeroCompteFilter: $('#CompteNumeroCompteFilterId').val(),
+					typeOperationNomFilter: $('#TypeOperationNomFilterId').val()
 				})
                 .done(function (result) {
                     app.downloadTempFile(result);

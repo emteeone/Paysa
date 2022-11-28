@@ -110,21 +110,39 @@ namespace UGB.Paysa.ViewModels.Wallet.Operations
         }
         private async Task ShowAllOperationsAsync()
         {
+            if (IsInAll)
+            {
+                return;
+            }
             IsInDebit = false;
             IsInAll = true;
             IsInCredit = false;
+            _input.DiscriminatorFilter = "";
+            await RefreshOperationsAsync();
         }
         private async Task ShowCreditOperationsAsync()
         {
+            if (IsInCredit)
+            {
+                return;
+            }
             IsInDebit = false;
             IsInAll = false;
             IsInCredit = true;
+            _input.DiscriminatorFilter = "Credit";
+            await RefreshOperationsAsync();
         }
         private async Task ShowDebitOperationsAsync()
         {
+            if (IsInDebit)
+            {
+                return;
+            }
             IsInDebit = true;
             IsInAll = false;
             IsInCredit = false;
+            _input.DiscriminatorFilter = "Debit";
+            await RefreshOperationsAsync();
         }
         private async Task FetchAllOperationsAsync()
         {
