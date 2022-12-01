@@ -20,6 +20,6 @@ namespace UGB.Paysa.Wallet.Chambres
         Task Delete(EntityDto<string> input);
 
         Task<FileDto> GetChambresToExcel(GetAllChambresForExcelInput input);
-
+        Task<GetChambreForViewDto> GetChambreByUserId(EntityDto<long> input);
     }
 }

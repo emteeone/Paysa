@@ -61,7 +61,7 @@ namespace UGB.Paysa.Activities
                  make sure your Android device and your computer is connecting to the internet via your local Wi-Fi.
            */
             DebugServerIpAddresses.Current = "10.0.2.2"; // "192.168.1.125"; // ;
-
+                
             App.LoadPersistedSession();
 
             await UserConfigurationManager.GetIfNeedsAsync();

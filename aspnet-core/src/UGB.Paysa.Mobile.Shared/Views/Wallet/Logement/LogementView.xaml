@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:base="clr-namespace:UGB.Paysa.ViewModels.Base;assembly=UGB.Paysa.Mobile.Shared"
-             x:Class="UGB.Paysa.Views.Wallet.Logement.LogementView"
-             base:ViewManager.AutoWireViewModel="true"
-             xmlns:extensions="clr-namespace:UGB.Paysa.Extensions.MarkupExtensions;assembly=UGB.Paysa.Mobile.Shared"
-             BackgroundColor="{StaticResource WhiteColor}">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:UGB.Paysa.ViewModels.Base;assembly=UGB.Paysa.Mobile.Shared"
+    x:Class="UGB.Paysa.Views.Wallet.Logement.LogementView"
+    xmlns:behaviors="clr-namespace:UGB.Paysa.Behaviors;assembly=UGB.Paysa.Mobile.Shared"
+    base:ViewManager.AutoWireViewModel="true"
+    xmlns:extensions="clr-namespace:UGB.Paysa.Extensions.MarkupExtensions;assembly=UGB.Paysa.Mobile.Shared"
+    BackgroundColor="{StaticResource WhiteColor}">
     <NavigationPage.TitleView>
         <Label Text="{extensions:Translate Logement}" 
                FontSize="Medium"  
@@ -17,17 +18,23 @@
             <Frame Margin="0,-50,0,0" Padding="0,60,0,0" BackgroundColor="{StaticResource HeaderPageBackgroundColor}"
                 CornerRadius="30" 
                 HasShadow="False" 
-                HeightRequest="200" >
-                <StackLayout  Orientation="Vertical" Spacing="8" Padding="20,0">
-                    <Frame CornerRadius="10" HorizontalOptions="Center"  Margin="0,0,0,10"  HeightRequest="20" WidthRequest="100" BackgroundColor="{StaticResource SelectedTabMenuColor}">
-                        <Label Text="22G5D" 
+                HeightRequest="300" >
+                <StackLayout  Orientation="Vertical" Spacing="8" Padding="0,0">
+                    <Frame CornerRadius="10" 
+                           HorizontalOptions="Center"
+                           HeightRequest="10"
+                           WidthRequest="100" 
+                           BackgroundColor="{StaticResource SelectedTabMenuColor}">
+                        <Label Text="{Binding ReferenceChambre}" 
+                            VerticalOptions="FillAndExpand"
+                            Margin="0,-10,0,0"
                             TextTransform="None"
                             HorizontalTextAlignment="Center"
                             TextColor="White"
                             FontFamily="Montserrat_Medium"
-                            FontSize="18"/>
+                            FontSize="20"/>
                     </Frame>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Label Text="Montant Location" 
                             TextTransform="None"
                             HorizontalOptions="StartAndExpand"
@@ -54,7 +61,7 @@
                             TextColor="White"
                             FontFamily="Montserrat_Medium"
                             FontSize="18"/>
-                    </StackLayout>
+                    </StackLayout>-->
                 </StackLayout>
             </Frame>
             <StackLayout Padding="0,0,0,0" Margin="10,0,10,0" VerticalOptions="FillAndExpand">
@@ -133,4 +140,11 @@
 
         </StackLayout>
     </ContentPage.Content>
+    <ContentPage.Behaviors>
+        <behaviors:EventHandlerBehavior EventName="Appearing">
+            <behaviors:ActionCollection>
+                <behaviors:InvokeCommandAction Command="{Binding PageAppearingCommand}" />
+            </behaviors:ActionCollection>
+        </behaviors:EventHandlerBehavior>
+    </ContentPage.Behaviors>
 </ContentPage>

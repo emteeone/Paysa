@@ -17,6 +17,8 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using UGB.Paysa.Storage;
+using UGB.Paysa.Wallet.Comptes.Dtos;
+using UGB.Paysa.Wallet.Etudiants;
 
 namespace UGB.Paysa.Wallet.Chambres
 {
@@ -24,11 +26,15 @@ namespace UGB.Paysa.Wallet.Chambres
     public class ChambresAppService : PaysaAppServiceBase, IChambresAppService
     {
         private readonly IRepository<Chambre, string> _chambreRepository;
+        private readonly IRepository<Etudiant, string> _lookup_etudiantRepository;
         private readonly IChambresExcelExporter _chambresExcelExporter;
 
-        public ChambresAppService(IRepository<Chambre, string> chambreRepository, IChambresExcelExporter chambresExcelExporter)
+        public ChambresAppService(IRepository<Chambre, string> chambreRepository, 
+            IChambresExcelExporter chambresExcelExporter,
+             IRepository<Etudiant, string> lookup_etudiantRepository)
         {
             _chambreRepository = chambreRepository;
+            _lookup_etudiantRepository = lookup_etudiantRepository;
             _chambresExcelExporter = chambresExcelExporter;
 
         }
@@ -212,5 +218,23 @@ namespace UGB.Paysa.Wallet.Chambres
             return _chambresExcelExporter.ExportToFile(chambreListDtos);
         }
 
+        [AbpAuthorize(AppPermissions.Pages_Chambres_Edit)]
+        public async Task<GetChambreForViewDto> GetChambreByUserId(EntityDto<long> input)
+        {
+            var etudiant = await _lookup_etudiantRepository.GetAll().FirstOrDefaultAsync(e => e.UserId == input.Id);
+            if (etudiant == null)
+            {
+                throw new UserFriendlyException("Vous n'etes pas un etudiant de l'université");
+            }
+            var chambre = await _chambreRepository.GetAsync(etudiant.ChambreId);
+
+            if (chambre == null)
+            {
+                throw new UserFriendlyException("Vous n'avez pas encore de compte");
+            }
+            var output = new GetChambreForViewDto { Chambre = ObjectMapper.Map<ChambreDto>(chambre) };
+
+            return output;
+        }
     }
 }
