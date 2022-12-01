@@ -1,0 +1,39 @@
+﻿
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.PaiementLoyers
+@model PaiementLoyerViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="PaiementLoyerInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Mois") :</h6>
+                @Model.PaiementLoyer.Mois
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Annee") :</h6>
+                @Model.PaiementLoyer.Annee
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CodePaiement") :</h6>
+                @Model.PaiementLoyer.CodePaiement
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("Chambre")) @L("Reference") :</h6>
+                @Model.ChambreReference
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("Operation")) @L("CodeOperation") :</h6>
+                @Model.OperationCodeOperation
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

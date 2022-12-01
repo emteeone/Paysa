@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_PaiementLoyers = "Pages.PaiementLoyers";
+        public const string Pages_PaiementLoyers_Create = "Pages.PaiementLoyers.Create";
+        public const string Pages_PaiementLoyers_Edit = "Pages.PaiementLoyers.Edit";
+        public const string Pages_PaiementLoyers_Delete = "Pages.PaiementLoyers.Delete";
+
         public const string Pages_TypeOperations = "Pages.TypeOperations";
         public const string Pages_TypeOperations_Create = "Pages.TypeOperations.Create";
         public const string Pages_TypeOperations_Edit = "Pages.TypeOperations.Edit";

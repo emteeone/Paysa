@@ -1,4 +1,5 @@
-﻿using UGB.Paysa.Wallet.Tools;
+﻿using UGB.Paysa.UGB.Paysa.Chambres;
+using UGB.Paysa.Wallet.Tools;
 using UGB.Paysa.Wallet.Comptes;
 using UGB.Paysa.Wallet.Etudiants;
 using UGB.Paysa.Wallet.Chambres;
@@ -21,6 +22,8 @@ namespace UGB.Paysa.EntityFrameworkCore
 {
     public class PaysaDbContext : AbpZeroDbContext<Tenant, Role, User, PaysaDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<PaiementLoyer> PaiementLoyers { get; set; }
+
         public virtual DbSet<TypeOperation> TypeOperations { get; set; }
 
         public virtual DbSet<Operation> Operations { get; set; }
@@ -66,10 +69,14 @@ namespace UGB.Paysa.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Operation>(o =>
+            modelBuilder.Entity<PaiementLoyer>(p =>
             {
-                o.HasIndex(e => new { e.TenantId });
+                p.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Operation>(o =>
+                       {
+                           o.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<TypeOperation>(t =>
                        {
                            t.HasIndex(e => new { e.TenantId });

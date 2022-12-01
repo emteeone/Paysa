@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="TypeOperationNom">Type operation nom</text>
+  <texts>    <text name="PaiementLoyer">Paiement loyer</text>
+    <text name="UGB.Paysa.Chambres.PaiementLoyer">PaiementLoyer</text>
+    <text name="Mois">Mois</text>
+    <text name="Annee">Annee</text>
+    <text name="CodePaiement">Code paiement</text>
+    <text name="PaiementLoyersHeaderInfo">Paiement loyers header info</text>
+    <text name="CreateNewPaiementLoyer">Create new paiement loyer</text>
+    <text name="EditPaiementLoyer">Edit paiement loyer</text>
+    <text name="DeletePaiementLoyer">Delete paiement loyer</text>
+    <text name="PaiementLoyers">Paiement loyers</text>
+    <text name="OperationCodeOperation">Operation code operation</text>
+    <text name="PickOperation">Pick operation</text>
+    <text name="SelectAOperation">Select a operation</text>
+    <text name="TypeOperationNom">Type operation nom</text>
     <text name="PickTypeOperation">Pick type operation</text>
     <text name="SelectATypeOperation">Select a type operation</text>
     <text name="TypeOperation">Type operation</text>

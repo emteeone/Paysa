@@ -1,34 +1,40 @@
 ﻿(function () {
     $(function () {
 
-        var _$operationsTable = $('#OperationsTable');
-        var _operationsService = abp.services.app.operations;
-		
+        var _$paiementLoyersTable = $('#PaiementLoyersTable');
+        var _paiementLoyersService = abp.services.app.paiementLoyers;
+		var _entityTypeFullName = 'UGB.Paysa.UGB.Paysa.Chambres.PaiementLoyer';
+        
         $('.date-picker').datetimepicker({
             locale: abp.localization.currentLanguage.name,
             format: 'L'
         });
 
         var _permissions = {
-            create: abp.auth.hasPermission('Pages.Operations.Create'),
-            edit: abp.auth.hasPermission('Pages.Operations.Edit'),
-            'delete': abp.auth.hasPermission('Pages.Operations.Delete')
+            create: abp.auth.hasPermission('Pages.PaiementLoyers.Create'),
+            edit: abp.auth.hasPermission('Pages.PaiementLoyers.Edit'),
+            'delete': abp.auth.hasPermission('Pages.PaiementLoyers.Delete')
         };
 
          var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'App/Operations/CreateOrEditModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/App/Views/Operations/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditOperationModal'
-        });
+                    viewUrl: abp.appPath + 'App/PaiementLoyers/CreateOrEditModal',
+                    scriptUrl: abp.appPath + 'view-resources/Areas/App/Views/PaiementLoyers/_CreateOrEditModal.js',
+                    modalClass: 'CreateOrEditPaiementLoyerModal'
+                });
                    
 
-		 var _viewOperationModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'App/Operations/ViewoperationModal',
-            modalClass: 'ViewOperationModal'
+		 var _viewPaiementLoyerModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'App/PaiementLoyers/ViewpaiementLoyerModal',
+            modalClass: 'ViewPaiementLoyerModal'
         });
 
-		
-		
+		        var _entityTypeHistoryModal = app.modals.EntityTypeHistoryModal.create();
+		        function entityHistoryIsEnabled() {
+            return abp.auth.hasPermission('Pages.Administration.AuditLogs') &&
+                abp.custom.EntityHistory &&
+                abp.custom.EntityHistory.IsEnabled &&
+                _.filter(abp.custom.EntityHistory.EnabledEntities, entityType => entityType === _entityTypeFullName).length === 1;
+        }
 
         var getDateFilter = function (element) {
             if (element.data("DateTimePicker").date() == null) {
@@ -44,23 +50,21 @@
             return element.data("DateTimePicker").date().format("YYYY-MM-DDT23:59:59Z"); 
         }
 
-        var dataTable = _$operationsTable.DataTable({
+        var dataTable = _$paiementLoyersTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _operationsService.getAll,
+                ajaxFunction: _paiementLoyersService.getAll,
                 inputFilter: function () {
                     return {
-					filter: $('#OperationsTableFilter').val(),
-					codeOperationFilter: $('#CodeOperationFilterId').val(),
-					minDateOperationFilter:  getDateFilter($('#MinDateOperationFilterId')),
-					maxDateOperationFilter:  getMaxDateFilter($('#MaxDateOperationFilterId')),
-					minMontantFilter: $('#MinMontantFilterId').val(),
-					maxMontantFilter: $('#MaxMontantFilterId').val(),
-					discriminatorFilter: $('#DiscriminatorFilterId').val(),
-					compteNumeroCompteFilter: $('#CompteNumeroCompteFilterId').val(),
-					typeOperationNomFilter: $('#TypeOperationNomFilterId').val()
+					filter: $('#PaiementLoyersTableFilter').val(),
+					moisFilter: $('#MoisFilterId').val(),
+					minAnneeFilter: $('#MinAnneeFilterId').val(),
+					maxAnneeFilter: $('#MaxAnneeFilterId').val(),
+					codePaiementFilter: $('#CodePaiementFilterId').val(),
+					chambreReferenceFilter: $('#ChambreReferenceFilterId').val(),
+					operationCodeOperationFilter: $('#OperationCodeOperationFilterId').val()
                     };
                 }
             },
@@ -86,9 +90,9 @@
                         items: [
 						{
                                 text: app.localize('View'),
-                                iconStyle: 'far fa-eye',
+                                iconStyle: 'far fa-eye mr-2',
                                 action: function (data) {
-                                    _viewOperationModal.open({ id: data.record.operation.id });
+                                    _viewPaiementLoyerModal.open({ id: data.record.paiementLoyer.id });
                                 }
                         },
 						{
@@ -98,9 +102,22 @@
                                 return _permissions.edit;
                             },
                             action: function (data) {
-                            _createOrEditModal.open({ id: data.record.operation.id });                                
+                            _createOrEditModal.open({ id: data.record.paiementLoyer.id });                                
                             }
-                        }, 
+                        },
+                        {
+                            text: app.localize('History'),
+                            iconStyle: 'fas fa-history mr-2',
+                            visible: function () {
+                                return entityHistoryIsEnabled();
+                            },
+                            action: function (data) {
+                                _entityTypeHistoryModal.open({
+                                    entityTypeFullName: _entityTypeFullName,
+                                    entityId: data.record.paiementLoyer.id
+                                });
+                            }
+						}, 
 						{
                             text: app.localize('Delete'),
                             iconStyle: 'far fa-trash-alt mr-2',
@@ -108,65 +125,53 @@
                                 return _permissions.delete;
                             },
                             action: function (data) {
-                                deleteOperation(data.record.operation);
+                                deletePaiementLoyer(data.record.paiementLoyer);
                             }
                         }]
                     }
                 },
 					{
 						targets: 2,
-						 data: "operation.codeOperation",
-						 name: "codeOperation"   
+						 data: "paiementLoyer.mois",
+						 name: "mois"   
 					},
 					{
 						targets: 3,
-						data: "operation.dateOperation",
-						name: "dateOperation" ,
-					    render: function (dateOperation) {
-						    if (dateOperation) {
-							    return moment(dateOperation).format('L');
-						    }
-						    return "";
-					}
-			  
+						 data: "paiementLoyer.annee",
+						 name: "annee"   
 					},
 					{
 						targets: 4,
-						 data: "operation.montant",
-						 name: "montant"   
+						 data: "paiementLoyer.codePaiement",
+						 name: "codePaiement"   
 					},
 					{
 						targets: 5,
-						 data: "operation.discriminator",
-						 name: "discriminator"   
+						 data: "chambreReference" ,
+						 name: "chambreFk.reference" 
 					},
 					{
 						targets: 6,
-						 data: "compteNumeroCompte" ,
-						 name: "compteFk.numeroCompte" 
-					},
-					{
-						targets: 7,
-						 data: "typeOperationNom" ,
-						 name: "typeProductionFk.nom" 
+						 data: "operationCodeOperation" ,
+						 name: "operationFk.codeOperation" 
 					}
             ]
         });
 
-        function getOperations() {
+        function getPaiementLoyers() {
             dataTable.ajax.reload();
         }
 
-        function deleteOperation(operation) {
+        function deletePaiementLoyer(paiementLoyer) {
             abp.message.confirm(
                 '',
                 app.localize('AreYouSure'),
                 function (isConfirmed) {
                     if (isConfirmed) {
-                        _operationsService.delete({
-                            id: operation.id
+                        _paiementLoyersService.delete({
+                            id: paiementLoyer.id
                         }).done(function () {
-                            getOperations(true);
+                            getPaiementLoyers(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                     }
@@ -186,40 +191,38 @@
             $('#AdvacedAuditFiltersArea').slideUp();
         });
 
-        $('#CreateNewOperationButton').click(function () {
+        $('#CreateNewPaiementLoyerButton').click(function () {
             _createOrEditModal.open();
         });        
 
 		$('#ExportToExcelButton').click(function () {
-            _operationsService
-                .getOperationsToExcel({
-				filter : $('#OperationsTableFilter').val(),
-					codeOperationFilter: $('#CodeOperationFilterId').val(),
-					minDateOperationFilter:  getDateFilter($('#MinDateOperationFilterId')),
-					maxDateOperationFilter:  getMaxDateFilter($('#MaxDateOperationFilterId')),
-					minMontantFilter: $('#MinMontantFilterId').val(),
-					maxMontantFilter: $('#MaxMontantFilterId').val(),
-					discriminatorFilter: $('#DiscriminatorFilterId').val(),
-					compteNumeroCompteFilter: $('#CompteNumeroCompteFilterId').val(),
-					typeOperationNomFilter: $('#TypeOperationNomFilterId').val()
+            _paiementLoyersService
+                .getPaiementLoyersToExcel({
+				filter : $('#PaiementLoyersTableFilter').val(),
+					moisFilter: $('#MoisFilterId').val(),
+					minAnneeFilter: $('#MinAnneeFilterId').val(),
+					maxAnneeFilter: $('#MaxAnneeFilterId').val(),
+					codePaiementFilter: $('#CodePaiementFilterId').val(),
+					chambreReferenceFilter: $('#ChambreReferenceFilterId').val(),
+					operationCodeOperationFilter: $('#OperationCodeOperationFilterId').val()
 				})
                 .done(function (result) {
                     app.downloadTempFile(result);
                 });
         });
 
-        abp.event.on('app.createOrEditOperationModalSaved', function () {
-            getOperations();
+        abp.event.on('app.createOrEditPaiementLoyerModalSaved', function () {
+            getPaiementLoyers();
         });
 
-		$('#GetOperationsButton').click(function (e) {
+		$('#GetPaiementLoyersButton').click(function (e) {
             e.preventDefault();
-            getOperations();
+            getPaiementLoyers();
         });
 
 		$(document).keypress(function(e) {
 		  if(e.which === 13) {
-			getOperations();
+			getPaiementLoyers();
 		  }
 		});
 		

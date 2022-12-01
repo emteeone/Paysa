@@ -30,6 +30,11 @@ namespace UGB.Paysa.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var paiementLoyers = pages.CreateChildPermission(AppPermissions.Pages_PaiementLoyers, L("PaiementLoyers"));
+            paiementLoyers.CreateChildPermission(AppPermissions.Pages_PaiementLoyers_Create, L("CreateNewPaiementLoyer"));
+            paiementLoyers.CreateChildPermission(AppPermissions.Pages_PaiementLoyers_Edit, L("EditPaiementLoyer"));
+            paiementLoyers.CreateChildPermission(AppPermissions.Pages_PaiementLoyers_Delete, L("DeletePaiementLoyer"));
+
             var typeOperations = pages.CreateChildPermission(AppPermissions.Pages_TypeOperations, L("TypeOperations"));
             typeOperations.CreateChildPermission(AppPermissions.Pages_TypeOperations_Create, L("CreateNewTypeOperation"));
             typeOperations.CreateChildPermission(AppPermissions.Pages_TypeOperations_Edit, L("EditTypeOperation"));

@@ -1,0 +1,64 @@
+﻿
+@using System.Globalization
+@using UGB.Paysa.Web.Areas.App.Models.Common.Modals
+@using UGB.Paysa.Web.Areas.App.Models.PaiementLoyers
+@model CreateOrEditPaiementLoyerModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditPaiementLoyer")) : L("CreateNewPaiementLoyer")))
+
+<div class="modal-body">
+    <div id="PaiementLoyerInformationsTab">
+        <form name="PaiementLoyerInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.PaiementLoyer.Id" />
+            }
+
+            <div class="form-group m-form__group">
+                <label for="ChambreReference">@L("Chambre")</label>
+                <div class="input-group">
+                    <input class="form-control" id="ChambreReference" name="chambreReference" value="@Model.ChambreReference" type="text" disabled>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary blue" id="OpenChambreLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    </div>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-danger btn-icon" type="button" id="ClearChambreReferenceButton"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="PaiementLoyer_ChambreId" value="@Model.PaiementLoyer.ChambreId" type="text" name="chambreId" required hidden />
+            }
+            else
+            {
+            <input class="form-control" id="PaiementLoyer_ChambreId" value="" type="text" name="chambreId" required hidden />
+            }
+
+            <div class="form-group">
+                <label for="operationId">@L("Operation")</label>
+                @Html.DropDownList("operationId", new SelectList(Model.PaiementLoyerOperationList,"Id","DisplayName", (Model.IsEditMode ? Model.PaiementLoyer.OperationId.ToString() : "")),@L("SelectAOperation"), new { @class = "form-control" , @required="required" })
+            </div>
+
+            <div class="form-group">
+                <label for="PaiementLoyer_Mois">@L("Mois")</label>
+                <input class="form-control" id="PaiementLoyer_Mois" value="@Model.PaiementLoyer.Mois" type="text" name="mois" required />
+            </div>
+
+            <div class="form-group">
+                <label for="PaiementLoyer_Annee">@L("Annee")</label>
+                <input class="form-control m-input" id="PaiementLoyer_Annee" value="@Model.PaiementLoyer.Annee.ToString(CultureInfo.InvariantCulture)" type="number" name="annee" />
+            </div>
+
+            <div class="form-group">
+                <label for="PaiementLoyer_CodePaiement">@L("CodePaiement")</label>
+                <input class="form-control" id="PaiementLoyer_CodePaiement" value="@Model.PaiementLoyer.CodePaiement" type="text" name="codePaiement" required />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

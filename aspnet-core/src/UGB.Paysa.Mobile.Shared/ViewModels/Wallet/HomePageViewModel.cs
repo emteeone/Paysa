@@ -180,7 +180,7 @@ namespace UGB.Paysa.ViewModels.Wallet
             {
                 return;
             }
-            await NavigationService.SetDetailPageAsync(typeof(LogementView), pushToStack: true);
+            await NavigationService.SetDetailPageAsync(typeof(LogementView), Compte.Compte.NumeroCompte, pushToStack: true) ;
         }
         private async Task GoToAllOperationsPageAsync()
         {

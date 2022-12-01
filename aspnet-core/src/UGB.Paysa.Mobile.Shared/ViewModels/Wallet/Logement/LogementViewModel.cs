@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UGB.Paysa.ApiClient;
+using UGB.Paysa.Authorization.Users.Dto;
 using UGB.Paysa.Commands;
 using UGB.Paysa.Core.Threading;
 using UGB.Paysa.Models.Users;
+using UGB.Paysa.UGB.Paysa.Chambres;
+using UGB.Paysa.UI.Assets;
 using UGB.Paysa.ViewModels.Base;
 using UGB.Paysa.Wallet.Chambres;
 using UGB.Paysa.Wallet.Chambres.Dtos;
@@ -23,6 +26,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
 
         private readonly IOperationsAppService _operationsAppService;
         private readonly IChambresAppService _chambresAppService;
+        private readonly IPaiementLoyersAppService _paiementLoyersAppService;
         private readonly IApplicationContext _applicationContext;
 
         private GetChambreForViewDto Chambre;
@@ -30,6 +34,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
         private bool _isInitialized;
         public  bool _noOperationsFound;
         public  string _referenceChambre;
+        public  string NumeroCompte;
         public bool NoOperationsFound
         {
             get => _noOperationsFound;
@@ -58,12 +63,20 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
                 RaisePropertyChanged(() => OperationListHeight);
             }
         }
+
+        public override async Task InitializeAsync(object navigationData)
+        {
+             NumeroCompte = (string)navigationData;
+            _input.CompteNumeroCompteFilter = NumeroCompte;
+        }
         public LogementViewModel(IOperationsAppService operationsAppService,
             IChambresAppService chambresAppService,
+            IPaiementLoyersAppService paiementLoyersAppService,
             IApplicationContext applicationContext)
         {
             _operationsAppService = operationsAppService;
             _chambresAppService = chambresAppService;
+            _paiementLoyersAppService = paiementLoyersAppService;
             _applicationContext = applicationContext;
             LogementOperations = new ObservableRangeCollection<OperationListModel>();
 
@@ -102,7 +115,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
         {
             NoOperationsFound = LogementOperations.Count == 0;
         }
-        private async Task GetUserCompteBalance(long userId)
+        private async Task GetUserChambreInfo(long userId)
         {
             Chambre = await _chambresAppService.GetChambreByUserId(new EntityDto<long> { Id = userId });
             ReferenceChambre = Chambre.Chambre.Reference;
@@ -114,7 +127,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
                 return;
             }
             await RefreshOperationsAsync();
-            await GetUserCompteBalance(_applicationContext.LoginInfo.User.Id);
+            await GetUserChambreInfo(_applicationContext.LoginInfo.User.Id);
             _isInitialized = true;
         }
     }

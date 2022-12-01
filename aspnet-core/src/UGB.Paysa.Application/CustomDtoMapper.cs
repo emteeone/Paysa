@@ -1,4 +1,6 @@
-﻿using UGB.Paysa.Wallet.Operations.Dtos;
+﻿using UGB.Paysa.UGB.Paysa.Chambres.Dtos;
+using UGB.Paysa.UGB.Paysa.Chambres;
+using UGB.Paysa.Wallet.Operations.Dtos;
 using UGB.Paysa.Wallet.Operations;
 using UGB.Paysa.Wallet.Tools.Dtos;
 using UGB.Paysa.Wallet.Tools;
@@ -58,6 +60,8 @@ namespace UGB.Paysa
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditPaiementLoyerDto, PaiementLoyer>().ReverseMap();
+            configuration.CreateMap<PaiementLoyerDto, PaiementLoyer>().ReverseMap();
             configuration.CreateMap<CreateOrEditTypeOperationDto, TypeOperation>().ReverseMap();
             configuration.CreateMap<TypeOperationDto, TypeOperation>().ReverseMap();
             configuration.CreateMap<CreateOrEditOperationDto, Operation>().ReverseMap();

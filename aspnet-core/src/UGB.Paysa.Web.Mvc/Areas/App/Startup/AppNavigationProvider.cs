@@ -22,24 +22,33 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
                 )
+                
                 .AddItem(new MenuItemDefinition(
+                        AppPageNames.Common.Transactions,
+                        L("Transactions"),
+                        icon: "flaticon-interface-8"
+                    ).AddItem(new MenuItemDefinition(
                         AppPageNames.Common.TypeOperations,
                         L("TypeOperations"),
                         url: "App/TypeOperations",
                         icon: "flaticon-more",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TypeOperations)
                     )
-                ).AddItem(new MenuItemDefinition(
-                        AppPageNames.Common.Transactions,
-                        L("Transactions"),
-                        icon: "flaticon-interface-8"
-                    ).AddItem(new MenuItemDefinition(
+                )
+                .AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Operations,
                         L("Operations"),
                         url: "App/Operations",
                         icon: "flaticon-more",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Operations)
-                    ))
+                    )).AddItem(new MenuItemDefinition(
+                        AppPageNames.Common.PaiementLoyers,
+                        L("PaiementLoyers"),
+                        url: "App/PaiementLoyers",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_PaiementLoyers)
+                    )
+                )
                  ).AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Tools,
                         L("Tools"),

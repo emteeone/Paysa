@@ -1,0 +1,109 @@
+﻿@using UGB.Paysa.Authorization
+@using UGB.Paysa.Web.Areas.App.Models.PaiementLoyers
+@using UGB.Paysa.Web.Areas.App.Startup
+@model PaiementLoyersViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.PaiementLoyers;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/PaiementLoyers/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("PaiementLoyers")' description='@L("PaiementLoyersHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_PaiementLoyers_Create))
+        {
+        <button id="CreateNewPaiementLoyerButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewPaiementLoyer")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="form-group align-items-center">
+                                <div class="input-group">
+                                    <input type="text" id="PaiementLoyersTableFilter" class="form-control m-input" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <span class="input-group-btn">
+                                        <button id="GetPaiementLoyersButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="separator separator-dashed"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MoisFilterId">@L("Mois")</label>
+                            <input type="text" class="form-control" name="moisFilter" id="MoisFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MinAnneeFilterId">@L("MinMax") @L("Annee")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minAnneeFilter" id="MinAnneeFilterId" />
+                                <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxAnneeFilter" id="MaxAnneeFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="CodePaiementFilterId">@L("CodePaiement")</label>
+                            <input type="text" class="form-control" name="codePaiementFilter" id="CodePaiementFilterId">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="ChambreReferenceFilterId">(@L("Chambre")) @L("Reference")</label>
+                            <input type="text" class="form-control" name="chambreReferenceFilter" id="ChambreReferenceFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="OperationCodeOperationFilterId">(@L("Operation")) @L("CodeOperation")</label>
+                            <input type="text" class="form-control" name="operationCodeOperationFilter" id="OperationCodeOperationFilterId">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="PaiementLoyersTable" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("Mois")</th>
+                                <th>@L("Annee")</th>
+                                <th>@L("CodePaiement")</th>
+                                <th>@L("ChambreReference")</th>
+                                <th>@L("OperationCodeOperation")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
