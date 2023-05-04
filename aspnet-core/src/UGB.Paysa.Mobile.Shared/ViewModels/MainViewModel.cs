@@ -43,7 +43,7 @@ namespace UGB.Paysa.ViewModels
         private readonly ProxyProfileControllerService _profileControllerService;
         private readonly IApplicationContext _applicationContext;
 
-        private const string ApplicationName = "Paysa";
+        private const string ApplicationName = "SanarPay";
         private ImageSource _photo;
         private bool _isInitialized;
         private byte[] _profilePictureBytes;
@@ -222,6 +222,8 @@ namespace UGB.Paysa.ViewModels
 
         private static async Task PickProfilePictureAsync(Func<MediaFile, Task> picturePicked)
         {
+            var b = !CrossMedia.Current.IsPickPhotoSupported;
+
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
                 return;

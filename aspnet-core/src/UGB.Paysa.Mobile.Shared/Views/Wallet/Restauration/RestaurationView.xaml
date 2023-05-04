@@ -68,7 +68,7 @@
                                  Padding="0"
                                  Spacing="10"
                                  VerticalOptions="FillAndExpand">
-                    <Label Text="{extensions:Translate RestaurationRecentesOperations}" 
+                    <Label Text="{extensions:Translate RecentOperations}" 
                                FontFamily="Montserrat_SemiBold"
                                FontSize="Medium" />
                     <StackLayout IsVisible="{Binding NoOperationsFound}" Margin="0,50,0,5" >
@@ -118,10 +118,17 @@
                                                         FontSize="12" />
                                             </StackLayout>
                                             <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
-                                                <Label Text="{Binding Montant,StringFormat='{} {0:C0}'}"
-                                                               FontSize="14"
-                                                               FontFamily="Montserrat_SemiBold"
-                                                               HorizontalTextAlignment="End" />
+                                                <Label 
+                                                        FontSize="15"
+                                                        FontFamily="Montserrat_SemiBold"
+                                                        HorizontalTextAlignment="End" >
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding  Signe }" />
+                                                            <Span Text="{Binding  Montant,StringFormat='{} {0:C0}'}"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
                                             </StackLayout>
                                         </Grid>
                                     </Frame>

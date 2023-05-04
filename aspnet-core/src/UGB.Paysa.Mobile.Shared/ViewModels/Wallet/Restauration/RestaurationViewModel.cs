@@ -20,6 +20,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Restauration
         public ObservableRangeCollection<OperationListModel> RestaurationOperations { get; set; }
         private readonly IOperationsAppService _operationsAppService; 
         private GetAllOperationsInput _input;
+        private string NumeroCompte;
         private bool _isInitialized;
 
         public bool _isInMenuDiner;
@@ -77,7 +78,11 @@ namespace UGB.Paysa.ViewModels.Wallet.Restauration
                 SkipCount = 0
             };
         }
-
+        public override async Task InitializeAsync(object navigationData)
+        {
+            NumeroCompte = (string)navigationData;
+            _input.CompteNumeroCompteFilter = NumeroCompte;
+        }
         private async Task ShowMenuRepasAsync()
         {
             IsInMenuDiner = false;

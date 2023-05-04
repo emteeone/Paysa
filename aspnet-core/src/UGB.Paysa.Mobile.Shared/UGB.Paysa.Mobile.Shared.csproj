@@ -155,6 +155,9 @@
     <Compile Update="Views\Wallet\Logement\LogementView.xaml.cs">
       <DependentUpon>LogementView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Wallet\Logement\PaiementDetailsView.xaml.cs">
+      <DependentUpon>PaiementDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Wallet\Operations\SeeAllOperationsView.xaml.cs">
       <DependentUpon>SeeAllOperationsView.xaml</DependentUpon>
     </Compile>
@@ -163,6 +166,9 @@
     </Compile>
     <Compile Update="Views\Wallet\Transport\TransportView.xaml.cs">
       <DependentUpon>TransportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
 
   </ItemGroup>

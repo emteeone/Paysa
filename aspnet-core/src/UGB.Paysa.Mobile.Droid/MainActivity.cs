@@ -8,6 +8,7 @@ using ImageCircle.Forms.Plugin.Droid;
 using UGB.Paysa.Core.Exception;
 using Plugin.Permissions;
 using CachedImageRenderer = FFImageLoading.Forms.Platform.CachedImageRenderer;
+using Plugin.Media;
 
 namespace UGB.Paysa
 {
@@ -36,6 +37,8 @@ namespace UGB.Paysa
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
  
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            global::Xamarin.Essentials.Platform.Init(this, bundle);
 
             ImageCircleRenderer.Init();
 

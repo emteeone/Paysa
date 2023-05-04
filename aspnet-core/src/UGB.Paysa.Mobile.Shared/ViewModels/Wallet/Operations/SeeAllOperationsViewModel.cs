@@ -98,6 +98,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Operations
         public override async Task InitializeAsync(object navigationData)
         {
             NumeroCompte = (string)navigationData;
+            _input.CompteNumeroCompteFilter = NumeroCompte;
         }
         private async Task PageAppearing()
         {
@@ -146,7 +147,6 @@ namespace UGB.Paysa.ViewModels.Wallet.Operations
         }
         private async Task FetchAllOperationsAsync()
         {
-            _input.CompteNumeroCompteFilter = NumeroCompte;
             await WebRequestExecuter.Execute(async () => await _operationsAppService.GetAll(_input), result =>
             {
                 var operations = ObjectMapper.Map<List<OperationListModel>>(result.Items);

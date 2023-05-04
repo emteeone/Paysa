@@ -1,4 +1,6 @@
-﻿namespace UGB.Paysa.UGB.Paysa.Chambres.Dtos
+﻿using System;
+
+namespace UGB.Paysa.UGB.Paysa.Chambres.Dtos
 {
     public class GetPaiementLoyerForViewDto
     {
@@ -7,6 +9,7 @@
         public string ChambreReference { get; set; }
 
         public string OperationCodeOperation { get; set; }
+        public DateTime OperationDateOperation { get; set; }
 
     }
 }

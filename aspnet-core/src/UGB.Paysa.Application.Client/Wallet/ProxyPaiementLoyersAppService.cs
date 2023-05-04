@@ -12,7 +12,7 @@ using UGB.Paysa.Wallet.Operations.Dtos;
 
 namespace UGB.Paysa.Wallet
 {
-    public class ProxyAPiementLoyersAppService : ProxyAppServiceBase, IPaiementLoyersAppService
+    public class ProxyPaiementLoyersAppService : ProxyAppServiceBase, IPaiementLoyersAppService
     {
         public Task CreateOrEdit(CreateOrEditPaiementLoyerDto input)
         {

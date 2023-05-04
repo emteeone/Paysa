@@ -38,7 +38,8 @@
         "List": true,
         "CreateOrUpdate": true
       },
-      "ViewType": null
+      "ViewType": null,
+      "AdditionalData": {}
     },
     {
       "Name": "Annee",
@@ -58,7 +59,8 @@
         "List": true,
         "CreateOrUpdate": true
       },
-      "ViewType": null
+      "ViewType": null,
+      "AdditionalData": {}
     },
     {
       "Name": "CodePaiement",
@@ -78,7 +80,8 @@
         "List": true,
         "CreateOrUpdate": true
       },
-      "ViewType": null
+      "ViewType": null,
+      "AdditionalData": {}
     }
   ],
   "NavigationProperties": [

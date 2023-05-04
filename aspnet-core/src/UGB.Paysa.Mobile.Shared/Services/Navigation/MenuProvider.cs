@@ -31,6 +31,13 @@ namespace UGB.Paysa.Services.Navigation
                 Icon = "Tenants.png",
                 ViewType = typeof(HomePageView)
             },
+            // new NavigationMenuItem
+            //{
+            //    Title = L.Localize("Profile"),
+            //    //Icon = "UserList.png",
+            //    ViewType = typeof(ProfileView),
+            //    //RequiredPermissionName = PermissionKey.Users,
+            //},
             new NavigationMenuItem
             {
                 Title = L.Localize("Users"),

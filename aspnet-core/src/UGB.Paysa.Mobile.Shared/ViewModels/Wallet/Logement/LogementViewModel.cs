@@ -9,8 +9,10 @@ using UGB.Paysa.Commands;
 using UGB.Paysa.Core.Threading;
 using UGB.Paysa.Models.Users;
 using UGB.Paysa.UGB.Paysa.Chambres;
+using UGB.Paysa.UGB.Paysa.Chambres.Dtos;
 using UGB.Paysa.UI.Assets;
 using UGB.Paysa.ViewModels.Base;
+using UGB.Paysa.Views;
 using UGB.Paysa.Wallet.Chambres;
 using UGB.Paysa.Wallet.Chambres.Dtos;
 using UGB.Paysa.Wallet.Comptes.Dtos;
@@ -22,7 +24,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
     public class LogementViewModel : XamarinViewModel
     {
         public ICommand PageAppearingCommand => HttpRequestCommand.Create(PageAppearing);
-        public ObservableRangeCollection<OperationListModel> LogementOperations { get; set; }
+        public ObservableRangeCollection<PaiementChambreListModel> LogementOperations { get; set; }
 
         private readonly IOperationsAppService _operationsAppService;
         private readonly IChambresAppService _chambresAppService;
@@ -30,11 +32,27 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
         private readonly IApplicationContext _applicationContext;
 
         private GetChambreForViewDto Chambre;
-        private GetAllOperationsInput _input;
+        private GetAllPaiementLoyersInput _input;
+        private PaiementChambreListModel _selectedPaiement;
+
+        public PaiementChambreListModel SelectedPaiement
+        {
+            get => _selectedPaiement;
+            set
+            {
+                _selectedPaiement = value;
+                RaisePropertyChanged(() => SelectedPaiement);
+                if (_selectedPaiement != null)
+                {
+                    AsyncRunner.Run(GotoPaiementDetailsAsync(_selectedPaiement));
+                }
+            }
+        }
         private bool _isInitialized;
         public  bool _noOperationsFound;
         public  string _referenceChambre;
         public  string NumeroCompte;
+        public  double MontantLocation;
         public bool NoOperationsFound
         {
             get => _noOperationsFound;
@@ -64,44 +82,48 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
             }
         }
 
-        public override async Task InitializeAsync(object navigationData)
-        {
-             NumeroCompte = (string)navigationData;
-            _input.CompteNumeroCompteFilter = NumeroCompte;
-        }
+       
         public LogementViewModel(IOperationsAppService operationsAppService,
             IChambresAppService chambresAppService,
-            IPaiementLoyersAppService paiementLoyersAppService,
+              IPaiementLoyersAppService paiementLoyersAppService,
             IApplicationContext applicationContext)
         {
             _operationsAppService = operationsAppService;
             _chambresAppService = chambresAppService;
             _paiementLoyersAppService = paiementLoyersAppService;
             _applicationContext = applicationContext;
-            LogementOperations = new ObservableRangeCollection<OperationListModel>();
+            LogementOperations = new ObservableRangeCollection<PaiementChambreListModel>();
 
-            _input = new GetAllOperationsInput
+            _input = new GetAllPaiementLoyersInput
             {
-                TypeOperationNomFilter = "LOCATION",
+
                 Filter = "",
                 MaxResultCount = PageDefaults.PageSize,
                 SkipCount = 0
             };
         }
+        public override async Task InitializeAsync(object navigationData)
+        {
+            NumeroCompte = (string)navigationData;
+            await GetUserChambreInfo(_applicationContext.LoginInfo.User.Id);
+            _input.ChambreReferenceFilter = ReferenceChambre;
+        }
         private async Task FetchAllOperationsAsync()
         {
-            await WebRequestExecuter.Execute(async () => await _operationsAppService.GetAll(_input), result =>
+            await WebRequestExecuter.Execute(async () => await _paiementLoyersAppService.GetAll(_input), result =>
             {
-                var operations = ObjectMapper.Map<List<OperationListModel>>(result.Items);
+                var operations = ObjectMapper.Map<List<PaiementChambreListModel>>(result.Items);
                 foreach (var operation in operations)
                 {
                     LogementOperations.Add(operation);
                 }
                 CheckNoOperationsFound();
                 OperationListHeight = LogementOperations.Count;
-
+                var a = LogementOperations;
                 return Task.CompletedTask;
             });
+
+            var b = LogementOperations;
         }
         private async Task RefreshOperationsAsync()
         {
@@ -119,6 +141,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
         {
             Chambre = await _chambresAppService.GetChambreByUserId(new EntityDto<long> { Id = userId });
             ReferenceChambre = Chambre.Chambre.Reference;
+            MontantLocation = Chambre.Chambre.MontantLocation;
         }
         private async Task PageAppearing()
         {
@@ -127,8 +150,11 @@ namespace UGB.Paysa.ViewModels.Wallet.Logement
                 return;
             }
             await RefreshOperationsAsync();
-            await GetUserChambreInfo(_applicationContext.LoginInfo.User.Id);
             _isInitialized = true;
+        }
+        private async Task GotoPaiementDetailsAsync(PaiementChambreListModel paiement)
+        {
+            await NavigationService.SetDetailPageAsync(typeof(PaiementDetailsView), paiement, pushToStack: true);
         }
     }
 }

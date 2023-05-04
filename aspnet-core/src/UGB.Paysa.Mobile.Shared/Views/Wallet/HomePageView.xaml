@@ -16,17 +16,19 @@
                FontSize="Medium"  
                TextColor="White" 
                FontFamily="Montserrat_SemiBold"/>
-            <image:CircleImage  
-                        Source="{Binding Photo}" 
-                        WidthRequest="40" 
-                        HeightRequest="40" 
-                        Aspect="AspectFill"
-                        VerticalOptions="CenterAndExpand"
-                        HorizontalOptions="EndAndExpand" 
-                        BorderThickness="1"
-                        FillColor="White"
-                        BorderColor="White">
-            </image:CircleImage>
+                <image:CircleImage  
+                    Source="{Binding Photo}" 
+                    WidthRequest="40" 
+                    HeightRequest="40" 
+                    Aspect="AspectFill"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="EndAndExpand" 
+                    BorderThickness="1"
+                    BorderColor="White">
+                    <image:CircleImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MyProfileCommand}" />
+                    </image:CircleImage.GestureRecognizers>
+                </image:CircleImage>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -44,11 +46,11 @@
                 <ScrollView  VerticalScrollBarVisibility="Never">
                 <StackLayout Margin="18,0,18,20" VerticalOptions="FillAndExpand">
                     <controls:CardView  HasShadow="False" 
-                                        HeightRequest="200" 
-                                        Margin="0,-30,0,0" 
-                                        CornerRadius="30"  
-                                        Padding="20" 
-                                        BackgroundColor="{StaticResource HeaderPageBackgroundColor}">
+                        HeightRequest="200" 
+                        Margin="0,-30,0,0" 
+                        CornerRadius="30"  
+                        Padding="20" 
+                        BackgroundColor="{StaticResource HeaderPageBackgroundColor}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="85"/>
@@ -257,10 +259,17 @@
                                                         FontSize="12" />
                                                 </StackLayout>
                                                 <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
-                                                        <Label Text="{Binding  Montant,StringFormat='{} {0:C0}'}"
-                                                               FontSize="14"
+                                                        <Label 
+                                                               FontSize="15"
                                                                FontFamily="Montserrat_SemiBold"
-                                                               HorizontalTextAlignment="End" />
+                                                               HorizontalTextAlignment="End" >
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding  Signe }" />
+                                                                    <Span Text="{Binding  Montant,StringFormat='{} {0:C0}'}"/>
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
                                                 </StackLayout>
                                             </Grid>
                                         </Frame>

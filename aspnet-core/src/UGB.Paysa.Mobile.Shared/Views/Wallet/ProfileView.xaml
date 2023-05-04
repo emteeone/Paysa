@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:UGB.Paysa.ViewModels.Base;assembly=UGB.Paysa.Mobile.Shared"
+             x:Class="UGB.Paysa.Views.ProfileView"
+             xmlns:image="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:extensions="clr-namespace:UGB.Paysa.Extensions.MarkupExtensions;assembly=UGB.Paysa.Mobile.Shared"
+             BackgroundColor="{StaticResource WhiteColor}"
+             base:ViewManager.AutoWireViewModel="true">
+    <NavigationPage.TitleView>
+        <Label Text="{extensions:Translate Profile}" 
+               FontSize="Medium"  
+               TextColor="White" 
+               FontFamily="Montserrat_SemiBold"/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Frame Margin="0,-50,0,0" Padding="0,0,0,0" BackgroundColor="{StaticResource HeaderPageBackgroundColor}"
+                    CornerRadius="35" 
+                    HasShadow="False" 
+                    HeightRequest="300" >
+                    <StackLayout>
+                        <image:CircleImage 
+                            Source="{Binding Model.Photo}"
+                            Aspect="AspectFit" 
+                            WidthRequest="150" 
+                            HeightRequest="150" 
+                            BorderThickness="2"
+                            HorizontalOptions="Center" 
+                            VerticalOptions="StartAndExpand" 
+                            TranslationY="70"
+                            FillColor="White"
+                            BorderColor="{StaticResource LightTextColor}" >
+                        </image:CircleImage>
+
+                    </StackLayout>
+                </Frame>
+                
+                <StackLayout>
+                    <StackLayout  Orientation="Vertical" Spacing="8" Padding="0,0">
+                       <Frame CornerRadius="15" 
+                            Margin="15,-70,15,0"
+                            HorizontalOptions="FillAndExpand"
+                            HeightRequest="300"
+                            BackgroundColor="White">
+                           
+                        </Frame>
+                    </StackLayout>
+
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

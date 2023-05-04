@@ -18,17 +18,94 @@
             <StackLayout
                 HeightRequest="40"
                 BackgroundColor="{StaticResource HeaderPageBackgroundColor}" />
+            
             <Frame Margin="0,-40,0,0" Padding="0" BackgroundColor="White"
                 CornerRadius="100" 
                 HasShadow="False" 
                 HeightRequest="80" />
-            
-            <Label Text="Consultation Info !"
-                   FontFamily="Montserrat_Medium"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
-            
-            
+
+            <StackLayout Padding="0,0,0,0" Margin="10,-50,10,0" VerticalOptions="FillAndExpand">
+
+                <StackLayout Margin="0,0,0,20" 
+                    Orientation="Vertical" 
+                    Padding="0"
+                    Spacing="10"
+                    VerticalOptions="FillAndExpand">
+                    <!--<Label Text="{extensions:Translate RecentOperations}" 
+                        FontFamily="Montserrat_SemiBold"
+                        FontSize="Medium" />-->
+                    <StackLayout IsVisible="{Binding NoOperationsFound}" Margin="0,50,0,5" >
+                        <Label Text="{extensions:Translate NoOperationsFound}" 
+                           HorizontalOptions="Center" 
+                           HorizontalTextAlignment="Center" 
+                           FontFamily="AvimtooFont"
+                           FontSize="20" 
+                           VerticalOptions="CenterAndExpand" TextColor="#D3D2D2">
+                        </Label>
+                    </StackLayout>
+                    <ListView 
+                            SeparatorVisibility="None"
+                            HasUnevenRows="True"
+                            SelectionMode="None"
+                            ItemsSource="{Binding ConsultationOperations}"
+                            VerticalOptions="EndAndExpand"
+                            x:Name="RecentOperations"
+                            VerticalScrollBarVisibility="Never"
+                            IsVisible="{Binding NoOperationsFound,Converter={StaticResource InverseBooleanConverter}}"
+                            CachingStrategy="RetainElement">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame BackgroundColor="AliceBlue" 
+                                            HasShadow="True" 
+                                            Margin="0,4"
+                                            HeightRequest="55"
+                                            CornerRadius="18">
+                                        <Grid  Padding="0" ColumnSpacing="8">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="55"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="5*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Grid.Row="0"></Image>
+                                            <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
+                                                <Label Text="{Binding TypeOperationNom}"
+                                                           FontFamily="Montserrat_Medium"
+                                                           FontSize="15"/>
+                                                <Label Text="{Binding Operation.DateOperation}"
+                                                        TextColor="{StaticResource LightTextColor}"
+                                                        FontFamily="Montserrat_Medium"
+                                                        FontSize="12" />
+                                            </StackLayout>
+                                            <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
+                                                <Label 
+                                                        FontSize="15"
+                                                        FontFamily="Montserrat_SemiBold"
+                                                        HorizontalTextAlignment="End" >
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding  Signe }" />
+                                                            <Span Text="{Binding  Montant,StringFormat='{} {0:C0}'}"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+                </StackLayout>
+
+            </StackLayout>
+
+
         </StackLayout>
         
     </ContentPage.Content>

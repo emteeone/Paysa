@@ -71,7 +71,8 @@ namespace UGB.Paysa.UGB.Paysa.Chambres
                                      o.CodePaiement,
                                      Id = o.Id,
                                      ChambreReference = s1 == null || s1.Reference == null ? "" : s1.Reference.ToString(),
-                                     OperationCodeOperation = s2 == null || s2.CodeOperation == null ? "" : s2.CodeOperation.ToString()
+                                     OperationCodeOperation = s2 == null || s2.CodeOperation == null ? "" : s2.CodeOperation.ToString(),
+                                     OperationDateOperation =  s2.DateOperation
                                  };
 
             var totalCount = await filteredPaiementLoyers.CountAsync();
@@ -92,7 +93,8 @@ namespace UGB.Paysa.UGB.Paysa.Chambres
                         Id = o.Id,
                     },
                     ChambreReference = o.ChambreReference,
-                    OperationCodeOperation = o.OperationCodeOperation
+                    OperationCodeOperation = o.OperationCodeOperation,
+                    OperationDateOperation = o.OperationDateOperation,
                 };
 
                 results.Add(res);

@@ -9,6 +9,9 @@ namespace UGB.Paysa.Models.Users
     [AutoMapFrom(typeof(GetOperationForViewDto))]
     public class OperationListModel : GetOperationForViewDto
     {
-        public string Montant => Operation.Discriminator =="Debit" ? "- "+Operation.Montant.ToString() : "+ "+Operation.Montant.ToString();
+        public string Mois { get; set; }
+        public int Annee { get; set; }
+        public double Montant => Operation.Montant;
+        public string Signe => Operation.Discriminator == "Debit" ? "-" : "+";
     }
 }

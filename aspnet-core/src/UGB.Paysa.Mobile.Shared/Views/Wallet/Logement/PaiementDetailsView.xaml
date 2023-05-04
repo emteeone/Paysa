@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:UGB.Paysa.ViewModels.Base;assembly=UGB.Paysa.Mobile.Shared"
+             x:Class="UGB.Paysa.Views.PaiementDetailsView"
+             xmlns:extensions="clr-namespace:UGB.Paysa.Extensions.MarkupExtensions;assembly=UGB.Paysa.Mobile.Shared"
+             BackgroundColor="{StaticResource WhiteColor}"
+             base:ViewManager.AutoWireViewModel="true">
+    <NavigationPage.TitleView>
+        <Label Text="{extensions:Translate PaiementDetails}" 
+               FontSize="Medium"  
+               TextColor="White" 
+               FontFamily="Montserrat_SemiBold"/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame Margin="0,-50,0,0" Padding="0,70,0,0" BackgroundColor="{StaticResource HeaderPageBackgroundColor}"
+                CornerRadius="35" 
+                HasShadow="False" 
+                HeightRequest="300" >
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Frame HorizontalOptions="Center" 
+                            HasShadow="False" 
+                            HeightRequest="35"
+                            BackgroundColor="LightBlue" 
+                            CornerRadius="20">
+                        <Image Source="room" WidthRequest="60"/>
+                    </Frame>
+                    <Label Text="{Binding ReferenceChambre}"
+                        CharacterSpacing="1"
+                        TextColor="White"
+                        HorizontalOptions="CenterAndExpand"
+                        TextTransform="None"
+                        FontFamily="Montserrat_SemiBold"
+                        FontSize="30"/>
+                </StackLayout>
+            </Frame>
+            <StackLayout>
+                <StackLayout  Orientation="Vertical" Spacing="8" Padding="0,0">
+                <Frame CornerRadius="15" 
+                    Margin="15,-160,15,0"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="300"
+                    BackgroundColor="White">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            
+                        <Label Text="{extensions:Translate NumeroChambre}" 
+                            TextTransform="None"
+                            HorizontalOptions="StartAndExpand"
+                            FontFamily="Montserrat_Medium"
+                            FontSize="18"/>
+                           
+                        </StackLayout>
+                        
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="Montant Location" 
+                                TextTransform="None"
+                                HorizontalOptions="StartAndExpand"
+                                FontFamily="Montserrat_Medium"
+                                FontSize="18"/>
+                            <Label Text="{Binding MontantLocation ,StringFormat='{} {0:C0}'}" 
+                                TextTransform="None"
+                                HorizontalOptions="End"
+                                FontFamily="Montserrat_SemiBold"
+                                FontSize="18"/>
+                        </StackLayout>
+                        
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                            <Label Text="Nombre de Mois Arrieres" 
+                                TextTransform="None"
+                                HorizontalOptions="StartAndExpand"
+                                FontFamily="Montserrat_Medium"
+                                FontSize="18"/>
+                            <Label Text="{Binding NombreDeMoisArriere}" 
+                                TextTransform="None"
+                                HorizontalOptions="End"
+                                FontFamily="Montserrat_SemiBold"
+                                FontSize="18"/>
+                        </StackLayout>
+                        
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+                
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

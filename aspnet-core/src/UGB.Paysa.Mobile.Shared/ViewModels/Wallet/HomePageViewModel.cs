@@ -24,12 +24,14 @@ using UGB.Paysa.Wallet.Operations.Dtos;
 using System.Collections.Generic;
 using UGB.Paysa.Models.Users;
 using MvvmHelpers;
+using UGB.Paysa.Views;
 
 namespace UGB.Paysa.ViewModels.Wallet
 {
     public class HomePageViewModel : XamarinViewModel
     {
         public ICommand PageAppearingCommand    => HttpRequestCommand.Create(PageAppearing);
+        public ICommand MyProfileCommand        => HttpRequestCommand.Create(GoToMyProfilePagePageAsync);
         public ICommand CachedSoldeCommand      => AsyncCommand.Create(CachedSoldeAsync);
         public ICommand RestaurationViewCommand => HttpRequestCommand.Create(GoToRestaurationPageAsync);
         public ICommand TransportViewCommand    => HttpRequestCommand.Create(GoToTransportPageAsync);
@@ -41,6 +43,7 @@ namespace UGB.Paysa.ViewModels.Wallet
         private ImageSource _photo;
         private bool _isInitialized;
         private string _userNameAndSurname;
+        private string NumeroCompte;
         private byte[] _profilePictureBytes;
         private double _balance;
         private GetCompteForViewDto Compte;
@@ -131,6 +134,13 @@ namespace UGB.Paysa.ViewModels.Wallet
                 RaisePropertyChanged(() => OperationListHeight);
             }
         }
+        public override async Task InitializeAsync(object navigationData)
+        {
+            await GetUserCompteBalance(_applicationContext.LoginInfo.User.Id);
+            UserNameAndSurname = _applicationContext.LoginInfo.User.Name + " " + _applicationContext.LoginInfo.User.Surname;
+            Photo = ImageSource.FromResource(AssetsHelper.ProfileImagePlaceholderNamespace);
+            await GetUserPhoto(_applicationContext.LoginInfo.User.Id);
+        }
         private async Task PageAppearing()
         {
             if (_isInitialized)
@@ -142,11 +152,7 @@ namespace UGB.Paysa.ViewModels.Wallet
             {
                 return;
             }
-
-            UserNameAndSurname = _applicationContext.LoginInfo.User.Name + " " + _applicationContext.LoginInfo.User.Surname;
-            Photo = ImageSource.FromResource(AssetsHelper.ProfileImagePlaceholderNamespace);
-            await GetUserPhoto(_applicationContext.LoginInfo.User.Id);
-            await GetUserCompteBalance(_applicationContext.LoginInfo.User.Id);
+            
             await FetchRecentOperationsAsync();
             _isInitialized = true;
         }
@@ -156,7 +162,7 @@ namespace UGB.Paysa.ViewModels.Wallet
             {
                 return;
             }
-            await NavigationService.SetDetailPageAsync(typeof(RestaurationView), pushToStack: true);
+            await NavigationService.SetDetailPageAsync(typeof(RestaurationView), NumeroCompte, pushToStack: true);
         }
         private async Task GoToTransportPageAsync()
         {
@@ -164,7 +170,15 @@ namespace UGB.Paysa.ViewModels.Wallet
             {
                 return;
             }
-            await NavigationService.SetDetailPageAsync(typeof(TransportView), pushToStack: true);
+            await NavigationService.SetDetailPageAsync(typeof(TransportView), NumeroCompte, pushToStack: true);
+        }
+        private async Task GoToMyProfilePagePageAsync()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+            await NavigationService.SetDetailPageAsync(typeof(ProfileView), _applicationContext.LoginInfo.User.Id, pushToStack: true);
         }
         private async Task GoToConsultationPageAsync()
         {
@@ -172,7 +186,7 @@ namespace UGB.Paysa.ViewModels.Wallet
             {
                 return;
             }
-            await NavigationService.SetDetailPageAsync(typeof(ConsultationView), pushToStack: true);
+            await NavigationService.SetDetailPageAsync(typeof(ConsultationView), NumeroCompte, pushToStack: true);
         }
         private async Task GoToLogementPageAsync()
         {
@@ -180,7 +194,7 @@ namespace UGB.Paysa.ViewModels.Wallet
             {
                 return;
             }
-            await NavigationService.SetDetailPageAsync(typeof(LogementView), Compte.Compte.NumeroCompte, pushToStack: true) ;
+            await NavigationService.SetDetailPageAsync(typeof(LogementView), NumeroCompte, pushToStack: true) ;
         }
         private async Task GoToAllOperationsPageAsync()
         {
@@ -235,6 +249,8 @@ namespace UGB.Paysa.ViewModels.Wallet
         {
             Compte = await _compteAppService.GetCompteBalanceByUserId( new EntityDto<long> { Id = userId });
             Balance = Compte.Compte.Solde;
+            NumeroCompte = Compte.Compte.NumeroCompte;
+            _input.CompteNumeroCompteFilter = NumeroCompte;
         }
     }
 }

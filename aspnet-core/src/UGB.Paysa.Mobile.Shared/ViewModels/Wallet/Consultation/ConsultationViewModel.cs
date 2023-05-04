@@ -19,6 +19,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Consultation
 
         private readonly IOperationsAppService _operationsAppService;
         private GetAllOperationsInput _input;
+        private string NumeroCompte;
         private bool _isInitialized;
         public bool _noOperationsFound;
         public bool NoOperationsFound
@@ -49,10 +50,16 @@ namespace UGB.Paysa.ViewModels.Wallet.Consultation
 
             _input = new GetAllOperationsInput
             {
+                TypeOperationNomFilter = "CONSULTATION",
                 Filter = "",
                 MaxResultCount = PageDefaults.PageSize,
                 SkipCount = 0
             };
+        }
+        public override async Task InitializeAsync(object navigationData)
+        {
+            NumeroCompte = (string)navigationData;
+            _input.CompteNumeroCompteFilter = NumeroCompte;
         }
         private async Task FetchAllOperationsAsync()
         {

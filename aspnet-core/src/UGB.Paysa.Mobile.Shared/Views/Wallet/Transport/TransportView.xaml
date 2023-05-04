@@ -18,7 +18,7 @@
             <Frame Margin="0,-50,0,0" Padding="0,60,0,0" BackgroundColor="{StaticResource HeaderPageBackgroundColor}"
                 CornerRadius="40" 
                 HasShadow="False" 
-                HeightRequest="200" >
+                HeightRequest="180" >
                 <StackLayout  HorizontalOptions="Center" VerticalOptions="Start" Orientation="Horizontal" Spacing="20">
                     <Button Text="{extensions:Translate  Depart}" 
                             Padding="30,10,30,10"
@@ -60,6 +60,46 @@
                 </StackLayout>
             </Frame>
 
+            <StackLayout  Orientation="Vertical" Spacing="8" Padding="0,0">
+                <Frame CornerRadius="20" 
+                    Margin="15,-64,15,0"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="70"
+                    BackgroundColor="White">
+                    <StackLayout>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="{extensions:Translate UGB}" 
+                                TextTransform="None"
+                                HorizontalOptions="Start"
+                                FontFamily="Montserrat_Medium"
+                                FontSize="18"/>
+                            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                <Label Text="vers" 
+                                    TextTransform="None"
+                                    HorizontalOptions="CenterAndExpand"
+                                    FontFamily="Montserrat_Medium"
+                                    FontSize="18"/>
+                                <Label Text="17h00" 
+                                    TextTransform="None"
+                                    HorizontalOptions="StartAndExpand"
+                                    FontFamily="Montserrat_Medium"
+                                    FontSize="18"/>
+                            </StackLayout>
+                           
+                            <Label Text="{extensions:Translate Ville}" 
+                                HorizontalOptions="End"
+                                TextTransform="None"
+                                FontFamily="Montserrat_SemiBold"
+                                FontSize="18"/>
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+
+
             <StackLayout Padding="0,0,0,0" Margin="10,0,10,0" VerticalOptions="FillAndExpand">
 
                 <StackLayout Margin="0,0,0,20" 
@@ -67,7 +107,7 @@
                                  Padding="0"
                                  Spacing="10"
                                  VerticalOptions="FillAndExpand">
-                    <Label Text="{extensions:Translate TransportRecentesOperations}" 
+                    <Label Text="{extensions:Translate RecentOperations}" 
                                FontFamily="Montserrat_SemiBold"
                                FontSize="Medium" />
                     <StackLayout IsVisible="{Binding NoOperationsFound}" Margin="0,50,0,0" >
@@ -76,8 +116,8 @@
                            HorizontalTextAlignment="Center" 
                            FontFamily="AvimtooFont"
                            FontSize="20" 
-                           VerticalOptions="CenterAndExpand" TextColor="#D3D2D2">
-                        </Label>
+                           VerticalOptions="CenterAndExpand" TextColor="#D3D2D2"/>
+
                     </StackLayout>
                     <ListView 
                             SeparatorVisibility="None"
