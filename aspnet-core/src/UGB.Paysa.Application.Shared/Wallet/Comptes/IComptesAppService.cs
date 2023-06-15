@@ -11,6 +11,7 @@ namespace UGB.Paysa.Wallet.Comptes
     public interface IComptesAppService : IApplicationService
     {
         Task<GetCompteForViewDto> GetCompteBalanceByUserId(EntityDto<long> userId);
+        
         Task<bool> CrediterCompte(EditSoldeCompteDto input);
         Task<bool> DebiterCompte(EditSoldeCompteDto input);
 

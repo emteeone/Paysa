@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Abp.Extensions;
+using UGB.Paysa.Wallet.Tools.Dtos;
 
 namespace UGB.Paysa.Web.Areas.App.Models.Operations
 {
@@ -14,6 +15,7 @@ namespace UGB.Paysa.Web.Areas.App.Models.Operations
         public string TypeOperationNom { get; set; }
 
         public List<OperationTypeOperationLookupTableDto> OperationTypeOperationList { get; set; }
+        public List<TerminalLookupTableDto> TerminalList { get; set; }
 
         public bool IsEditMode => !Operation.Id.IsNullOrWhiteSpace();
     }

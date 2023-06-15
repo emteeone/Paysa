@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using UGB.Paysa.Wallet.Tools.Dtos;
 using UGB.Paysa.Dto;
+using System.Collections.Generic;
 
 namespace UGB.Paysa.Wallet.Tools
 {
@@ -20,6 +21,6 @@ namespace UGB.Paysa.Wallet.Tools
         Task Delete(EntityDto<string> input);
 
         Task<FileDto> GetTerminauxToExcel(GetAllTerminauxForExcelInput input);
-
+        
     }
 }

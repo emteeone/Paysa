@@ -5,6 +5,7 @@ using Abp.Application.Services.Dto;
 using UGB.Paysa.Wallet.Operations.Dtos;
 using UGB.Paysa.Dto;
 using System.Collections.Generic;
+using UGB.Paysa.Wallet.Tools.Dtos;
 
 namespace UGB.Paysa.Wallet.Operations
 {
@@ -19,10 +20,10 @@ namespace UGB.Paysa.Wallet.Operations
         Task CreateOrEdit(CreateOrEditOperationDto input);
 
         Task Delete(EntityDto<string> input);
-
+        Task<List<TerminalLookupTableDto>> GetAllTerminalForTableDropdown();
         Task<FileDto> GetOperationsToExcel(GetAllOperationsForExcelInput input);
 
-        Task<PagedResultDto<OperationCompteLookupTableDto>> GetAllCompteForLookupTable(GetAllForLookupTableInput input);
+        //Task<PagedResultDto<OperationCompteLookupTableDto>> GetAllCompteForLookupTable(GetAllForLookupTableInput input);
 
         Task<List<OperationTypeOperationLookupTableDto>> GetAllTypeOperationForTableDropdown();
         Task<string> GenerateCodeOperation();

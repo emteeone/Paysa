@@ -5,13 +5,15 @@ using Abp.Application.Services.Dto;
 using UGB.Paysa.Wallet.Tools.Dtos;
 using UGB.Paysa.Dto;
 using System.Collections.Generic;
+using UGB.Paysa.Wallet.Comptes.Dtos;
 
 namespace UGB.Paysa.Wallet.Tools
 {
     public interface ICartesAppService : IApplicationService
     {
-        Task<PagedResultDto<GetCarteForViewDto>> GetAll(GetAllCartesInput input);
 
+        Task<CardConfigurationInfoDto> ConfigurationCarte(CardConfigurationInput input);
+        Task<PagedResultDto<GetCarteForViewDto>> GetAll(GetAllCartesInput input);
         Task<GetCarteForViewDto> GetCarteForView(string id);
 
         Task<GetCarteForEditOutput> GetCarteForEdit(EntityDto<string> input);

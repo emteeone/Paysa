@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UGB.Paysa.EntityFrameworkCore;
 
 namespace UGB.Paysa.Migrations
 {
     [DbContext(typeof(PaysaDbContext))]
-    partial class PaysaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230614203327_Adding terminal fk in operation")]
+    partial class Addingterminalfkinoperation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

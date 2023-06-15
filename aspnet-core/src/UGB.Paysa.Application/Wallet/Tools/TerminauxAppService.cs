@@ -172,5 +172,6 @@ namespace UGB.Paysa.Wallet.Tools
             return _terminauxExcelExporter.ExportToFile(terminalListDtos);
         }
 
+
     }
 }

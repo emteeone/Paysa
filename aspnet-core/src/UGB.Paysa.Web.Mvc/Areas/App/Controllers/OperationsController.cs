@@ -59,7 +59,7 @@ namespace UGB.Paysa.Web.Areas.App.Controllers
                 CompteNumeroCompte = getOperationForEditOutput.CompteNumeroCompte,
                 TypeOperationNom = getOperationForEditOutput.TypeOperationNom,
                 OperationTypeOperationList = await _operationsAppService.GetAllTypeOperationForTableDropdown(),
-
+                TerminalList = await _operationsAppService.GetAllTerminalForTableDropdown(),
             };
 
             return PartialView("_CreateOrEditModal", viewModel);

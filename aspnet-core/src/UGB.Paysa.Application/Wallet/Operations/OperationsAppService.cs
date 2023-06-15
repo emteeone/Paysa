@@ -18,6 +18,11 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using UGB.Paysa.Storage;
+using UGB.Paysa.Wallet.Comptes.Dtos;
+using UGB.Paysa.Wallet.Etudiants;
+using GetAllForLookupTableInput = UGB.Paysa.Wallet.Operations.Dtos.GetAllForLookupTableInput;
+using UGB.Paysa.Wallet.Tools;
+using UGB.Paysa.Wallet.Tools.Dtos;
 
 namespace UGB.Paysa.Wallet.Operations
 {
@@ -27,6 +32,8 @@ namespace UGB.Paysa.Wallet.Operations
         private readonly IRepository<Operation, string> _operationRepository;
         private readonly IOperationsExcelExporter _operationsExcelExporter;
         private readonly IRepository<Compte, string> _lookup_compteRepository;
+        private readonly IRepository<Terminal, string> _lookup_terminalRepository;
+        private readonly IRepository<Carte, string> _lookup_carteRepository;
         private readonly IRepository<TypeOperation, string> _lookup_typeOperationRepository;
         private readonly IComptesAppService _compteAppService;
          
@@ -34,11 +41,15 @@ namespace UGB.Paysa.Wallet.Operations
         public OperationsAppService(IRepository<Operation, string> operationRepository, 
             IOperationsExcelExporter operationsExcelExporter, 
             IRepository<Compte, string> lookup_compteRepository, 
+            IRepository<Terminal, string> lookup_terminalRepository, 
+            IRepository<Carte, string> lookup_carteRepository, 
             IRepository<TypeOperation, string> lookup_typeOperationRepository, IComptesAppService comptesAppService)
         {
             _operationRepository = operationRepository;
             _operationsExcelExporter = operationsExcelExporter;
             _lookup_compteRepository = lookup_compteRepository;
+            _lookup_terminalRepository = lookup_terminalRepository;
+            _lookup_carteRepository = lookup_carteRepository;
             _lookup_typeOperationRepository = lookup_typeOperationRepository;
             _compteAppService = comptesAppService;
 
@@ -49,7 +60,8 @@ namespace UGB.Paysa.Wallet.Operations
 
             var filteredOperations = _operationRepository.GetAll()
                         .Include(e => e.CompteFk)
-                        .Include(e => e.TypeProductionFk)
+                        .Include(e => e.TypeOperationFk)
+                        .Include(e => e.TerminalFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.CodeOperation.Contains(input.Filter) || e.Discriminator.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CodeOperationFilter), e => e.CodeOperation == input.CodeOperationFilter)
                         .WhereIf(input.MinDateOperationFilter != null, e => e.DateOperation >= input.MinDateOperationFilter)
@@ -58,7 +70,7 @@ namespace UGB.Paysa.Wallet.Operations
                         .WhereIf(input.MaxMontantFilter != null, e => e.Montant <= input.MaxMontantFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DiscriminatorFilter), e => e.Discriminator == input.DiscriminatorFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CompteNumeroCompteFilter), e => e.CompteFk != null && e.CompteFk.NumeroCompte == input.CompteNumeroCompteFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.TypeOperationNomFilter), e => e.TypeProductionFk != null && e.TypeProductionFk.Reference == input.TypeOperationNomFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.TypeOperationNomFilter), e => e.TypeOperationFk != null && e.TypeOperationFk.Reference == input.TypeOperationNomFilter);
 
             var pagedAndFilteredOperations = filteredOperations
                 .OrderBy(input.Sorting ?? "dateOperation desc")
@@ -68,8 +80,11 @@ namespace UGB.Paysa.Wallet.Operations
                              join o1 in _lookup_compteRepository.GetAll() on o.CompteId equals o1.Id into j1
                              from s1 in j1.DefaultIfEmpty()
 
-                             join o2 in _lookup_typeOperationRepository.GetAll() on o.TypeProductionId equals o2.Id into j2
+                             join o2 in _lookup_typeOperationRepository.GetAll() on o.TypeOperationId equals o2.Id into j2
                              from s2 in j2.DefaultIfEmpty()
+
+                             join o3 in _lookup_terminalRepository.GetAll() on o.TerminalId equals o3.Id into j3
+                             from s3 in j3.DefaultIfEmpty()
 
                              select new
                              {
@@ -80,7 +95,8 @@ namespace UGB.Paysa.Wallet.Operations
                                  o.Discriminator,
                                  Id = o.Id,
                                  CompteNumeroCompte = s1 == null || s1.NumeroCompte == null ? "" : s1.NumeroCompte.ToString(),
-                                 TypeOperationNom = s2 == null || s2.Nom == null ? "" : s2.Nom.ToString()
+                                 TypeOperationNom = s2 == null || s2.Nom == null ? "" : s2.Nom.ToString(),
+                                 TerminalName = s3 == null || s3.Uid_Device == null ? "" : s3.Uid_Device.ToString(),
                              };
 
             var totalCount = await filteredOperations.CountAsync();
@@ -102,7 +118,8 @@ namespace UGB.Paysa.Wallet.Operations
                         Id = o.Id,
                     },
                     CompteNumeroCompte = o.CompteNumeroCompte,
-                    TypeOperationNom = o.TypeOperationNom
+                    TypeOperationNom = o.TypeOperationNom,
+                    TerminalName = o.TerminalName
                 };
 
                 results.Add(res);
@@ -218,7 +235,7 @@ namespace UGB.Paysa.Wallet.Operations
 
             var filteredOperations = _operationRepository.GetAll()
                         .Include(e => e.CompteFk)
-                        .Include(e => e.TypeProductionFk)
+                        .Include(e => e.TypeOperationFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.CodeOperation.Contains(input.Filter) || e.Discriminator.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CodeOperationFilter), e => e.CodeOperation == input.CodeOperationFilter)
                         .WhereIf(input.MinDateOperationFilter != null, e => e.DateOperation >= input.MinDateOperationFilter)
@@ -227,13 +244,13 @@ namespace UGB.Paysa.Wallet.Operations
                         .WhereIf(input.MaxMontantFilter != null, e => e.Montant <= input.MaxMontantFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DiscriminatorFilter), e => e.Discriminator == input.DiscriminatorFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CompteNumeroCompteFilter), e => e.CompteFk != null && e.CompteFk.NumeroCompte == input.CompteNumeroCompteFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.TypeOperationNomFilter), e => e.TypeProductionFk != null && e.TypeProductionFk.Nom == input.TypeOperationNomFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.TypeOperationNomFilter), e => e.TypeOperationFk != null && e.TypeOperationFk.Nom == input.TypeOperationNomFilter);
 
             var query = (from o in filteredOperations
                          join o1 in _lookup_compteRepository.GetAll() on o.CompteId equals o1.Id into j1
                          from s1 in j1.DefaultIfEmpty()
 
-                         join o2 in _lookup_typeOperationRepository.GetAll() on o.TypeProductionId equals o2.Id into j2
+                         join o2 in _lookup_typeOperationRepository.GetAll() on o.TypeOperationId equals o2.Id into j2
                          from s2 in j2.DefaultIfEmpty()
 
                          select new GetOperationForViewDto()
@@ -294,7 +311,6 @@ namespace UGB.Paysa.Wallet.Operations
                     DisplayName = typeOperation == null || typeOperation.Nom == null ? "" : typeOperation.Nom.ToString()
                 }).ToListAsync();
         }
-
         public async Task<string> GenerateCodeOperation()
         {
             //var operation = await _operationRepository.GetAll().OrderByDescending(operation => operation.DateOperation).LastAsync() ;
@@ -302,6 +318,89 @@ namespace UGB.Paysa.Wallet.Operations
             //var reference = operation.CodeOperation.Split("-").Last()
 
             return Guid.NewGuid().ToString(); ;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="UserFriendlyException"></exception>
+        public async Task EffectuerOperation(EffectuerOperationDto input)
+        {
+
+            // check Carte
+            var carte = await _lookup_carteRepository.FirstOrDefaultAsync(c => c.NumeroCarte == input.NumeroCarte);
+            if (carte == null)
+            {
+                throw new UserFriendlyException("Votre numero carte est invalide");
+            }
+            else if(!carte.IsActive)
+            {
+                throw new UserFriendlyException("Votre carte n'est pas active");
+            }
+
+            var compte = await _lookup_compteRepository.FirstOrDefaultAsync(c => c.Id == carte.CompteId);
+            if (compte == null)
+            {
+                throw new UserFriendlyException("Vous n'avez pas encore de compte");
+            }
+
+
+            // Get Type Operation
+            var typeOperation = await _lookup_typeOperationRepository.GetAll().FirstOrDefaultAsync(c => c.Reference == input.TypeOperationReference);
+            if (typeOperation == null)
+            {
+                throw new UserFriendlyException("cette operation n'existe pas");
+            }
+
+
+            var operation = new Operation()
+            {
+                Montant= typeOperation.Prix, 
+                TypeOperationId = typeOperation.Id,
+                CarteId = carte.Id,
+                Discriminator = input.Discriminator
+            };
+
+            operation.DateOperation = DateTime.Now;
+            if (AbpSession.TenantId != null)
+            {
+               operation.TenantId = (int?)AbpSession.TenantId;
+            }
+
+            if (operation.Id.IsNullOrWhiteSpace())
+            {
+                operation.Id = Guid.NewGuid().ToString();
+            }
+
+            var editSoldeCompte = new EditSoldeCompteDto()
+            {
+                Montant = operation.Montant,
+                Id  =compte.Id,
+            };
+
+            if (input.Discriminator == "Debit")
+            {
+                var result = await _compteAppService.DebiterCompte(editSoldeCompte); 
+            }
+            else if (input.Discriminator == "Credit")
+            {
+                var result = await _compteAppService.CrediterCompte(editSoldeCompte); ;
+            }
+
+            operation.CodeOperation = await this.GenerateCodeOperation();
+            await _operationRepository.InsertAsync(operation);
+
+        }
+
+        public async Task<List<TerminalLookupTableDto>> GetAllTerminalForTableDropdown()
+        {
+            return await _lookup_terminalRepository.GetAll()
+                .Select(terminal => new TerminalLookupTableDto
+                {
+                    Id = terminal.Id,
+                    DisplayName = terminal == null  ? "" : terminal.Uid_Device.ToString()
+                }).ToListAsync();
         }
     }
 }

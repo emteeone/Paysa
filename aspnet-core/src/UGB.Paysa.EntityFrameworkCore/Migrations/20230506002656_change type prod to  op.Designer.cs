@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UGB.Paysa.EntityFrameworkCore;
 
 namespace UGB.Paysa.Migrations
 {
     [DbContext(typeof(PaysaDbContext))]
-    partial class PaysaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230506002656_change type prod to  op")]
+    partial class changetypeprodtoop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2275,9 +2277,6 @@ namespace UGB.Paysa.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CarteId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CodeOperation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -2298,21 +2297,14 @@ namespace UGB.Paysa.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TerminalId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("TypeOperationId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarteId");
-
                     b.HasIndex("CompteId");
 
                     b.HasIndex("TenantId");
-
-                    b.HasIndex("TerminalId");
 
                     b.HasIndex("TypeOperationId");
 
@@ -2826,27 +2818,15 @@ namespace UGB.Paysa.Migrations
 
             modelBuilder.Entity("UGB.Paysa.Wallet.Operations.Operation", b =>
                 {
-                    b.HasOne("UGB.Paysa.Wallet.Tools.Carte", "CarteFk")
-                        .WithMany()
-                        .HasForeignKey("CarteId");
-
                     b.HasOne("UGB.Paysa.Wallet.Comptes.Compte", "CompteFk")
                         .WithMany()
                         .HasForeignKey("CompteId");
-
-                    b.HasOne("UGB.Paysa.Wallet.Tools.Terminal", "TerminalFk")
-                        .WithMany()
-                        .HasForeignKey("TerminalId");
 
                     b.HasOne("UGB.Paysa.Wallet.Operations.TypeOperation", "TypeOperationFk")
                         .WithMany()
                         .HasForeignKey("TypeOperationId");
 
-                    b.Navigation("CarteFk");
-
                     b.Navigation("CompteFk");
-
-                    b.Navigation("TerminalFk");
 
                     b.Navigation("TypeOperationFk");
                 });

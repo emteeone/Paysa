@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
+using UGB.Paysa.Wallet.Tools;
 
 namespace UGB.Paysa.Wallet.Operations
 {
@@ -30,10 +31,19 @@ namespace UGB.Paysa.Wallet.Operations
         [ForeignKey("CompteId")]
         public Compte CompteFk { get; set; }
 
-        public virtual string TypeProductionId { get; set; }
+        public virtual string TypeOperationId { get; set; }
 
-        [ForeignKey("TypeProductionId")]
-        public TypeOperation TypeProductionFk { get; set; }
+        [ForeignKey("TypeOperationId")]
+        public TypeOperation TypeOperationFk { get; set; }
+
+        public virtual string CarteId { get; set; }
+
+        [ForeignKey("CarteId")]
+        public Carte CarteFk { get; set; }
+        public virtual string TerminalId { get; set; }
+
+        [ForeignKey("TerminalId")]
+        public Terminal TerminalFk { get; set; }
 
     }
 }

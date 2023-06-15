@@ -58,6 +58,29 @@ namespace UGB.Paysa.Wallet.Comptes
             return output;
         }
 
+        public async Task<GetCompteForViewDto> GetCompteBalanceByNumeroCompte(EntityDto<long> input)
+        {
+            var etudiant = await _lookup_etudiantRepository.GetAll().FirstOrDefaultAsync(e => e.UserId == input.Id);
+            if (etudiant == null)
+            {
+                throw new UserFriendlyException("Vous n'etes pas un etudiant de l'université");
+            }
+            var compte = await _compteRepository.GetAll().FirstOrDefaultAsync(c => c.EtudiantId == etudiant.Id);
+            if (compte == null)
+            {
+                throw new UserFriendlyException("Vous n'avez pas encore de compte");
+            }
+            var output = new GetCompteForViewDto { Compte = ObjectMapper.Map<CompteDto>(compte) };
+
+            if (output.Compte.EtudiantId != null)
+            {
+                var _lookupEtudiant = await _lookup_etudiantRepository.FirstOrDefaultAsync((string)output.Compte.EtudiantId);
+                output.EtudiantCodeEtudiant = _lookupEtudiant?.CodeEtudiant?.ToString();
+            }
+
+            return output;
+        }
+
         public async  Task<bool> CrediterCompte(EditSoldeCompteDto input)
         {
             //var compte = await _compteRepository.GetAll().FirstOrDefaultAsync(c => c.NumeroCompte == input.NumeroCompte);
@@ -84,7 +107,7 @@ namespace UGB.Paysa.Wallet.Comptes
             }
             if (compte.Solde < input.Montant)
             {
-                throw new UserFriendlyException("Votre solde insuffissant");
+                throw new UserFriendlyException("Votre solde est insuffissant");
             }
             compte.Solde = compte.Solde-input.Montant;
             

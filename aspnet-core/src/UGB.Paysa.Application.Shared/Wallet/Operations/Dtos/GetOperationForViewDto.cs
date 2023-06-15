@@ -7,6 +7,7 @@
         public string CompteNumeroCompte { get; set; }
 
         public string TypeOperationNom { get; set; }
+        public string TerminalName { get; set; }
 
     }
 }

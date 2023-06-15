@@ -148,8 +148,13 @@
 					{
 						targets: 7,
 						 data: "typeOperationNom" ,
-						 name: "typeProductionFk.nom" 
-					}
+                        name: "typeOperationFk.nom" 
+                    },
+                    {
+                        targets: 8,
+                        data: "terminalName",
+                        name: "terminalFk.uid_Device"
+                    },
             ]
         });
 

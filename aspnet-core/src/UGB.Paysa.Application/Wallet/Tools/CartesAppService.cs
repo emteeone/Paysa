@@ -17,6 +17,8 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using UGB.Paysa.Storage;
+using UGB.Paysa.Wallet.Comptes.Dtos;
+using UGB.Paysa.Wallet.Etudiants;
 
 namespace UGB.Paysa.Wallet.Tools
 {
@@ -26,13 +28,49 @@ namespace UGB.Paysa.Wallet.Tools
         private readonly IRepository<Carte, string> _carteRepository;
         private readonly ICartesExcelExporter _cartesExcelExporter;
         private readonly IRepository<Compte, string> _lookup_compteRepository;
+        private readonly IRepository<Etudiant, string> _lookup_etudiantRepository;
 
-        public CartesAppService(IRepository<Carte, string> carteRepository, ICartesExcelExporter cartesExcelExporter, IRepository<Compte, string> lookup_compteRepository)
+
+
+
+        public CartesAppService(IRepository<Carte, string> carteRepository, 
+                                ICartesExcelExporter cartesExcelExporter,
+                                 IRepository<Etudiant, string> lookup_etudiantRepository,
+                                IRepository<Compte, string> lookup_compteRepository)
         {
             _carteRepository = carteRepository;
             _cartesExcelExporter = cartesExcelExporter;
             _lookup_compteRepository = lookup_compteRepository;
+            _lookup_etudiantRepository = lookup_etudiantRepository;
 
+        }
+
+
+        public async Task<CardConfigurationInfoDto> ConfigurationCarte( CardConfigurationInput input)
+        {
+
+            var etudiant = _lookup_etudiantRepository.FirstOrDefault(e=> e.CodeEtudiant == input.CodeEtudiant);
+            if (etudiant ==null)
+                throw new UserFriendlyException("Etudiant n'existe pas");
+
+            var carte = _carteRepository.FirstOrDefault(e => e.NumeroCarte == input.NumeroCarte);
+            if (carte == null)
+                throw new UserFriendlyException("Carte n'existe pas");
+
+
+            var compte = _lookup_compteRepository.FirstOrDefault(c => c.Id == carte.CompteId && c.EtudiantId == etudiant.Id);
+            if (compte == null)
+                throw new UserFriendlyException("Carte n'est lie a aucune carte");
+
+            return new CardConfigurationInfoDto()
+            {
+                EtudiantNom = etudiant.Nom,
+                EtudiantPrenom = etudiant.Prenom,
+                CarteDateExpiration = carte.DateExpiration,
+                CompteNumero      = compte.NumeroCompte,
+                CarteStatus   = carte.IsActive,
+                CompteSolde  = compte.Solde
+            };
         }
 
         public async Task<PagedResultDto<GetCarteForViewDto>> GetAll(GetAllCartesInput input)

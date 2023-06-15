@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>    <text name="PaiementLoyer">Paiement loyer</text>
-    <text name="UGB.Paysa.Chambres.PaiementLoyer">PaiementLoyer</text>
+    <text name="UGB.Paysa.Chambres.PaiementLoyer">Paiement Loyer</text>
+    <text name="AllOperations">Toutes les Operations</text>
     <text name="Mois">Mois</text>
     <text name="Annee">Annee</text>
     <text name="CodePaiement">Code paiement</text>
-    <text name="PaiementLoyersHeaderInfo">Paiement loyers header info</text>
-    <text name="CreateNewPaiementLoyer">Create new paiement loyer</text>
-    <text name="EditPaiementLoyer">Edit paiement loyer</text>
-    <text name="DeletePaiementLoyer">Delete paiement loyer</text>
+    <text name="PaiementLoyersHeaderInfo">Liste Paiement loyers</text>
+    <text name="CreateNewPaiementLoyer">Ajouter un paiement loyer</text>
+    <text name="EditPaiementLoyer">Editer paiement loyer</text>
+    <text name="DeletePaiementLoyer">Supprimer paiement loyer</text>
     <text name="PaiementLoyers">Paiement loyers</text>
     <text name="OperationCodeOperation">Operation code operation</text>
-    <text name="PickOperation">Pick operation</text>
-    <text name="SelectAOperation">Select a operation</text>
-    <text name="TypeOperationNom">Type operation nom</text>
-    <text name="PickTypeOperation">Pick type operation</text>
-    <text name="SelectATypeOperation">Select a type operation</text>
+    <text name="PickOperation">Choisir operation</text>
+    <text name="SelectAOperation">Choisir une operation</text>
+    <text name="TypeOperationNom">Type operation</text>
+    <text name="PickTypeOperation">Choisir type operation</text>
+    <text name="SelectATypeOperation">Choisir un type operation</text>
     <text name="TypeOperation">Type operation</text>
     <text name="UGB.Paysa.Operations.TypeOperation">TypeOperation</text>
     <text name="Prix">Prix</text>
-    <text name="TypeOperationsHeaderInfo">Type operations header info</text>
+    <text name="TypeOperationsHeaderInfo">Liste des operations</text>
     <text name="CreateNewTypeOperation">Create new type operation</text>
     <text name="EditTypeOperation">Edit type operation</text>
     <text name="DeleteTypeOperation">Delete type operation</text>
@@ -52,7 +53,6 @@
     <text name="Logement">Lodging</text>
     <text name="PaiementChambre">Room rental</text>
     <text name="YourBalance">Your Balance</text>
-    <text name="AllOperations">AllOperations</text>
 
 	 <text name="Matricule">Matricule</text>
     <text name="Position">Position</text>

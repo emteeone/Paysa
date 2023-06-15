@@ -14,19 +14,19 @@ namespace UGB.Paysa.Web.Areas.App.Startup
             var menu = context.Manager.Menus[MenuName] = new MenuDefinition(MenuName, new FixedLocalizableString("Main Menu"));
 
             menu
-                .AddItem(new MenuItemDefinition(
-                        AppPageNames.Host.Dashboard,
-                        L("Dashboard"),
-                        url: "App/HostDashboard",
-                        icon: "flaticon-line-graph",
-                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
-                    )
-                )
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Host.Dashboard,
+                //        L("Dashboard"),
+                //        url: "App/HostDashboard",
+                //        icon: "flaticon-line-graph",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
+                //    )
+                //)
                 
                 .AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Transactions,
-                        L("Transactions"),
-                        icon: "flaticon-interface-8"
+                        L("Operations"),
+                        icon: "flaticon-earth-globe"
                     ).AddItem(new MenuItemDefinition(
                         AppPageNames.Common.TypeOperations,
                         L("TypeOperations"),
@@ -37,33 +37,33 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                 )
                 .AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Operations,
-                        L("Operations"),
+                        L("AllOperations"),
                         url: "App/Operations",
-                        icon: "flaticon-more",
+                        icon: "flaticon-coins",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Operations)
                     )).AddItem(new MenuItemDefinition(
                         AppPageNames.Common.PaiementLoyers,
                         L("PaiementLoyers"),
                         url: "App/PaiementLoyers",
-                        icon: "flaticon-more",
+                        icon: "flaticon-buildings",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_PaiementLoyers)
                     )
                 )
                  ).AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Tools,
                         L("Tools"),
-                        icon: "flaticon-interface-8"
+                        icon: "flaticon-technology-2"
                     ).AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Terminaux,
                         L("Terminaux"),
                         url: "App/Terminaux",
-                        icon: "flaticon-more",
+                        icon: "flaticon-tabs",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Terminaux)
                     )).AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Cartes,
                         L("Cartes"),
                         url: "App/Cartes",
-                        icon: "flaticon-more",
+                        icon: "flaticon-feed",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Cartes)
                     ))
                    )
@@ -71,7 +71,7 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                         AppPageNames.Common.Comptes,
                         L("Comptes"),
                         url: "App/Comptes",
-                        icon: "flaticon-more",
+                        icon: "flaticon-notes",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Comptes)
                     )
                 )
@@ -79,7 +79,7 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                         AppPageNames.Common.Etudiants,
                         L("Etudiants"),
                         url: "App/Etudiants",
-                        icon: "flaticon-more",
+                        icon: "flaticon-users",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Etudiants)
                     )
                 )
@@ -87,7 +87,7 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                         AppPageNames.Common.Chambres,
                         L("Chambres"),
                         url: "App/Chambres",
-                        icon: "flaticon-more",
+                        icon: "flaticon-home",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Chambres)
                     )
                 ).AddItem(new MenuItemDefinition(
@@ -104,20 +104,22 @@ namespace UGB.Paysa.Web.Areas.App.Startup
                         icon: "flaticon-app",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Editions)
                     )
-                ).AddItem(new MenuItemDefinition(
-                        AppPageNames.Tenant.Dashboard,
-                        L("Dashboard"),
-                        url: "App/TenantDashboard",
-                        icon: "flaticon-line-graph",
-                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Tenant_Dashboard)
-                    )
-                ).AddItem(new MenuItemDefinition(
+                )
+                //.AddItem(new MenuItemDefinition(
+                //        AppPageNames.Tenant.Dashboard,
+                //        L("Dashboard"),
+                //        url: "App/TenantDashboard",
+                //        icon: "flaticon-line-graph",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Tenant_Dashboard)
+                //    )
+                //)
+                .AddItem(new MenuItemDefinition(
                         AppPageNames.Common.Administration,
                         L("Administration"),
                         icon: "flaticon-interface-8"
                     ).AddItem(new MenuItemDefinition(
                             AppPageNames.Common.OrganizationUnits,
-                            L("OrganizationUnits"),
+                            L("UFR"),
                             url: "App/OrganizationUnits",
                             icon: "flaticon-map",
                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_OrganizationUnits)

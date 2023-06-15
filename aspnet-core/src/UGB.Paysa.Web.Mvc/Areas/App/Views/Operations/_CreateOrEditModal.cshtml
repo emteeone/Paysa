@@ -42,6 +42,11 @@
                 @Html.DropDownList("typeProductionId", new SelectList(Model.OperationTypeOperationList,"Id","DisplayName", (Model.IsEditMode ? Model.Operation.TypeProductionId.ToString() : "")),@L("SelectATypeOperation"), new { @class = "form-control" , @required="required" })
             </div>
 
+            <div class="form-group">
+                <label for="typeProductionId">@L("Lecteur (Terminal)")</label>
+                @Html.DropDownList("terminalId", new SelectList(Model.TerminalList,"Id","DisplayName", (Model.IsEditMode ? Model.Operation.TerminalId.ToString() : "")),@L("SelectALecteur"), new { @class = "form-control" })
+            </div>
+
             @*<div class="form-group">
                 <label for="Operation_DateOperation">@L("DateOperation")</label>
                 <input class="form-control m-input date-picker" id="Operation_DateOperation" type="text" name="dateOperation" value="@Model.Operation.DateOperation" />

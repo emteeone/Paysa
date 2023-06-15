@@ -18,6 +18,7 @@ namespace UGB.Paysa.Wallet.Operations.Dtos
         public string CompteId { get; set; }
         [Required]
         public string TypeProductionId { get; set; }
+        public string TerminalId { get; set; }
 
     }
 }

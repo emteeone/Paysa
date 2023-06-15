@@ -467,11 +467,11 @@ namespace UGB.Paysa.Web.Controllers
         {
             try
             {
-                if (!model.IsExternalLogin && UseCaptchaOnRegistration())
-                {
-                    await _recaptchaValidator.ValidateAsync(
-                        HttpContext.Request.Form[RecaptchaValidator.RecaptchaResponseKey]);
-                }
+                //if (!model.IsExternalLogin && UseCaptchaOnRegistration())
+                //{
+                //    await _recaptchaValidator.ValidateAsync(
+                //        HttpContext.Request.Form[RecaptchaValidator.RecaptchaResponseKey]);
+                //}
 
                 ExternalLoginInfo externalLoginInfo = null;
                 if (model.IsExternalLogin)
