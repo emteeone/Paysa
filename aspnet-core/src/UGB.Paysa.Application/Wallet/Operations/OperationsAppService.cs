@@ -352,14 +352,15 @@ namespace UGB.Paysa.Wallet.Operations
             {
                 throw new UserFriendlyException("cette operation n'existe pas");
             }
-
+            
 
             var operation = new Operation()
             {
                 Montant= typeOperation.Prix, 
                 TypeOperationId = typeOperation.Id,
                 CarteId = carte.Id,
-                Discriminator = input.Discriminator
+                Discriminator = input.Discriminator,
+                CompteId = compte.Id,
             };
 
             operation.DateOperation = DateTime.Now;
