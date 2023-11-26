@@ -42,6 +42,11 @@ namespace UGB.Paysa.Wallet
             throw new NotImplementedException();
         }
 
+        public Task<List<Tools.Dtos.TerminalLookupTableDto>> GetAllTerminalForTableDropdown()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<List<OperationTypeOperationLookupTableDto>> GetAllTypeOperationForTableDropdown()
         {
             throw new NotImplementedException();
