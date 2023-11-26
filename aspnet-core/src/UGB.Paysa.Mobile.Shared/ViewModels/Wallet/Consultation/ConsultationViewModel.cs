@@ -60,6 +60,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Consultation
         {
             NumeroCompte = (string)navigationData;
             _input.CompteNumeroCompteFilter = NumeroCompte;
+            _input.TypeOperationNomFilter = "CONSULTATION_CM";
         }
         private async Task FetchAllOperationsAsync()
         {

@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using UGB.Paysa.Models.Users;
 using MvvmHelpers;
 using UGB.Paysa.Views;
+using System.ComponentModel;
 
 namespace UGB.Paysa.ViewModels.Wallet
 {
@@ -38,6 +39,7 @@ namespace UGB.Paysa.ViewModels.Wallet
         public ICommand ConsultationViewCommand => HttpRequestCommand.Create(GoToConsultationPageAsync);
         public ICommand LogementViewCommand     => HttpRequestCommand.Create(GoToLogementPageAsync);
         public ICommand SeeAllOperationsViewCommand     => HttpRequestCommand.Create(GoToAllOperationsPageAsync);
+        public ICommand RefreshCommand     => HttpRequestCommand.Create(Refresh);
         public ObservableRangeCollection<OperationListModel> RecentOperations { get; set; }
 
         private ImageSource _photo;
@@ -113,6 +115,16 @@ namespace UGB.Paysa.ViewModels.Wallet
             }
         }
 
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                RaisePropertyChanged(() => IsRefreshing);
+            }
+        }
         public bool _isVisibleSolde;
         public bool IsVisibleSolde
         {
@@ -141,6 +153,7 @@ namespace UGB.Paysa.ViewModels.Wallet
             Photo = ImageSource.FromResource(AssetsHelper.ProfileImagePlaceholderNamespace);
             await GetUserPhoto(_applicationContext.LoginInfo.User.Id);
         }
+
         private async Task PageAppearing()
         {
             if (_isInitialized)
@@ -211,9 +224,12 @@ namespace UGB.Paysa.ViewModels.Wallet
             _input.SkipCount = 0;
 
             await SetBusyAsync(FetchRecentOperationsAsync);
+
+            IsRefreshing = false;
         }
         private async Task FetchRecentOperationsAsync()
         {
+            RecentOperations.Clear();
             _input.CompteNumeroCompteFilter = Compte.Compte.NumeroCompte;
             await WebRequestExecuter.Execute(async () => await _operationsAppService.GetAll(_input), result =>
             {
@@ -251,6 +267,16 @@ namespace UGB.Paysa.ViewModels.Wallet
             Balance = Compte.Compte.Solde;
             NumeroCompte = Compte.Compte.NumeroCompte;
             _input.CompteNumeroCompteFilter = NumeroCompte;
+        }
+
+       private async Task Refresh()
+       {
+            RecentOperations.Clear();
+
+            _input.SkipCount = 0;
+            await GetUserCompteBalance(_applicationContext.LoginInfo.User.Id);
+            await SetBusyAsync(FetchRecentOperationsAsync);
+            IsRefreshing = false;
         }
     }
 }

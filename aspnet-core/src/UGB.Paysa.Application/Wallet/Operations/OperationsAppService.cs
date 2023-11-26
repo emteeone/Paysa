@@ -325,7 +325,7 @@ namespace UGB.Paysa.Wallet.Operations
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
-        public async Task EffectuerOperation(EffectuerOperationDto input)
+        public async Task<EffectuerOperationOutputDto> EffectuerOperation(EffectuerOperationDto input)
         {
 
             // check Carte
@@ -391,6 +391,13 @@ namespace UGB.Paysa.Wallet.Operations
 
             operation.CodeOperation = await this.GenerateCodeOperation();
             await _operationRepository.InsertAsync(operation);
+
+            return new EffectuerOperationOutputDto()
+            {
+                TransactionId = operation.Id,
+                DateOperation = operation.DateOperation,
+                Montant = operation.Montant,
+            };
 
         }
 

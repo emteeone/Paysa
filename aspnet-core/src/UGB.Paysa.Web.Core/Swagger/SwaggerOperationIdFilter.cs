@@ -46,10 +46,18 @@ namespace UGB.Paysa.Web.Swagger
                                                        && !x.Key.ToLower().Contains("cartes")
                                                        && !x.Key.ToLower().Contains("etudiants")
                                                        && !x.Key.ToLower().Contains("comptes")
-                                                       && !x.Key.ToLower().Contains("terminal")
+                                                       && !x.Key.ToLower().Contains("terminaux")
                                                        && !x.Key.ToLower().Contains("points")
                                                        && !x.Key.ToLower().Contains("gerants")
-                                                       && !x.Key.ToLower().Contains("operation")).ToList();
+                                                       && !x.Key.ToLower().Contains("operation")
+                                                       && !x.Key.ToLower().Contains("/account/")
+                                                       && !x.Key.ToLower().Contains("paiementloyers")
+                                                       && !x.Key.ToLower().Contains("roles")
+                                                       && !x.Key.ToLower().Contains("terminal")
+                                                       && !x.Key.ToLower().Contains("/tokenauth/")
+                                                       && !x.Key.ToLower().Contains("typeoperations")
+                                                       && !x.Key.ToLower().Contains("/user/")
+                                                       && !x.Key.ToLower().Contains("/userlogins/")).ToList();
             routes.ForEach(x => { swaggerDoc.Paths.Remove(x.Key); });
         }
     }

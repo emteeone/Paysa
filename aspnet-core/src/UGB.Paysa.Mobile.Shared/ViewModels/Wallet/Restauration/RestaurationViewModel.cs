@@ -82,6 +82,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Restauration
         {
             NumeroCompte = (string)navigationData;
             _input.CompteNumeroCompteFilter = NumeroCompte;
+            _input.TypeOperationNomFilter = "RESTAURATION_PETIT_DEJ";
         }
         private async Task ShowMenuRepasAsync()
         {

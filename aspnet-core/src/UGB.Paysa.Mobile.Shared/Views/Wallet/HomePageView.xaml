@@ -37,254 +37,269 @@
             <StackLayout
                 HeightRequest="70"
                 BackgroundColor="{StaticResource HeaderPageBackgroundColor}" />
-            <Frame Margin="0,-40,0,-40" Padding="0" BackgroundColor="White"
+            <Frame Margin="0,-40,0,-70" Padding="0" BackgroundColor="White"
                 CornerRadius="150" 
                 HasShadow="False" 
                 HeightRequest="100" />
-            <StackLayout Margin="0,0,0,0">
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                Command="{Binding RefreshCommand}">
+                <StackLayout Margin="0,0,0,0">
 
-                <ScrollView  VerticalScrollBarVisibility="Never">
-                <StackLayout Margin="18,0,18,20" VerticalOptions="FillAndExpand">
-                    <controls:CardView  HasShadow="False" 
-                        HeightRequest="200" 
-                        Margin="0,-30,0,0" 
-                        CornerRadius="30"  
-                        Padding="20" 
-                        BackgroundColor="{StaticResource HeaderPageBackgroundColor}">
-                        <Grid>
+                    <ScrollView  VerticalScrollBarVisibility="Never">
+                    <StackLayout Margin="18,0,18,20" VerticalOptions="FillAndExpand">
+                        <controls:CardView  HasShadow="False" 
+                            HeightRequest="200" 
+                            Margin="0,-30,0,0" 
+                            CornerRadius="30"  
+                            Padding="20" 
+                            BackgroundColor="{StaticResource HeaderPageBackgroundColor}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="85"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.ColumnSpan="3" 
+                                       Margin="0,15,0,0"
+                                       Grid.Row="0" 
+                                       Source="puce"/>
+                                <StackLayout Grid.ColumnSpan="3" Grid.Row="1" Spacing="0" Margin="0,-5">
+                                    <Label Text="{extensions:Translate YourBalance}" 
+                                           FontSize="Medium"
+                                           TextColor="AliceBlue"
+                                           HorizontalOptions="CenterAndExpand"
+                                           FontFamily="Montserrat_SemiBold"/>
+                                        <Frame Padding="0" BackgroundColor="Transparent">
+                                            <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="CenterAndExpand">
+                                                <StackLayout Orientation="Horizontal" Margin="0,8,0,0" Spacing="20"
+                                                             IsVisible="{Binding IsVisibleSolde,Converter={StaticResource InverseBooleanConverter}}">
+                                                    <Label  
+                                                        Text="{Binding Balance, StringFormat='{} {0:C0}'}"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        VerticalOptions="Center"
+                                                        TextColor="White"
+                                                        FontFamily="Montserrat_Medium"
+                                                        FontSize="26"/>
+                                                    <Image Source="eye_down" WidthRequest="25"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsVisibleSolde}" Spacing="20">
+                                                    <Label  Text="********"
+                                                        Margin="0,8,0,0"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        VerticalOptions="Center"
+                                                        TextColor="White"
+                                                        FontFamily="Montserrat_Medium"
+                                                        FontSize="35"/>
+                                                    <Image Margin="0" Source="eye_up" WidthRequest="25"/>
+                                                </StackLayout>
+                                           
+                                            </StackLayout>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding CachedSoldeCommand}" />
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                </StackLayout>
+                            
+                                <StackLayout Grid.ColumnSpan="3" Grid.Row="2" 
+                                             Orientation="Horizontal" 
+                                             VerticalOptions="CenterAndExpand"
+                                             HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding UserNameAndSurname}"
+                                           FontSize="18"
+                                       TextColor="White"
+                                       
+                                           FontFamily="Montserrat_Regular"
+                                           HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="Exp.06/30" 
+                                           FontSize="Medium"
+                                       TextColor="White"
+                                       
+                                           FontFamily="Montserrat_SemiBold"
+                                           HorizontalOptions="End"/>
+                                </StackLayout>
+                            </Grid>
+                        </controls:CardView>
+
+                        <Grid  Padding="0" ColumnSpacing="8" Margin="0,20,0,40"  HorizontalOptions="Center">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="85"/>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="80"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Grid.ColumnSpan="3" 
-                                   Margin="0,15,0,0"
-                                   Grid.Row="0" 
-                                   Source="puce"/>
-                            <StackLayout Grid.ColumnSpan="3" Grid.Row="1" Spacing="0" Margin="0,-5">
-                                <Label Text="{extensions:Translate YourBalance}" 
-                                       FontSize="Medium"
-                                       TextColor="AliceBlue"
-                                       HorizontalOptions="CenterAndExpand"
-                                       FontFamily="Montserrat_SemiBold"/>
-                                    <Frame Padding="0" BackgroundColor="Transparent">
-                                        <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="CenterAndExpand">
-                                            <StackLayout Orientation="Horizontal" Margin="0,8,0,0" Spacing="20"
-                                                         IsVisible="{Binding IsVisibleSolde,Converter={StaticResource InverseBooleanConverter}}">
-                                                <Label  
-                                                    Text="{Binding Balance, StringFormat='{} {0:C0}'}"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    VerticalOptions="Center"
-                                                    TextColor="White"
-                                                    FontFamily="Montserrat_Medium"
-                                                    FontSize="26"/>
-                                                <Image Source="eye_down" WidthRequest="25"/>
-                                            </StackLayout>
-                                            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsVisibleSolde}" Spacing="20">
-                                                <Label  Text="********"
-                                                    Margin="0,8,0,0"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    VerticalOptions="Center"
-                                                    TextColor="White"
-                                                    FontFamily="Montserrat_Medium"
-                                                    FontSize="35"/>
-                                                <Image Margin="0" Source="eye_up" WidthRequest="25"/>
-                                            </StackLayout>
-                                           
-                                        </StackLayout>
-                                        <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding CachedSoldeCommand}" />
-                                        </Frame.GestureRecognizers>
-                                    </Frame>
+                            <StackLayout Grid.Column="0">
+                                <Frame  HasShadow="False" 
+                                        HeightRequest="35"
+                                        BackgroundColor="LightPink" 
+                                        CornerRadius="20">
+                                    <Image Source="food" WidthRequest="50"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding RestaurationViewCommand}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                <Label Text="Restauration" 
+                                       FontFamily="Montserrat_Medium"
+                                       FontSize="13"/>
                             </StackLayout>
-                            
-                            <StackLayout Grid.ColumnSpan="3" Grid.Row="2" 
-                                         Orientation="Horizontal" 
-                                         VerticalOptions="CenterAndExpand"
-                                         HorizontalOptions="FillAndExpand">
-                                <Label Text="{Binding UserNameAndSurname}"
-                                       FontSize="18"
-                                   TextColor="White"
-                                       
-                                       FontFamily="Montserrat_Regular"
-                                       HorizontalOptions="FillAndExpand"/>
-                                <Label Text="Exp.06/30" 
-                                       FontSize="Medium"
-                                   TextColor="White"
-                                       
-                                       FontFamily="Montserrat_SemiBold"
-                                       HorizontalOptions="End"/>
+                            <StackLayout Grid.Column="1" >
+                                <Frame Grid.Column="1" 
+                                       HeightRequest="35"
+                                       HasShadow="False" 
+                                       BackgroundColor="LightYellow" 
+                                       CornerRadius="20">
+                                    <Image Source="school_bus" WidthRequest="50"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding TransportViewCommand}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                <Label Text="{extensions:Translate Transport}" 
+                                       FontSize="13"
+                                       HeightRequest="35"
+                                       FontFamily="Montserrat_Medium"
+                                       HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="2" >
+                                <Frame Grid.Column="1"   
+                                       HasShadow="False" 
+                                       HeightRequest="35"
+                                       BackgroundColor="LightCyan" 
+                                       CornerRadius="20">
+                                    <Image Source="consultation" WidthRequest="50"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ConsultationViewCommand}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                <Label Text="{extensions:Translate Consultation}" 
+                                       FontSize="13"
+                                       FontFamily="Montserrat_Medium"
+                                       HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="3" >
+                                <Frame Grid.Column="1" 
+                                       HasShadow="False" 
+                                       HeightRequest="35"
+                                       BackgroundColor="LightGreen" 
+                                       CornerRadius="20">
+                                    <Image Source="room" WidthRequest="60"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LogementViewCommand}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                <Label Text="{extensions:Translate Logement}" 
+                                       FontSize="13"
+                                       FontFamily="Montserrat_Medium"
+                                       HorizontalOptions="Center"/>
                             </StackLayout>
                         </Grid>
-                    </controls:CardView>
+                        <StackLayout Orientation="Horizontal" 
+                                     VerticalOptions="CenterAndExpand"
+                                     HorizontalOptions="FillAndExpand">
+                            <Label Text="{extensions:Translate RecentOperations}" 
+                                   FontFamily="Montserrat_SemiBold"
+                                   FontSize="Medium" />
+                            <Label Text="{extensions:Translate SeeAll}" 
+                                   HorizontalOptions="EndAndExpand"
+                                   TextColor="#708090"
+                                   VerticalOptions="CenterAndExpand"
+                                   FontFamily="Montserrat_Medium"
+                                   FontSize="Medium" >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SeeAllOperationsViewCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        <StackLayout Margin="0,5,0,20" 
+                                     Orientation="Vertical" 
+                                     Padding="0"
+                                     Spacing="10"
+                                     VerticalOptions="Start">
 
-                    <Grid  Padding="0" ColumnSpacing="8" Margin="0,20,0,40"  HorizontalOptions="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="80"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackLayout Grid.Column="0">
-                            <Frame  HasShadow="False" 
-                                    HeightRequest="35"
-                                    BackgroundColor="LightPink" 
-                                    CornerRadius="20">
-                                <Image Source="food" WidthRequest="50"/>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding RestaurationViewCommand}" />
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                            <Label Text="Restauration" 
-                                   FontFamily="Montserrat_Medium"
-                                   FontSize="13"/>
-                        </StackLayout>
-                        <StackLayout Grid.Column="1" >
-                            <Frame Grid.Column="1" 
-                                   HeightRequest="35"
-                                   HasShadow="False" 
-                                   BackgroundColor="LightYellow" 
-                                   CornerRadius="20">
-                                <Image Source="school_bus" WidthRequest="50"/>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding TransportViewCommand}" />
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                            <Label Text="{extensions:Translate Transport}" 
-                                   FontSize="13"
-                                   HeightRequest="35"
-                                   FontFamily="Montserrat_Medium"
-                                   HorizontalOptions="Center"/>
-                        </StackLayout>
-                        <StackLayout Grid.Column="2" >
-                            <Frame Grid.Column="1"   
-                                   HasShadow="False" 
-                                   HeightRequest="35"
-                                   BackgroundColor="LightCyan" 
-                                   CornerRadius="20">
-                                <Image Source="consultation" WidthRequest="50"/>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ConsultationViewCommand}" />
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                            <Label Text="{extensions:Translate Consultation}" 
-                                   FontSize="13"
-                                   FontFamily="Montserrat_Medium"
-                                   HorizontalOptions="Center"/>
-                        </StackLayout>
-                        <StackLayout Grid.Column="3" >
-                            <Frame Grid.Column="1" 
-                                   HasShadow="False" 
-                                   HeightRequest="35"
-                                   BackgroundColor="LightGreen" 
-                                   CornerRadius="20">
-                                <Image Source="room" WidthRequest="60"/>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding LogementViewCommand}" />
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                            <Label Text="{extensions:Translate Logement}" 
-                                   FontSize="13"
-                                   FontFamily="Montserrat_Medium"
-                                   HorizontalOptions="Center"/>
-                        </StackLayout>
-                    </Grid>
-                    <StackLayout Orientation="Horizontal" 
-                                 VerticalOptions="CenterAndExpand"
-                                 HorizontalOptions="FillAndExpand">
-                        <Label Text="{extensions:Translate RecentOperations}" 
-                               FontFamily="Montserrat_SemiBold"
-                               FontSize="Medium" />
-                        <Label Text="{extensions:Translate SeeAll}" 
-                               HorizontalOptions="EndAndExpand"
-                               TextColor="#708090"
-                               VerticalOptions="CenterAndExpand"
-                               FontFamily="Montserrat_Medium"
-                               FontSize="Medium" >
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SeeAllOperationsViewCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-                    <StackLayout Margin="0,5,0,20" 
-                                 Orientation="Vertical" 
-                                 Padding="0"
-                                 Spacing="10"
-                                 VerticalOptions="Start">
-
-                        <ListView 
-                            SeparatorVisibility="None"
-                            HasUnevenRows="True"
-                            SelectionMode="None"
-                            HeightRequest="{Binding OperationListHeight}"
-                            ItemsSource="{Binding RecentOperations}"
-                            VerticalOptions="EndAndExpand"
-                            x:Name="RecentOperations"
-                            VerticalScrollBarVisibility="Never"
-                            IsVisible="{Binding NoRecentOperationsFound,Converter={StaticResource InverseBooleanConverter}}"
-                            CachingStrategy="RetainElement">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <Frame BackgroundColor="AliceBlue" 
-                                            HasShadow="True" 
-                                            Margin="0,4"
-                                            HeightRequest="55"
-                                            CornerRadius="18">    
-                                            <Grid  Padding="0" ColumnSpacing="8">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="55"/>
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="5*"/>
-                                                    <ColumnDefinition Width="3*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Image Grid.Column="0" Grid.Row="0"></Image>
-                                                <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
-                                                        <Label Text="{Binding TypeOperationNom}"
-                                                           FontFamily="Montserrat_Medium"
-                                                           FontSize="15"/>
-                                                        <Label Text="{Binding Operation.DateOperation}"
-                                                        TextColor="{StaticResource LightTextColor}"
-                                                        FontFamily="Montserrat_Medium"
-                                                        FontSize="12" />
-                                                </StackLayout>
-                                                <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
-                                                        <Label 
-                                                               FontSize="15"
+                            <ListView 
+                                SeparatorVisibility="None"
+                                HasUnevenRows="True"
+                                SelectionMode="None"
+                                HeightRequest="{Binding OperationListHeight}"
+                                ItemsSource="{Binding RecentOperations}"
+                                VerticalOptions="EndAndExpand"
+                                x:Name="RecentOperations"
+                                VerticalScrollBarVisibility="Never"
+                                IsVisible="{Binding NoRecentOperationsFound,Converter={StaticResource InverseBooleanConverter}}"
+                                CachingStrategy="RetainElement">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame BackgroundColor="White" 
+                                                HasShadow="False" 
+                                                Margin="0,4"
+                                                Padding="0,10,15,10"
+                                                BorderColor="{StaticResource LightTextColor}"
+                                                HeightRequest="60"
+                                                CornerRadius="1">    
+                                                <Grid  Padding="0" ColumnSpacing="8">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="60"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition Width="5*"/>
+                                                        <ColumnDefinition Width="3*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                        <Frame Grid.Column="0" Grid.Row="0" 
+                                                               CornerRadius="10"
+                                                               Padding="0"
+                                                               BackgroundColor="AliceBlue" 
+                                                               Margin="5"
+                                                               HasShadow="False">
+                                                            <Image Source="food" HeightRequest="10" WidthRequest="10"/>
+                                                        </Frame>
+                                                           
+                                                    <StackLayout Grid.Column="1" 
+                                                                 HorizontalOptions="FillAndExpand" 
+                                                                 VerticalOptions="FillAndExpand">
+                                                            <Label Text="{Binding TypeOperationNom}"
                                                                FontFamily="Montserrat_SemiBold"
-                                                               HorizontalTextAlignment="End" >
-                                                            <Label.FormattedText>
-                                                                <FormattedString>
-                                                                    <Span Text="{Binding  Signe }" />
-                                                                    <Span Text="{Binding  Montant,StringFormat='{} {0:C0}'}"/>
-                                                                </FormattedString>
-                                                            </Label.FormattedText>
-                                                        </Label>
-                                                </StackLayout>
-                                            </Grid>
-                                        </Frame>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                                                               FontSize="16"/>
+                                                            <Label Text="{Binding Operation.DateOperation}"
+                                                                TextColor="{StaticResource LightTextColor}"
+                                                                FontFamily="Montserrat_Medium"
+                                                                FontSize="12" />
+                                                    </StackLayout>
+                                                    <StackLayout Grid.Column="2" HorizontalOptions="FillAndExpand" >
+                                                            <Label 
+                                                                   FontSize="15"
+                                                                   FontFamily="Montserrat_SemiBold"
+                                                                   HorizontalTextAlignment="End" >
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="{Binding  Signe }" />
+                                                                        <Span Text="{Binding  Montant,StringFormat='{} {0:C0}'}"/>
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                    </StackLayout>
+                                                </Grid>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
 
                         
-                    </StackLayout>
+                        </StackLayout>
 
-                </StackLayout>
-            </ScrollView>
+                    </StackLayout>
+                </ScrollView>
                 
-            </StackLayout>
+                </StackLayout>
+            </RefreshView>
         </StackLayout>
     </ContentPage.Content>
     <ContentPage.Behaviors>

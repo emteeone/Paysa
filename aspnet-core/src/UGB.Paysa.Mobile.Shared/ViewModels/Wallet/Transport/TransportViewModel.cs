@@ -70,7 +70,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Transport
 
             _input = new GetAllOperationsInput
             {
-                TypeOperationNomFilter = "TRANSPORT",
+                TypeOperationNomFilter = "TRANSPORT_UGB_VILLE",
                 Filter = "",
                 MaxResultCount = PageDefaults.PageSize,
                 SkipCount = 0

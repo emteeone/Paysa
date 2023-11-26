@@ -1,11 +1,12 @@
 ﻿using System;
 using Abp.Extensions;
+using static System.Net.WebRequestMethods;
 
 namespace UGB.Paysa.ApiClient
 {
     public static class ApiUrlConfig
     {
-        private const string DefaultHostUrl = "https://localhost:44301/"; //"http://192.168.1.110:45456/";  //; // ";//; //TODO: Replace with PROD WebAPI URL.
+        private const string DefaultHostUrl = "https://blobus-backend-wepapi.azurewebsites.net/"; //"https://localhost:44301/"; //"http://192.168.1.110:45456/";  //; // ";//; //TODO: Replace with PROD WebAPI URL.
 
         public static string BaseUrl { get; private set; }
 
