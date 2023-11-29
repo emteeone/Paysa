@@ -337,7 +337,7 @@ namespace UGB.Paysa.Wallet.Etudiants
                 lookupTableDtoList.Add(new EtudiantUserLookupTableDto
                 {
                     Id = user.Id,
-                    DisplayName = user.Name?.ToString()
+                    DisplayName = $"{user.FullName?.ToString()} - {user.EmailAddress}"
                 });
             }
 

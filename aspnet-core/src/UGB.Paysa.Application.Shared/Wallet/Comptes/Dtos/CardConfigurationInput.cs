@@ -8,5 +8,7 @@ namespace UGB.Paysa.Wallet.Comptes.Dtos
     {
         public string CodeEtudiant { get; set; }
         public string NumeroCarte { get; set; }
+        public string NumeroCompte { get; set; }
+        public string UID { get; set; }
     }
 }

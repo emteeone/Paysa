@@ -72,6 +72,60 @@ namespace UGB.Paysa.Wallet.Tools
                 CompteSolde  = compte.Solde
             };
         }
+        public async Task<CardConfigurationInfoDto> PersonnaliserCarte(CardConfigurationInput input)
+        {
+
+            var etudiant = _lookup_etudiantRepository.FirstOrDefault(e => e.CodeEtudiant == input.CodeEtudiant);
+            if (etudiant == null)
+                throw new UserFriendlyException(100,"Etudiant n'existe pas");
+
+            var carte = _carteRepository.FirstOrDefault(e => e.UID == input.UID);
+            if (carte != null && carte.IsPersonnalized)
+                throw new UserFriendlyException(200, "Carte deja personnalisé");
+
+
+            var compte = _lookup_compteRepository.FirstOrDefault(c => c.NumeroCompte == input.NumeroCompte && c.EtudiantId == etudiant.Id);
+            
+            if (compte == null)
+                throw new UserFriendlyException(300,"Etudiant n'a pas de compte");
+
+
+            // inserer carte dans le systeme
+
+            var count  = await _carteRepository.CountAsync();
+
+            var createOrEditCarte = new CreateOrEditCarteDto();
+            if (carte != null)
+            {
+                createOrEditCarte.UID = carte.UID;
+                createOrEditCarte.NumeroCarte = carte.NumeroCarte;
+               
+            }
+            else
+            {
+                createOrEditCarte.UID = input.UID;
+                createOrEditCarte.NumeroCarte = $"{input.UID}-{count}";
+            }
+
+            createOrEditCarte.IsActive = false;
+            createOrEditCarte.IsBlocked = false;
+            createOrEditCarte.IsPersonnalized = true;
+            createOrEditCarte.CompteId = compte.Id;
+            createOrEditCarte.DateDelivrance = DateTime.Now;
+            createOrEditCarte.DateExpiration = DateTime.Now.AddMonths(12);
+
+            await CreateOrEdit(createOrEditCarte);
+
+            return new CardConfigurationInfoDto()
+            {
+                EtudiantNom = etudiant.Nom,
+                EtudiantPrenom = etudiant.Prenom,
+                CarteDateExpiration = createOrEditCarte.DateExpiration,
+                CompteNumero = compte.NumeroCompte,
+                CarteStatus = createOrEditCarte.IsActive,
+                CompteSolde = compte.Solde
+            };
+        }
 
         public async Task<PagedResultDto<GetCarteForViewDto>> GetAll(GetAllCartesInput input)
         {

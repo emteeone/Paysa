@@ -20,6 +20,8 @@ namespace UGB.Paysa.Wallet.Tools
         public virtual string NumeroCarte { get; set; }
 
         public virtual bool IsActive { get; set; }
+        public virtual bool IsBlocked { get; set; }
+        public virtual bool IsPersonnalized { get; set; }
 
         public virtual DateTime DateDelivrance { get; set; }
 

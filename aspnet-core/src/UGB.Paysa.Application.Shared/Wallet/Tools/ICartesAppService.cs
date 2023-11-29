@@ -13,6 +13,7 @@ namespace UGB.Paysa.Wallet.Tools
     {
 
         Task<CardConfigurationInfoDto> ConfigurationCarte(CardConfigurationInput input);
+        Task<CardConfigurationInfoDto> PersonnaliserCarte(CardConfigurationInput input);
         Task<PagedResultDto<GetCarteForViewDto>> GetAll(GetAllCartesInput input);
         Task<GetCarteForViewDto> GetCarteForView(string id);
 

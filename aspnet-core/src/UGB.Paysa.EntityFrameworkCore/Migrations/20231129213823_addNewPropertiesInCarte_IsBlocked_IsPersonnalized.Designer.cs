@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UGB.Paysa.EntityFrameworkCore;
 
 namespace UGB.Paysa.Migrations
 {
     [DbContext(typeof(PaysaDbContext))]
-    partial class PaysaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231129213823_addNewPropertiesInCarte_IsBlocked_IsPersonnalized")]
+    partial class addNewPropertiesInCarte_IsBlocked_IsPersonnalized
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
