@@ -151,11 +151,35 @@
 								return '<div class="text-center"><i class="fa fa-check text-success" title="True"></i></div>';
 							}
 							return '<div class="text-center"><i class="fa fa-times-circle" title="False"></i></div>';
-					}
+					    }
 			 
-					},
+                },
+                {
+                    targets: 5,
+                    data: "carte.isBlocked",
+                    name: "isActive",
+                    render: function (isBlocked) {
+                        if (isBlocked) {
+                            return '<div class="text-center"><i class="fa fa-check text-success" title="True"></i></div>';
+                        }
+                        return '<div class="text-center"><i class="fa fa-times-circle" title="False"></i></div>';
+                    }
+
+                },
+                {
+                    targets: 6,
+                    data: "carte.isPersonnalized",
+                    name: "isPersonnalized",
+                    render: function (isPersonnalized) {
+                        if (isPersonnalized) {
+                            return '<div class="text-center"><i class="fa fa-check text-success" title="True"></i></div>';
+                        }
+                        return '<div class="text-center"><i class="fa fa-times-circle" title="False"></i></div>';
+                    }
+
+                },
 					{
-						targets: 5,
+						targets: 7,
 						 data: "carte.dateDelivrance",
 						 name: "dateDelivrance" ,
 					render: function (dateDelivrance) {
@@ -167,7 +191,7 @@
 			  
 					},
 					{
-						targets: 6,
+						targets: 8,
 						 data: "carte.dateExpiration",
 						 name: "dateExpiration" ,
 					render: function (dateExpiration) {
@@ -179,7 +203,7 @@
 			  
 					},
 					{
-						targets: 7,
+						targets: 9,
 						 data: "compteNumeroCompte" ,
 						 name: "compteFk.numeroCompte" 
 					}

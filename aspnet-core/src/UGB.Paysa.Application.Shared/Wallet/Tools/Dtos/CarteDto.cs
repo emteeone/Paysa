@@ -10,6 +10,8 @@ namespace UGB.Paysa.Wallet.Tools.Dtos
         public string NumeroCarte { get; set; }
 
         public bool IsActive { get; set; }
+        public bool IsPersonnalized { get; set; }
+        public bool IsBlocked { get; set; }
 
         public DateTime DateDelivrance { get; set; }
 

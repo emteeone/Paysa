@@ -329,20 +329,32 @@ namespace UGB.Paysa.Wallet.Operations
         {
 
             // check Carte
-            var carte = await _lookup_carteRepository.FirstOrDefaultAsync(c => c.NumeroCarte == input.NumeroCarte);
+            var carte = await _lookup_carteRepository.FirstOrDefaultAsync(c => c.UID == input.NumeroCarte);
             if (carte == null)
             {
-                throw new UserFriendlyException("Votre numero carte est invalide");
+                return new EffectuerOperationOutputDto()
+                {
+                    Message = "Votre numero carte est invalide",
+                    Code = 100,
+                };
             }
             else if(!carte.IsActive)
             {
-                throw new UserFriendlyException("Votre carte n'est pas active");
+                return new EffectuerOperationOutputDto()
+                {
+                    Message = "Votre carte n'est pas activé",
+                    Code = 101,
+                };
             }
 
             var compte = await _lookup_compteRepository.FirstOrDefaultAsync(c => c.Id == carte.CompteId);
             if (compte == null)
             {
-                throw new UserFriendlyException("Vous n'avez pas encore de compte");
+                return new EffectuerOperationOutputDto()
+                {
+                    Message = "Vous n'avez pas encore de compte",
+                    Code = 102,
+                };
             }
 
 
@@ -350,7 +362,11 @@ namespace UGB.Paysa.Wallet.Operations
             var typeOperation = await _lookup_typeOperationRepository.GetAll().FirstOrDefaultAsync(c => c.Reference == input.TypeOperationReference);
             if (typeOperation == null)
             {
-                throw new UserFriendlyException("cette operation n'existe pas");
+                return new EffectuerOperationOutputDto()
+                {
+                    Message = "cette operation n'existe pas",
+                    Code = 103,
+                };
             }
             
 
@@ -377,7 +393,7 @@ namespace UGB.Paysa.Wallet.Operations
             var editSoldeCompte = new EditSoldeCompteDto()
             {
                 Montant = operation.Montant,
-                Id  =compte.Id,
+                Id  = compte.Id,
             };
 
             if (input.Discriminator == "Debit")
@@ -397,6 +413,8 @@ namespace UGB.Paysa.Wallet.Operations
                 TransactionId = operation.Id,
                 DateOperation = operation.DateOperation,
                 Montant = operation.Montant,
+                Message ="Reussie",
+                Code = 200
             };
 
         }

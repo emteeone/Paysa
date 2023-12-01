@@ -123,7 +123,8 @@ namespace UGB.Paysa.Wallet.Tools
                 CarteDateExpiration = createOrEditCarte.DateExpiration,
                 CompteNumero = compte.NumeroCompte,
                 CarteStatus = createOrEditCarte.IsActive,
-                CompteSolde = compte.Solde
+                CompteSolde = compte.Solde,
+                CarteNumero = createOrEditCarte.NumeroCarte
             };
         }
 
@@ -159,6 +160,8 @@ namespace UGB.Paysa.Wallet.Tools
                              o.DateDelivrance,
                              o.DateExpiration,
                              Id = o.Id,
+                             o.IsBlocked,
+                             o.IsPersonnalized,
                              CompteNumeroCompte = s1 == null || s1.NumeroCompte == null ? "" : s1.NumeroCompte.ToString()
                          };
 
@@ -180,6 +183,8 @@ namespace UGB.Paysa.Wallet.Tools
                         DateDelivrance = o.DateDelivrance,
                         DateExpiration = o.DateExpiration,
                         Id = o.Id,
+                        IsPersonnalized = o.IsPersonnalized,
+                        IsBlocked = o.IsBlocked,
                     },
                     CompteNumeroCompte = o.CompteNumeroCompte
                 };

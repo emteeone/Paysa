@@ -16,7 +16,6 @@ namespace UGB.Paysa.Wallet.Operations.Dtos
         [Required]
         public string TypeOperationReference { get; set; }
         public string Discriminator { get; set; }
-        [Required]
         public string CodeEtudiant { get; set; }
     }
 }

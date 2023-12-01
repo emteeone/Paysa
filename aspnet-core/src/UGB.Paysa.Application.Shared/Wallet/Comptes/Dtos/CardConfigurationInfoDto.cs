@@ -9,9 +9,9 @@ namespace UGB.Paysa.Wallet.Comptes.Dtos
         public bool CarteStatus { get; set; }
         public DateTime? CarteDateExpiration { get; set; }
         public string CompteNumero { get; set; }
+        public string CarteNumero { get; set; }
         public double CompteSolde { get; set; }
         public string EtudiantNom { get; set; }
         public string EtudiantPrenom { get; set; }
-        public string CodeSatus { get; set; }
     }
 }

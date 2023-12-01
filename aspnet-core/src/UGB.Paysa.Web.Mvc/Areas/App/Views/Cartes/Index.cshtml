@@ -15,10 +15,10 @@ ViewBag.CurrentPageName = AppPageNames.Common.Cartes;
     <abp-page-subheader title='@L("Cartes")' description='@L("CartesHeaderInfo")'>
         <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-        @if (IsGranted(AppPermissions.Pages_Cartes_Create))
+       @*  @if (IsGranted(AppPermissions.Pages_Cartes_Create))
         {
         <button id="CreateNewCarteButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewCarte")</button>
-        }
+        } *@
     </abp-page-subheader>
 
     <div class="@(await GetContainerClass())">
@@ -110,6 +110,8 @@ ViewBag.CurrentPageName = AppPageNames.Common.Cartes;
                                 <th>@L("UID")</th>
                                 <th>@L("NumeroCarte")</th>
                                 <th>@L("IsActive")</th>
+                                <th>@L("IsBlocked")</th>
+                                <th>@L("IsPersonnalized")</th>
                                 <th>@L("DateDelivrance")</th>
                                 <th>@L("DateExpiration")</th>
                                 <th>@L("CompteNumeroCompte")</th>

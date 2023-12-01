@@ -20,33 +20,59 @@
                 @Html.DropDownList("compteId", new SelectList(Model.CarteCompteList,"Id","DisplayName", (Model.IsEditMode ? Model.Carte.CompteId.ToString() : "")),@L("SelectACompte"), new { @class = "form-control" , @required="required" })
             </div>
 
-            <div class="form-group">
-                <label for="Carte_UID">@L("UID")</label>
-                <input class="form-control" id="Carte_UID" value="@Model.Carte.UID" type="text" name="uid" required />
+            <div class="row">
+                <div class="form-group col">
+                    <label for="Carte_UID">@L("UID")</label>
+                    <input class="form-control" id="Carte_UID" value="@Model.Carte.UID" type="text" name="uid" required />
+                </div>
+
+                <div class="form-group col">
+                    <label for="Carte_NumeroCarte">@L("NumeroCarte")</label>
+                    <input class="form-control" id="Carte_NumeroCarte" value="@Model.Carte.NumeroCarte" type="text" name="numeroCarte" />
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="Carte_NumeroCarte">@L("NumeroCarte")</label>
-                <input class="form-control" id="Carte_NumeroCarte" value="@Model.Carte.NumeroCarte" type="text" name="numeroCarte" />
+            
+
+            <div class="row">
+                <div class="form-group col">
+                    <label for="Carte_DateDelivrance">@L("DateDelivrance")</label>
+                    <input class="form-control m-input date-picker" id="Carte_DateDelivrance" type="text" name="dateDelivrance" value="@Model.Carte.DateDelivrance" />
+                </div>
+
+                <div class="form-group col">
+                    <label for="Carte_DateExpiration">@L("DateExpiration")</label>
+                    <input class="form-control m-input date-picker" id="Carte_DateExpiration" type="text" name="dateExpiration" value="@Model.Carte.DateExpiration" />
+                </div>
             </div>
 
-            <div class="m-checkbox-list">
-                <label for="Carte_IsActive" class="kt-checkbox">
-                    <input id="Carte_IsActive" type="checkbox" name="isActive" value="true" @Html.Raw(Model.Carte.IsActive ?"checked=\"checked\"":"") />
-                    @L("IsActive")
-                    <span></span>
-                </label>
+            <div class="row">
+                <div class="m-checkbox-list col">
+                    <label for="Carte_IsBlocked" class="kt-checkbox">
+                        <input id="Carte_IsBlocked" type="checkbox" name="isBlocked" value="true" @Html.Raw(Model.Carte.IsBlocked ?"checked=\"checked\"":"") />
+                        @L("IsBlocked")
+                        <span></span>
+                    </label>
+                </div>
+                <div class="m-checkbox-list col">
+                    <label for="Carte_IsActive" class="kt-checkbox">
+                        <input id="Carte_IsActive" type="checkbox" name="isActive" value="true" @Html.Raw(Model.Carte.IsActive ?"checked=\"checked\"":"") />
+                        @L("IsActive")
+                        <span></span>
+                    </label>
+                </div>
+                <div class="m-checkbox-list  col">
+                    <label for="Carte_IsPersonnalized" class="kt-checkbox">
+                        <input id="Carte_IsPersonnalized" type="checkbox" name="IsPersonnalized" value="true" @Html.Raw(Model.Carte.IsPersonnalized ?"checked=\"checked\"":"") />
+                        @L("IsPersonnalized")
+                        <span></span>
+                    </label>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="Carte_DateDelivrance">@L("DateDelivrance")</label>
-                <input class="form-control m-input date-picker" id="Carte_DateDelivrance" type="text" name="dateDelivrance" value="@Model.Carte.DateDelivrance" />
-            </div>
+           
 
-            <div class="form-group">
-                <label for="Carte_DateExpiration">@L("DateExpiration")</label>
-                <input class="form-control m-input date-picker" id="Carte_DateExpiration" type="text" name="dateExpiration" value="@Model.Carte.DateExpiration" />
-            </div>
+            
 
         </form>
     </div>
