@@ -10,6 +10,7 @@ namespace UGB.Paysa.Models.Users
     public class OperationListModel : GetOperationForViewDto
     {
         public string Mois { get; set; }
+        public string Icon { get; set; }
         public int Annee { get; set; }
         public double Montant => Operation.Montant;
         public string Signe => Operation.Discriminator == "Debit" ? "-" : "+";

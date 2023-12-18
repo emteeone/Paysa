@@ -72,7 +72,7 @@ namespace UGB.Paysa.ViewModels.Wallet
             _input = new GetAllOperationsInput
             {
                 Filter = "",
-                MaxResultCount = 5,
+                MaxResultCount = 8,
                 SkipCount = 0
             };
 
@@ -236,6 +236,20 @@ namespace UGB.Paysa.ViewModels.Wallet
                 var operations = ObjectMapper.Map<List<OperationListModel>>(result.Items);
                 foreach (var operation in operations)
                 {
+                    switch (operation.TypeOperationNom)
+                    {
+                        case "Repas":
+                        case "Diner":
+                        case "Petit Dejeuner":
+                            operation.Icon = "food";
+                            break;
+                        case "Transport Ville vers UGB":
+						case "Transport UGB vers Ville":
+							operation.Icon = "school_bus";
+                            break;
+						default:
+                            break;
+                    }
                     RecentOperations.Add(operation);
                 }
                 CheckNoOperationsFound();

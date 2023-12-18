@@ -125,7 +125,7 @@
                             </Grid>
                         </controls:CardView>
 
-                        <Grid  Padding="0" ColumnSpacing="8" Margin="0,20,0,40"  HorizontalOptions="Center">
+                        <Grid  Padding="0" ColumnSpacing="8" Margin="0,20,0,30"  HorizontalOptions="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="80"/>
                             </Grid.RowDefinitions>
@@ -137,10 +137,11 @@
                             </Grid.ColumnDefinitions>
                             <StackLayout Grid.Column="0">
                                 <Frame  HasShadow="False" 
-                                        HeightRequest="35"
+                                        HeightRequest="60"
+                                        Padding="8"
                                         BackgroundColor="LightPink" 
                                         CornerRadius="20">
-                                    <Image Source="food" WidthRequest="50"/>
+                                        <Image Source="food"  WidthRequest="55"/>
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding RestaurationViewCommand}" />
                                     </Frame.GestureRecognizers>
@@ -151,11 +152,12 @@
                             </StackLayout>
                             <StackLayout Grid.Column="1" >
                                 <Frame Grid.Column="1" 
-                                       HeightRequest="35"
+                                       HeightRequest="60"
+                                        Padding="8"
                                        HasShadow="False" 
                                        BackgroundColor="LightYellow" 
                                        CornerRadius="20">
-                                    <Image Source="school_bus" WidthRequest="50"/>
+                                    <Image Source="school_bus" WidthRequest="55"/>
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding TransportViewCommand}" />
                                     </Frame.GestureRecognizers>
@@ -169,10 +171,11 @@
                             <StackLayout Grid.Column="2" >
                                 <Frame Grid.Column="1"   
                                        HasShadow="False" 
-                                       HeightRequest="35"
+                                       HeightRequest="60"
+                                       Padding="8"
                                        BackgroundColor="LightCyan" 
                                        CornerRadius="20">
-                                    <Image Source="consultation" WidthRequest="50"/>
+                                    <Image Source="consultation" WidthRequest="55"/>
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ConsultationViewCommand}" />
                                     </Frame.GestureRecognizers>
@@ -185,10 +188,11 @@
                             <StackLayout Grid.Column="3" >
                                 <Frame Grid.Column="1" 
                                        HasShadow="False" 
-                                       HeightRequest="35"
+                                       HeightRequest="60"
+                                        Padding="8"
                                        BackgroundColor="LightGreen" 
                                        CornerRadius="20">
-                                    <Image Source="room" WidthRequest="60"/>
+                                    <Image Source="room" WidthRequest="55"/>
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding LogementViewCommand}" />
                                     </Frame.GestureRecognizers>
@@ -199,18 +203,19 @@
                                        HorizontalOptions="Center"/>
                             </StackLayout>
                         </Grid>
+                        
                         <StackLayout Orientation="Horizontal" 
                                      VerticalOptions="CenterAndExpand"
                                      HorizontalOptions="FillAndExpand">
                             <Label Text="{extensions:Translate RecentOperations}" 
                                    FontFamily="Montserrat_SemiBold"
-                                   FontSize="Medium" />
+                                   FontSize="16" />
                             <Label Text="{extensions:Translate SeeAll}" 
                                    HorizontalOptions="EndAndExpand"
                                    TextColor="#708090"
                                    VerticalOptions="CenterAndExpand"
                                    FontFamily="Montserrat_Medium"
-                                   FontSize="Medium" >
+                                   FontSize="16" >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SeeAllOperationsViewCommand}" />
                                 </Label.GestureRecognizers>
@@ -239,9 +244,9 @@
                                             <Frame BackgroundColor="White" 
                                                 HasShadow="False" 
                                                 Margin="0,4"
-                                                Padding="0,10,15,10"
+                                                Padding="0,5,15,8"
                                                 BorderColor="{StaticResource LightTextColor}"
-                                                HeightRequest="60"
+                                                HeightRequest="55"
                                                 CornerRadius="1">    
                                                 <Grid  Padding="0" ColumnSpacing="8">
                                                     <Grid.RowDefinitions>
@@ -253,12 +258,12 @@
                                                         <ColumnDefinition Width="3*"/>
                                                     </Grid.ColumnDefinitions>
                                                         <Frame Grid.Column="0" Grid.Row="0" 
-                                                               CornerRadius="10"
-                                                               Padding="0"
+                                                               CornerRadius="5"
+                                                               Padding="5"
                                                                BackgroundColor="AliceBlue" 
                                                                Margin="5"
                                                                HasShadow="False">
-                                                            <Image Source="food" HeightRequest="10" WidthRequest="10"/>
+                                                            <Image Source="{Binding Icon}" HeightRequest="8" WidthRequest="8"/>
                                                         </Frame>
                                                            
                                                     <StackLayout Grid.Column="1" 
@@ -266,7 +271,7 @@
                                                                  VerticalOptions="FillAndExpand">
                                                             <Label Text="{Binding TypeOperationNom}"
                                                                FontFamily="Montserrat_SemiBold"
-                                                               FontSize="16"/>
+                                                               FontSize="14"/>
                                                             <Label Text="{Binding Operation.DateOperation}"
                                                                 TextColor="{StaticResource LightTextColor}"
                                                                 FontFamily="Montserrat_Medium"

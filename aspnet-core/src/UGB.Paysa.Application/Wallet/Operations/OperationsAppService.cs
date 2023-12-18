@@ -334,7 +334,7 @@ namespace UGB.Paysa.Wallet.Operations
             {
                 return new EffectuerOperationOutputDto()
                 {
-                    Message = "Votre numero carte est invalide",
+                    Message = "Votre carte n'existe pas dans notre systeme",
                     Code = 100,
                 };
             }
@@ -368,7 +368,7 @@ namespace UGB.Paysa.Wallet.Operations
                     Code = 103,
                 };
             }
-            
+
 
             var operation = new Operation()
             {
@@ -398,6 +398,14 @@ namespace UGB.Paysa.Wallet.Operations
 
             if (input.Discriminator == "Debit")
             {
+                if (compte.Solde < typeOperation.Prix)
+                {
+                    return new EffectuerOperationOutputDto()
+                    {
+                        Message = "Solde insuffisant",
+                        Code = 102,
+                    };
+                }
                 var result = await _compteAppService.DebiterCompte(editSoldeCompte); 
             }
             else if (input.Discriminator == "Credit")

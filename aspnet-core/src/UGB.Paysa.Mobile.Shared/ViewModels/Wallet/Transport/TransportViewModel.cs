@@ -20,6 +20,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Transport
 
         private readonly IOperationsAppService _operationsAppService;
         private GetAllOperationsInput _input;
+        private string NumeroCompte;
         private bool _isInitialized;
         public bool _isInRetour;
         public bool _isInDepart;
@@ -77,6 +78,10 @@ namespace UGB.Paysa.ViewModels.Wallet.Transport
             };
 
         }
+        public override async Task InitializeAsync(object navigationData)
+        {
+             NumeroCompte = (string)navigationData;
+        }
         private async Task ShowTrajetRetourAsync()
         {
             IsInRetour = true;
@@ -89,6 +94,7 @@ namespace UGB.Paysa.ViewModels.Wallet.Transport
         }
         private async Task FetchAllOperationsAsync()
         {
+            _input.CompteNumeroCompteFilter = NumeroCompte;
             await WebRequestExecuter.Execute(async () => await _operationsAppService.GetAll(_input), result =>
             {
                 var operations = ObjectMapper.Map<List<OperationListModel>>(result.Items);

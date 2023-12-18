@@ -107,7 +107,7 @@ namespace UGB.Paysa.Wallet.Tools
                 createOrEditCarte.NumeroCarte = $"{input.UID}-{count}";
             }
 
-            createOrEditCarte.IsActive = false;
+            createOrEditCarte.IsActive = true;
             createOrEditCarte.IsBlocked = false;
             createOrEditCarte.IsPersonnalized = true;
             createOrEditCarte.CompteId = compte.Id;
